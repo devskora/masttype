@@ -72,7 +72,7 @@ header a:hover {
     border-radius: 12px;
     max-width: 50%;
     background: rgb(38, 154, 226);
-    margin: 5px;
+    margin: 10px;
     min-width: 50%;
     flex-direction: row;
     display: flex;
@@ -136,7 +136,7 @@ header a:hover {
 
 @media (max-width: 600px) {
     .result {
-        min-width: 320px;
+        min-width: 290px;
         
     }
     .information-buttons {
@@ -242,7 +242,7 @@ header a:hover {
 } 
 .quote {
     padding: 5px;
-    animation: quoteAnim 2s ease-in-out infinite;
+    text-align: center;
     margin: 3px;
     display: flex;
     align-items: center;
@@ -320,4 +320,19 @@ header a:hover {
     top: 30px;
     left: 30px;
 
+}
+@media (max-width: 600px) {
+    .heading {
+        font-size: 30px;
+    }
+    
+    
+}
+@keyframes resultScroll {
+    0% {
+        translate: 0;
+        transform: translate(0%,0%);
+    } 100% { 
+        transform: translate(-50%,0%);
+    }
 }

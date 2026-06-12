@@ -1,6 +1,7 @@
 let textContainer = document.querySelector(".type-able-text"); //getting type-able-text for user
 let restartButton = document.querySelector(".restart-button");
 let typingArea = document.querySelector(".typing-area");
+
 let startType = document.querySelector(".start-typing");
 let oldResultContainer = document.querySelector(".resultContainer");
 let mainArea = document.querySelector("main");
@@ -106,8 +107,7 @@ const paragraph = [
   "The journey continues smoothly, while excitement remains throughout travel.",
   "People celebrate achievements, and success motivates future efforts.",
   "The quiet night feels peaceful, while stars shine overhead.",
-  "A friendly smile appears often, and kindness spreads naturally."
-
+  "A friendly smile appears often, and kindness spreads naturally.",
 ]; //paragraph for user type-able
 
 let text;
@@ -116,13 +116,11 @@ let typo;
 let userText;
 let isTimeOn;
 let startTime;
-
-
+let mobileUserInput;
 
 let intervalId;
 
 const start = () => {
-   
   text = paragraph[Math.floor(Math.random() * paragraph.length)]; //for getting random paragraph
   clearInterval(intervalId);
   startType.style.color = "Grey";
@@ -152,61 +150,13 @@ const start = () => {
 };
 document.addEventListener("keydown", (event) => {
   //adding event listener
-  let userTypedChar = document.createElement("span"); //creating element for user type a char
-
-  userTextContainer.appendChild(userTypedChar); //appending child usertype char to userTextContainer.
-
-  if (event.key !== text[0]) {
-    //if event.key !== text[0] means userChar is typo.
-    if (text === "") {
-      //text === '' means type able text is finish
-
-      return;
-    }
-    if (event.key === "Shift") {
-      return;
-    }
-    if (event.key === "Backspace") {
-      return;
-    }
-    typo++;
-    userTypedChar.classList.add("error");
-    //return;
-  }
-
-  if (!isTimeOn) {
-    startTime = Date.now();
-    isTimeOn = true;
-  }
-
-  
-  // let child = document.createElement("span");
-
-  userTypedChar.classList.add("userChar"); //when userTypeChar is correct when creating element (yaha se)
-  userTypedChar.innerText = text[0];
-  userText += text[0];
-  text = text.slice(1);
-  textContainer.firstChild.remove(); //remove type able of 0th indexed char and child form type able value
-
-  userTextContainer.appendChild(userTypedChar); //yaha tak.
-  if (text === "") {
-    clearInterval(intervalId);
-    let nowLatestTime = new Date();
-
-    result.time  = Math.floor((Date.now() - startTime) / 1000); //pushing time in second in result
-    result.length = copyText.length; //pushing word length in result.
-    result.wpm = Math.floor((copyText.length / 5 / result.time) * 60 ); //pushing wpm in result
-    result.accuracy = (100 - (typo / copyText.length) * 100).toFixed(2);
-   
-    resultContainer();
-    return;
-  }
+  userType(event);
 });
 
-const resultContainer = () => {
+const resultContainerF = () => {
   let resultContainer = document.createElement("section");
   resultContainer.classList.add("resultContainer");
-  resultContainer.ariaLabel="Typing Statistics";
+  resultContainer.ariaLabel = "Typing Statistics";
   typingArea.appendChild(resultContainer);
   let countDown = 5;
 
@@ -247,18 +197,6 @@ const resultContainer = () => {
 
   startType.style.color = "transparent";
   restartButton.style.display = "none";
-
-  // let countDownInterval = setInterval(() => {
-
-  //   countDownContainer.innerText = `Restart in ${countDown}`;
-
-  //   if (countDown === 0) {
-  //     clearInterval(countDownInterval);
-  //     typingArea.removeChild(resultContainer);
-  //     start()
-  //   }
-  //   countDown--
-  // },1000)
 };
 start();
 
@@ -266,3 +204,75 @@ start();
 //   typingArea.removeChild(resultContainer);
 
 // }
+const userType = (event) => {
+  mobileUserInput = document.querySelector(".mobile-user-input");
+  let userTypedChar = document.createElement("span");
+  //appending child usertype char to userTextContainer.
+
+  if (event.key !== text[0]) {
+    //if event.key !== text[0] means userChar is typo.
+    if (text === "") {
+      //text === '' means type able text is finish
+
+      return;
+    }
+    if (event.key === "Shift") {
+      return;
+    }
+    if (event.key === "Backspace") {
+      if (userText === "") {
+        return;
+      }
+      let lastChar = userText[userText.length - 1];
+      text = lastChar + text;
+      userText = userText.slice(0, -1);
+
+      let element = document.createElement("span");
+      element.innerText = lastChar;
+      element.classList.add("char");
+
+      textContainer.prepend(element);
+      userTextContainer.lastChild.remove();
+
+      console.log("userTextContainer remove");
+      return;
+    }
+
+    typo++;
+    userTypedChar.classList.add("error");
+    //return;
+  }
+
+  if (!isTimeOn) {
+    startTime = Date.now();
+    isTimeOn = true;
+  }
+  //creating element for user type a char
+
+  userTextContainer.appendChild(userTypedChar);
+
+  // let child = document.createElement("span");
+
+  userTypedChar.classList.add("userChar"); //when userTypeChar is correct when creating element (yaha se)
+  userTypedChar.innerText = text[0];
+  userText += text[0];
+  text = text.slice(1);
+  textContainer.firstChild.remove(); //remove type able of 0th indexed char and child form type able value
+
+  userTextContainer.appendChild(userTypedChar); //yaha tak.
+  mobileUserInput.value = "";
+  if (text === "") {
+    clearInterval(intervalId);
+    let nowLatestTime = new Date();
+
+    result.time = Math.floor((Date.now() - startTime) / 1000); //pushing time in second in result
+    result.length = copyText.length; //pushing word length in result.
+    result.wpm = Math.floor((copyText.length / 5 / result.time) * 60); //pushing wpm in result
+    result.accuracy = (100 - (typo / copyText.length) * 100).toFixed(2);
+    mobileUserInput.value = "";
+    console.log(mobileUserInput);
+
+    resultContainerF();
+    return;
+  }
+};

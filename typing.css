@@ -1,92 +1,17 @@
 * {
-  font-family: monospace;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   word-spacing: 2px;
   transition: 0.5s ease-in-out;
-}
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: calc(100vh-60px);
-    background: radial-gradient(circle,rgb(84, 199, 225),rgb(48, 204, 157));
-
-}
-
-.userChar {
-  background: rgb(141, 196, 141);
-  margin: 2px;
-  
-  min-width: 35px;
-  font-size: 35px;
-  border-radius: 5px;
-  text-align: center; 
-  padding: 4px;
-  
-  color: rgb(5, 85, 14);
-
-}
-.user,.type-able-text {
-  display:inline;
-  flex-wrap: wrap;
-
-}
- 
-.char {
-  margin: 2px;
-  text-align: center;
-  background: rgba(255, 255, 255, 0);
-  min-width: 30px;
-  font-size: 35px;
-  border-radius: 5px;
-  padding: 4px;
-  color: rgba(119, 119, 119, 0.629);
-  animation: charAnim 1.5s ease-in-out infinite;
-}
-@keyframes upDown {
-    0% {
-        top: 4px;
-    } 50% {
-        top: 8px;
-    } 100% {
-        top: 4px;
-    }
-    
-}
-
-
-@keyframes charAnim {
-    0% {
-        color: rgb(0, 0, 0);
-    } 50% {
-        color: rgb(57, 57, 57);
-    } 100% {
-        color: rgb(0, 0, 0);
-    }
-    
-}
-.error {
-  color: rgb(128, 9, 9);
-  background: rgb(194, 138, 138)
-}
-
-* {
-  padding: 0;
-  margin: 0;
   text-decoration: none;
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    "Open Sans",
-    "Helvetica Neue",
-    sans-serif;
-  color: rgb(0, 0, 0);
 }
+
+/* header
+\\\\\\\\\\
+\
+\
+\
+\ */
+
 header {
   height: 60px;
   background-color: rgb(38, 154, 226);
@@ -133,6 +58,89 @@ header a:hover {
   gap: 10px;
 }
 
+/* main area
+/?//????//////
+//
+/
+/
+/
+/
+/ */
+main { 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh-60px);
+    background: radial-gradient(circle,rgb(84, 199, 225),rgb(48, 204, 157));
+
+}
+
+.userChar {
+  background: rgb(141, 196, 141);
+  margin: 2px;
+  display: inline-block;
+  min-width: 30px;
+  box-sizing: border-box;
+  font-size: 35px;
+  height: inherit;
+  border-radius: 5px;
+  text-align: center; 
+  padding: 4px;
+  
+  color: rgb(5, 85, 14);
+
+}
+.type-able-text  {
+  font-size: 35px;
+  
+  display:inline;
+  flex-wrap: wrap;
+
+}
+ 
+.char {
+  display: inline-block;
+  box-sizing: border-box;
+  margin: 2px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.651);
+  min-width: 30px;
+  height: inherit;
+  font-size: inherit;
+  border-radius: 5px;
+  padding: 4px;
+  color: rgba(119, 119, 119, 0.629);
+  animation: charAnim 1.5s ease-in-out infinite;
+}
+@keyframes upDown {
+    0% {
+        top: 4px;
+    } 50% {
+        top: 8px;
+    } 100% {
+        top: 4px;
+    }
+    
+}
+
+
+@keyframes charAnim {
+    0% {
+        color: rgb(0, 0, 0);
+    } 50% {
+        color: rgb(57, 57, 57);
+    } 100% {
+        color: rgb(0, 0, 0);
+    }
+    
+}
+.error {
+  color: rgb(128, 9, 9);
+  background: rgb(194, 138, 138)
+}
+
+
+
 h1 {
   margin: 8px;
   /* display: flex;
@@ -143,20 +151,22 @@ h1 {
 .resultContainer {
   border: none;
   height: 300px;
-  width: 350px;
+  width: 280px;
+  min-width: 280px;
   border-radius: 12px;
   margin-top: 30px;
   background: rgb(118, 226, 216);
   box-shadow: 4px 4px 8px rgb(27, 121, 111) inset, 2px 2px 6px rgb(26, 122, 113);
     animation: move 3s ease-in-out infinite;
     transition: .3s ease-in-out;
+    padding: 15px;
 }
-.result {
+.result  {
   display: flex;
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
-  padding: 15px;
+  
 
   min-height: auto;
   position: relative;
@@ -164,6 +174,9 @@ h1 {
   
 }
 
+button.result {
+  padding: 8px 16px;;
+}
 @keyframes move {
     0% {
         transform: rotate(0deg);
@@ -204,10 +217,10 @@ h1 {
 .start-typing {
   color: grey;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-animation: blink 1s ease-in-out infinite; 
+/* animation: blink 1s ease-in-out infinite;  */
 font-weight: bolder;
   font-size: 18px;
-  position: absolute;
+  /* position: absolute; */
   top: 150px;
 
 }
@@ -223,19 +236,19 @@ font-weight: bolder;
   }
 }
 .restart-button {
-  color: white;
-  background: rgb(79, 202, 106);
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(37, 193, 164, 0.5);
   border: none;
   padding: 8px 16px;
   margin: 5px;
   border-radius: 6px;
   top: 180px;
-  position: absolute;
+  /* position: absolute; */
   font-weight: bold;
   font-size: 16px;
-  animation: overal-restart-button 3s ease-in-out infinite;
+  
 }
-@keyframes overal-restart-button {
+@keyframes overal-color-change-button {
   0% {
     background: green;
   }
@@ -286,4 +299,39 @@ font-weight: bolder;
     height: 50px;
     width: 50px;
     border-radius: 5px;
+}
+
+.start-typing::after {
+  content: ''
+}
+@media (max-width:600px) {
+  
+  .char , .userChar {
+    font-size: 20px;
+    padding: 2px;
+    word-spacing: 1px;
+  }
+}
+
+.mobile-user-input {
+  padding: 4px;
+  margin: 4px;
+  border-radius: 4px;
+  border: 2px solid grey;
+
+}
+.start-typing::after {
+  content: 'Rotate Your Device';
+  color: grey;
+  display: block;
+
+}
+.mobile-user-input:focus {
+  outline: none;
+  border: 2px solid black;
+}
+@media (min-width: 600px) {
+  .start-typing::after {
+    content: ' '
+  }
 }
