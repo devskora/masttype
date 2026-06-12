@@ -150,7 +150,7 @@ const start = () => {
 };
 document.addEventListener("keydown", (event) => {
   //adding event listener
-  userType(event);
+  userType(event.key);
 });
 
 const resultContainerF = () => {
