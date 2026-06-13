@@ -112,6 +112,7 @@ const paragraph = [
 
 let text;
 let copyText;
+let previousInput = '';
 let typo;
 let userText;
 let isTimeOn;
@@ -121,6 +122,8 @@ let mobileUserInput;
 let intervalId;
 
 const start = () => {
+  let mobileUserInput = document.querySelector(".mobile-user-input");
+  mobileUserInput.value = '';
   text = paragraph[Math.floor(Math.random() * paragraph.length)]; //for getting random paragraph
   clearInterval(intervalId);
   startType.style.color = "Grey";
@@ -154,6 +157,7 @@ const start = () => {
 // });
 
 const resultContainerF = () => {
+
   let resultContainer = document.createElement("section");
   resultContainer.classList.add("resultContainer");
   resultContainer.ariaLabel = "Typing Statistics";
@@ -175,8 +179,8 @@ const resultContainerF = () => {
   resultRestartButton.innerText = `Restart`;
   wpmContainer.innerText = `Speed: ${result.wpm} WPM`;
   accContainer.innerText = `Accuracy :${result.accuracy} %`;
-  wordLengthContainer.innerText = `Word Length : ${result.length} character`;
-  timeContainer.innerText = `Time : ${result.time} second`;
+  wordLengthContainer.innerHTML = `Paragraph Length : ${result.length}<span class='small-word'>Char</span>`;
+    timeContainer.innerText = `Time : ${result.time} second`;
   countDownContainer.innerText = `Restart in ${countDown}`;
 
   wpmContainer.classList.add("result", "wpm");
@@ -204,22 +208,21 @@ start();
 //   typingArea.removeChild(resultContainer);
 
 // }
-const userType = (event) => {
+const userType = (event,eventLen) => {
   
   let userTypedChar = document.createElement("span");
+
   //appending child usertype char to userTextContainer.
   
-  if (event !== text[0]) {
+  if (event[event.length-1] !== text[0]) {
     //if event.key !== text[0] means userChar is typo.
     if (text === "") {
       //text === '' means type able text is finish
 
       return;
     }
-    if (event === "Shift") {
-      return;
-    }
-    if (event === "Backspace") {
+    
+    if (eventLen.length < previousInput.length) {
       if (userText === "") {
         return;
       }
@@ -260,6 +263,8 @@ const userType = (event) => {
   textContainer.firstChild.remove(); //remove type able of 0th indexed char and child form type able value
 
   userTextContainer.appendChild(userTypedChar); //yaha tak.
+  previousInput = event;
+ 
   
   if (text === "") {
     clearInterval(intervalId);
@@ -279,7 +284,9 @@ const userType = (event) => {
 
 const userMobileType = () => {
   let mobileUserInput = document.querySelector(".mobile-user-input");
-  console.log(mobileUserInput);
   
-  userType(mobileUserInput.value);
+  
+  
+  userType(mobileUserInput.value,mobileUserInput.value);
+  
 }

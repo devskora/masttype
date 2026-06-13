@@ -4,6 +4,10 @@
   transition: 0.5s ease-in-out;
   text-decoration: none;
 }
+i {
+  font-weight: bold;
+  color: black;
+}
 
 /* header
 \\\\\\\\\\
@@ -152,22 +156,23 @@ h1 {
   border: none;
   height: 300px;
   width: 280px;
-  min-width: 280px;
+  min-width: 300px;
   border-radius: 12px;
   margin-top: 30px;
   background: rgb(118, 226, 216);
   box-shadow: 4px 4px 8px rgb(27, 121, 111) inset, 2px 2px 6px rgb(26, 122, 113);
     animation: move 3s ease-in-out infinite;
     transition: .3s ease-in-out;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
     padding: 15px;
 }
 .result  {
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
+  align-items: center;
+  flex-direction: row;
   
-
   min-height: auto;
   position: relative;
   z-index: 1;
@@ -215,7 +220,7 @@ button.result {
   position: relative;
 }
 .start-typing {
-  color: grey;
+  color: rgb(128, 128, 128);
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 /* animation: blink 1s ease-in-out infinite;  */
 font-weight: bolder;
@@ -239,8 +244,10 @@ font-weight: bolder;
   color: rgba(255, 255, 255, 0.5);
   background: rgba(37, 193, 164, 0.5);
   border: none;
-  padding: 8px 16px;
+  padding: 4px 8px;
   margin: 5px;
+  color: black;
+  font-weight: bold;
   border-radius: 6px;
   top: 180px;
   /* position: absolute; */
@@ -276,7 +283,8 @@ font-weight: bolder;
     align-items: center;
     background: black;
     justify-content: center;
-    height: 30px;
+    padding: 5px;
+    height: 50px;
     color: rgb(255, 255, 255);
 }
 .footer * {
@@ -329,9 +337,34 @@ font-weight: bolder;
 .mobile-user-input:focus {
   outline: none;
   border: 2px solid black;
+  position: fixed;
+  top: 80px;
+  right: 50%;
+  transform: translate(50%, -50%);
+   background: transparent;
+  color: transparent;
+  border: transparent;
+
+
+
+
 }
-@media (min-width: 600px) {
+.mobile-user-input:focus.mobile-user-input::placeholder {
+  color: transparent;
+}
+
+@media (max-width: 600px) {
   .start-typing::after {
     content: ' '
   }
+  .wpm,.acc {
+    font-size: 25px;
+  }
+  .result {
+    font-size: 20px;
+  }
+}
+.small-word {
+  font-size: 10px;
+  display: inline;
 }
