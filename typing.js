@@ -148,10 +148,10 @@ const start = () => {
     textContainer.appendChild(textContainerChild);
   }
 };
-document.addEventListener("keydown", (event) => {
-  //adding event listener
-  userType(event.key);
-});
+// document.addEventListener("keydown", (event) => {
+//   //adding event listener
+//   userType(event.key);
+// });
 
 const resultContainerF = () => {
   let resultContainer = document.createElement("section");
@@ -205,21 +205,21 @@ start();
 
 // }
 const userType = (event) => {
-  mobileUserInput = document.querySelector(".mobile-user-input");
+  
   let userTypedChar = document.createElement("span");
   //appending child usertype char to userTextContainer.
-
-  if (event.key !== text[0]) {
+  
+  if (event !== text[0]) {
     //if event.key !== text[0] means userChar is typo.
     if (text === "") {
       //text === '' means type able text is finish
 
       return;
     }
-    if (event.key === "Shift") {
+    if (event === "Shift") {
       return;
     }
-    if (event.key === "Backspace") {
+    if (event === "Backspace") {
       if (userText === "") {
         return;
       }
@@ -260,7 +260,7 @@ const userType = (event) => {
   textContainer.firstChild.remove(); //remove type able of 0th indexed char and child form type able value
 
   userTextContainer.appendChild(userTypedChar); //yaha tak.
-  mobileUserInput.value = "";
+  
   if (text === "") {
     clearInterval(intervalId);
     let nowLatestTime = new Date();
@@ -269,10 +269,18 @@ const userType = (event) => {
     result.length = copyText.length; //pushing word length in result.
     result.wpm = Math.floor((copyText.length / 5 / result.time) * 60); //pushing wpm in result
     result.accuracy = (100 - (typo / copyText.length) * 100).toFixed(2);
-    mobileUserInput.value = "";
-    console.log(mobileUserInput);
+    
+    
 
     resultContainerF();
     return;
   }
 };
+
+const userMobileType = () => {
+  let mobileUserInput = document.querySelector(".mobile-user-input");
+  console.log(mobileUserInput);
+  
+  userType(mobileUserInput.value);
+  mobileUserInput.value = '';
+}
