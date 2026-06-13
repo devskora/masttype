@@ -282,5 +282,4 @@ const userMobileType = () => {
   console.log(mobileUserInput);
   
   userType(mobileUserInput.value);
-  mobileUserInput.value = '.';
 }
