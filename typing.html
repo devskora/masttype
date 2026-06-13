@@ -12,6 +12,7 @@
     <!-- SEO -->
     <title>Mast-Type | Free Typing Practice & Speed Test</title>
 
+
     <meta name="description"
         content="Practice typing online with Mast-Type. Improve your typing speed, accuracy and WPM through free typing tests.">
 
@@ -56,6 +57,8 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="typing.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -116,7 +119,7 @@
 
             <input type='text'
             aria-label="Type Text"
-            placeholder='type here.' class="mobile-user-input" onchange="userType()" />
+            placeholder='type here.' class="mobile-user-input" onInput="userMobileType()" />
            
             
 
@@ -124,11 +127,16 @@
 
             <button
                 type="button"
+
+                
                 onclick="start()"
                 class="restart-button"
                 aria-label="Restart Typing Test">
 
-                Restart
+               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+  <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9"/>
+  <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/>
+</svg>
 
             </button>
 
