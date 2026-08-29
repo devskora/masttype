@@ -1,92 +1,334 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-       <link rel="icon" href="./favicon.png" type="image.png">
+<head>
+    <meta charset="UTF-8">
 
-    <!-- SEO -->
-    <title>Mast-Type Free Typing Speed Test & Practice</title>
-    <meta
-      name="description"
-      content="Improve your typing speed and accuracy with Mast-Type. Free typing tests, typing practice, WPM tracking and accuracy analysis."
-    />
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <meta
-      name="keywords"
-      content="typing test, typing speed test, typing practice, wpm test, typing game, keyboard practice"
-    />
+<!-- Primary SEO -->
+<title>MastType Pro — Free Typing Test, WPM & Accuracy Tracker</title>
 
-    <meta name="author" content="Dev Kashyap" />
+<meta
+    name="description"
+    content="MastType Pro is a free online typing test and practice platform. Test your typing speed, measure WPM and accuracy, and improve your typing skills."
+>
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Mast-Type" />
-    <meta
-      property="og:description"
-      content="Free typing speed practice platform."
-    />
-    <meta property="og:type" content="website" />
+<meta
+    name="robots"
+    content="index, follow"
+>
 
-    <!-- Theme -->
-    <meta name="theme-color" content="#000000" />
+<meta
+    name="author"
+    content="MastType Pro"
+>
 
-    <!-- Robots -->
-    <meta name="robots" content="index, follow" />
+<link
+    rel="canonical"
+    href="https://devskora.github.io/masttype/"
+>
 
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css" />
-    <meta name="google-site-verification" content="RUWPmfnWFKS-0Xw4dhGqk9MRbve63QWr8lgoj-XYUWY" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GKK9YG4S2X"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+<!-- Open Graph / Social Sharing -->
+<meta
+    property="og:type"
+    content="website"
+>
 
-    gtag('config', 'G-GKK9YG4S2X');
-  </script>
+<meta
+    property="og:title"
+    content="MastType Pro — Free Typing Test"
+>
 
-  </head>
+<meta
+    property="og:description"
+    content="Test your typing speed, WPM and accuracy with MastType Pro."
+>
 
-  <body>
-    <header class="header">
-        <a href='./index.html' class="image"><img src="./favicon.png" alt="Logo" ></a>
-      <nav class="header-nav" aria-label="Main Navigation">
-        <a href="./index.html" aria-current="page" class="header-btn">Home</a>
-        <a href="./typing.html" class="header-btn">Typing</a>
-      </nav>
-    </header>
+<meta
+    property="og:url"
+    content="https://devskora.github.io/masttype/"
+>
 
-    <main class="main">
-      <h1 class="main-heading heading">Mast-Type Typing Practice</h1>
+<meta
+    property="og:site_name"
+    content="MastType Pro"
+>
 
-      <section class="result-start" aria-labelledby="practice-heading">
-        <section class="information-buttons">
-          <h2 id="practice-heading" class="heading">
-            Go To Type<span class="loadtype" aria-hidden="true">.</span>
-          </h2>
+<!-- Twitter / X -->
+<meta
+    name="twitter:card"
+    content="summary"
+>
 
-          <a
-            href="./typing.html"
-            class="ready " 
-            aria-label="Start Typing Practice"
-          >
-            Ready
-          </a>
+<meta
+    name="twitter:title"
+    content="MastType Pro — Free Typing Test"
+>
+
+<meta
+    name="twitter:description"
+    content="Free typing practice and typing tests with WPM and accuracy tracking."
+>
+
+<!-- Favicon -->
+<link
+    rel="icon"
+    href="./favicon.ico"
+>
+
+<!-- Stylesheet -->
+<link
+    rel="stylesheet"
+    href="./style.css"
+>
+   
+
+</head>
+
+<body>
+
+   
+<!-- Skip Navigation -->
+<a
+    class="skip-link"
+    href="#main-content"
+>
+    Skip to main content
+</a>
+
+<!-- Custom Cursor -->
+<div
+    class="cursor"
+    aria-hidden="true"
+></div>
+
+<header class="header">
+    <nav
+        class="header-nav"
+        aria-label="Main navigation"
+    >
+        <ul>
+            <li class="header-link-list-item">
+                <a
+                    href="./index.html"
+                    class="header-link"
+                    aria-current="page"
+                >
+                    HOME
+                </a>
+            </li>
+
+            <li class="header-link-list-item">
+                <a
+                    href="#typing"
+                    class="header-link"
+                >
+                    TYPING
+                </a>
+            </li>
+
+            <li class="header-link-list-item">
+                <a
+                    href="./result.html"
+                    class="header-link"
+                >
+                    RESULTS
+                </a>
+            </li>
+        </ul>
+
+        <button
+            type="button"
+            class="theme-btn"
+            aria-label="Switch to dark mode"
+            title="Toggle theme"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+            >
+                <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/>
+            </svg>
+        </button>
+    </nav>
+</header>
+
+<main
+    class="main"
+    id="main-content"
+>
+
+    <section
+        class="hero"
+        aria-labelledby="page-title"
+    >
+        <h1 id="page-title">
+            MastType Pro
+        </h1>
+
+        <p>
+            Free typing tests to measure your WPM, accuracy,
+            and improve your typing speed.
+        </p>
+    </section>
+
+    <section
+        class="typing"
+        id="typing"
+        aria-labelledby="typing-heading"
+    >
+
+        <h2
+            class="sub-heading"
+            id="typing-heading"
+        >
+            Typing Test
+        </h2>
+
+        <!-- Test Settings -->
+        <section
+            class="setting"
+            aria-label="Typing test settings"
+        >
+
+            <div class="mode sub-setting">
+                <button
+                    type="button"
+                    class="btn time-word"
+                    aria-pressed="true"
+                >
+                    Time
+                </button>
+            </div>
+
+            <div class="time sub-setting">
+
+                <div>
+                    <label
+                        for="time-controller"
+                        class="sr-only"
+                    >
+                        Test duration
+                    </label>
+
+                    <select
+                        class="btn time-controller"
+                        id="time-controller"
+                        name="time"
+                        disabled
+                    >
+                        <option value="10">10 seconds</option>
+                        <option value="20">20 seconds</option>
+                        <option value="30">30 seconds</option>
+                        <option value="45">45 seconds</option>
+                        <option value="60">1 minute</option>
+                        <option value="120">2 minutes</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label
+                        for="word-controller"
+                        class="sr-only"
+                    >
+                        Number of words
+                    </label>
+
+                    <select
+                        class="btn word-controller"
+                        id="word-controller"
+                        name="words"
+                    >
+                        <option value="10">10 words</option>
+                        <option value="20">20 words</option>
+                        <option value="40">40 words</option>
+                        <option value="80">80 words</option>
+                        <option value="100">100 words</option>
+
+                    </select>
+
+                </div>
+
+            </div>
         </section>
 
-        <section class="result" aria-labelledby="rank-heading">
-          <h3 id="rank-heading">Typing Rank</h3>
+        <!-- Typing Area -->
+        <section
+            class="paragraph-area"
+            aria-label="Typing test area"
+        >
+
+            <p
+                class="paragraph"
+                aria-label="Text to type"
+            >
+                <span
+                    class="typed"
+                    aria-hidden="true"
+                ></span>
+
+                <span
+                    class="type-able-text"
+                ></span>
+            </p>
+
+            <!-- Live status for screen readers -->
+            <div
+                class="sr-only"
+                aria-live="polite"
+                aria-atomic="true"
+                id="typing-status"
+            ></div>
+
+            <button
+                type="button"
+                class="restart btn"
+                onclick="isRestart()"
+                aria-label="Restart typing test"
+                title="Restart typing test"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    focusable="false"
+                >
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                    <path d="M3 3v5h5"/>
+                </svg>
+            </button>
+
         </section>
-      </section>
 
-      <section class="quotes" aria-label="Motivational Quotes"></section>
-    </main>
+    </section>
 
-    <footer class="footer">
-      <p>© 2026 Mast-Type. All Rights Reserved.</p>
-    </footer>
-    <script src="script.js"></script>
-  </body>
+</main>
+
+
+
+<!-- Main JavaScript -->
+<script src="./script.js" module></script>
+
+
+</body>
 </html>

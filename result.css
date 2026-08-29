@@ -1,0 +1,989 @@
+/* =========================================================
+MastType Pro — Result Page CSS
+Modern • Responsive • Accessible • Glass UI
+========================================================= */
+
+/* =========================================================
+ROOT VARIABLES
+========================================================= */
+
+:root {
+
+ 
+/* Background */
+--primary-background: rgba(128, 128, 128, 0.08);
+--primary-dark-background: #111318;
+
+/* Text */
+--primary-color: #f5f7fa;
+--primary-dark-color: #17191f;
+
+/* Brand */
+--primary-royal: rgba(65, 105, 225, 0.55);
+--secondary-royal: rgba(65, 145, 225, 0.55);
+
+/* Result */
+--correct-color: #159957;
+--incorrect-color: #e63946;
+
+/* Disabled */
+--disabled-background: rgba(100, 100, 100, 0.18);
+--disabled-color: rgba(150, 150, 150, 0.55);
+
+/* Borders */
+--border-light: rgba(255, 255, 255, 0.10);
+--border-dark: rgba(0, 0, 0, 0.08);
+
+/* Shadows */
+--shadow-sm:
+    inset -2px -2px 3px rgba(255, 255, 255, 0.04),
+    inset 2px 2px 3px rgba(0, 0, 0, 0.08);
+
+--shadow-md:
+    inset -4px -4px 6px rgba(255, 255, 255, 0.04),
+    inset 4px 4px 6px rgba(0, 0, 0, 0.10);
+
+--shadow-out:
+    0 10px 30px rgba(0, 0, 0, 0.08);
+
+/* Radius */
+--radius-sm: 8px;
+--radius-md: 14px;
+--radius-lg: 22px;
+--radius-pill: 999px;
+
+/* Animation */
+--transition: 0.25s ease;
+ 
+
+}
+
+/* =========================================================
+RESET
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+
+  text-decoration: none;
+
+  font-family:
+  system-ui,
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  Oxygen,
+  Ubuntu,
+  Cantarell,
+  "Open Sans",
+  "Helvetica Neue",
+  sans-serif;
+  }
+
+html {
+scroll-behavior: smooth;
+}
+
+body {
+min-height: 100vh;
+
+ 
+display: flex;
+flex-direction: column;
+align-items: center;
+
+overflow-x: hidden;
+
+background:
+    radial-gradient(
+        circle at top,
+        rgba(65, 105, 225, 0.08),
+        transparent 40%
+    ),
+    #f7f8fa;
+
+color: var(--primary-dark-color);
+
+transition:
+    background-color var(--transition),
+    color var(--transition);
+ 
+
+}
+
+body,
+body * {
+transition:
+background-color var(--transition),
+color var(--transition),
+border-color var(--transition),
+box-shadow var(--transition),
+transform var(--transition);
+}
+
+/* =========================================================
+DARK MODE
+========================================================= */
+
+body[data-is-dark="true"] {
+
+ 
+background:
+    radial-gradient(
+        circle at top,
+        rgba(65, 105, 225, 0.12),
+        transparent 42%
+    ),
+    var(--primary-dark-background);
+ 
+
+}
+
+body[data-is-dark="true"] * {
+color: var(--primary-color);
+}
+
+body[data-is-dark="false"] * {
+color: var(--primary-dark-color);
+}
+
+/* =========================================================
+ACCESSIBILITY
+========================================================= */
+
+.sr-only {
+
+ 
+position: absolute;
+
+width: 1px;
+height: 1px;
+
+padding: 0;
+margin: -1px;
+
+overflow: hidden;
+
+clip: rect(0, 0, 0, 0);
+
+white-space: nowrap;
+
+border: 0;
+ 
+
+}
+
+.skip-link {
+
+ 
+position: fixed;
+
+top: -100px;
+left: 20px;
+
+z-index: 9999;
+
+padding: 10px 16px;
+
+border-radius: var(--radius-pill);
+
+background: royalblue;
+
+color: white !important;
+
+font-weight: 700;
+
+box-shadow: var(--shadow-out);
+ 
+
+}
+
+.skip-link:focus {
+top: 20px;
+}
+
+button:focus-visible,
+a:focus-visible,
+select:focus-visible {
+
+ 
+outline: 3px solid royalblue;
+
+outline-offset: 3px;
+ 
+
+}
+
+/* =========================================================
+HEADER
+========================================================= */
+
+.header {
+
+ 
+width: min(92%, 760px);
+
+margin: 16px auto;
+
+padding: 8px 12px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+background: rgba(185, 185, 185, 0.08);
+
+border: 1px solid var(--border-light);
+
+border-radius: var(--radius-pill);
+
+backdrop-filter: blur(18px);
+-webkit-backdrop-filter: blur(18px);
+
+box-shadow: var(--shadow-md);
+ 
+
+}
+
+.header-nav {
+
+ 
+width: 100%;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+position: relative;
+ 
+
+}
+
+.header-nav ul {
+
+ 
+list-style: none;
+
+display: flex;
+align-items: center;
+
+gap: 6px;
+ 
+
+}
+
+.header-link {
+
+ 
+display: block;
+
+padding: 8px 14px;
+
+border-radius: var(--radius-pill);
+
+font-size: 0.78rem;
+
+font-weight: 700;
+
+letter-spacing: 0.04em;
+ 
+
+}
+
+.header-link:hover,
+.header-link[aria-current="page"] {
+
+ 
+background: var(--primary-royal);
+
+transform: translateY(-1px);
+ 
+
+}
+
+/* =========================================================
+THEME BUTTON
+========================================================= */
+
+.theme-btn {
+
+ 
+position: fixed;
+
+top: 14px;
+right: 14px;
+
+width: 58px;
+height: 32px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+border: 1px solid var(--border-light);
+
+border-radius: var(--radius-pill);
+
+background: var(--primary-background);
+
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+
+box-shadow: var(--shadow-sm);
+
+cursor: pointer;
+
+z-index: 20;
+ 
+
+}
+
+.theme-btn:hover {
+transform: scale(1.05);
+}
+
+.theme-btn::after {
+
+ 
+content: "";
+
+position: absolute;
+
+left: 1px;
+
+width: 29px;
+height: 29px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+border-radius: 50%;
+
+background: var(--primary-royal);
+
+box-shadow: var(--shadow-sm);
+ 
+
+}
+
+.active-theme-dark::after {
+
+ 
+left: calc(100% - 30px);
+ 
+
+}
+
+/* =========================================================
+MAIN
+========================================================= */
+
+.main {
+
+ 
+width: min(1200px, 94%);
+
+display: flex;
+flex-direction: column;
+align-items: center;
+
+padding: 30px 0 70px;
+ 
+
+}
+
+/* =========================================================
+HERO
+========================================================= */
+
+.hero {
+
+ 
+width: 100%;
+
+max-width: 720px;
+
+margin: 25px 0 35px;
+
+text-align: center;
+ 
+
+}
+
+.hero h1 {
+
+ 
+font-size: clamp(
+    2rem,
+    6vw,
+    4rem
+);
+
+line-height: 1.1;
+
+font-weight: 800;
+
+letter-spacing: -0.05em;
+
+background:
+    linear-gradient(
+        135deg,
+        currentColor,
+        rgba(65, 105, 225, 0.9)
+    );
+
+background-clip: text;
+-webkit-background-clip: text;
+
+color: transparent !important;
+ 
+
+}
+
+.hero p {
+
+ 
+margin-top: 12px;
+
+opacity: 0.65;
+
+font-size: clamp(
+    0.9rem,
+    2vw,
+    1.05rem
+);
+
+line-height: 1.6;
+ 
+
+}
+
+/* =========================================================
+RESULTS CONTAINER
+========================================================= */
+
+.results {
+
+ 
+width: 100%;
+
+display: flex;
+
+flex-direction: column-reverse;
+
+
+gap: 18px;
+
+padding: 10px;
+
+align-items: stretch;
+ 
+
+}
+
+/* =========================================================
+RESULT CARD
+========================================================= */
+
+.result {
+
+ 
+width: 100%;
+
+min-height: 250px;
+
+padding: 24px;
+
+display: flex;
+
+flex-direction: column;
+
+align-items: center;
+
+justify-content: center;
+
+gap: 12px;
+
+position: relative;
+
+overflow: hidden;
+
+background:
+    linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.06),
+        rgba(128, 128, 128, 0.05)
+    );
+
+border: 1px solid var(--border-light);
+
+border-radius: var(--radius-lg);
+
+backdrop-filter: blur(18px);
+-webkit-backdrop-filter: blur(18px);
+
+box-shadow:
+    var(--shadow-md),
+    var(--shadow-out);
+ 
+
+}
+
+/* Decorative glow */
+
+.result::before {
+
+ 
+content: "";
+
+position: absolute;
+
+width: 180px;
+height: 180px;
+
+top: -90px;
+right: -90px;
+
+border-radius: 50%;
+
+background:
+    rgba(65, 105, 225, 0.10);
+
+filter: blur(20px);
+
+pointer-events: none;
+ 
+
+}
+
+/* Hover */
+
+.result:hover {
+
+ 
+transform: translateY(-4px);
+
+border-color:
+    rgba(65, 105, 225, 0.35);
+
+box-shadow:
+    var(--shadow-md),
+    0 16px 35px rgba(0, 0, 0, 0.12);
+ 
+
+}
+
+/* =========================================================
+RESULT TEXT
+========================================================= */
+
+.result p {
+
+ 
+width: 100%;
+
+padding: 10px 14px;
+
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+gap: 12px;
+
+border-radius: var(--radius-md);
+
+background: var(--primary-background);
+
+box-shadow: var(--shadow-sm);
+
+font-size: 0.95rem;
+
+line-height: 1.4;
+ 
+
+}
+
+/* First result = WPM */
+
+.result p:first-child {
+
+ 
+padding: 14px 16px;
+
+background:
+    linear-gradient(
+        135deg,
+        var(--primary-royal),
+        var(--secondary-royal)
+    );
+
+font-size: 1.25rem;
+
+font-weight: 800;
+ 
+
+}
+
+/* =========================================================
+RESULT BUTTON
+========================================================= */
+
+.result .btn,
+.result-restart-btn {
+
+ 
+margin-top: 10px;
+
+min-width: 130px;
+
+min-height: 40px;
+
+padding: 9px 16px;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+gap: 8px;
+
+border: 1px solid var(--border-light);
+
+border-radius: var(--radius-pill);
+
+background: var(--primary-background);
+
+box-shadow: var(--shadow-sm);
+
+cursor: pointer;
+
+font-weight: 700;
+ 
+
+}
+
+.result .btn:hover,
+.result-restart-btn:hover {
+
+ 
+background: var(--primary-royal);
+
+transform: translateY(-2px);
+ 
+
+}
+
+.result .btn:active,
+.result-restart-btn:active {
+
+ 
+transform: scale(0.97);
+ 
+
+}
+
+/* =========================================================
+CUSTOM CURSOR
+========================================================= */
+
+.cursor {
+
+ 
+position: fixed;
+
+width: 28px;
+height: 28px;
+
+top: 0;
+left: 0;
+
+border-radius: 50%;
+
+background:
+    linear-gradient(
+        to top,
+        var(--primary-royal),
+        var(--secondary-royal)
+    );
+
+pointer-events: none;
+
+transform:
+    translate(-50%, -50%);
+
+z-index: 999;
+
+opacity: 0.7;
+
+filter: blur(1px);
+ 
+
+}
+
+@media (hover: none), (pointer: coarse) {
+
+ 
+.cursor {
+    display: none;
+}
+ 
+
+}
+
+/* =========================================================
+EMPTY RESULTS STATE
+========================================================= */
+
+.results:empty::before {
+
+ 
+content:
+    "No typing tests yet. Complete a test to see your results.";
+
+width: 100%;
+
+min-height: 180px;
+
+padding: 30px;
+
+display: flex;
+
+align-items: center;
+justify-content: center;
+
+text-align: center;
+
+border: 1px dashed var(--border-light);
+
+border-radius: var(--radius-lg);
+
+opacity: 0.6;
+
+font-size: 1rem;
+
+line-height: 1.6;
+ 
+
+}
+
+/* =========================================================
+TABLET
+========================================================= */
+
+@media (max-width: 850px) {
+
+ 
+.main {
+    width: min(94%, 700px);
+
+    padding-top: 20px;
+}
+
+
+.results {
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 14px;
+}
+
+
+.result {
+    min-height: 230px;
+
+    padding: 20px;
+}
+ 
+
+}
+
+/* =========================================================
+MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+ 
+.header {
+
+    width: 94%;
+
+    margin-top: 10px;
+
+    padding: 7px;
+}
+
+
+.header-nav {
+
+    justify-content: center;
+}
+
+
+.header-nav ul {
+
+    width: 100%;
+
+    justify-content: center;
+
+    gap: 3px;
+}
+
+
+.header-link {
+
+    padding: 7px 9px;
+
+    font-size: 0.68rem;
+}
+
+
+.theme-btn {
+
+    top: auto;
+    right: 14px;
+    bottom: 14px;
+}
+
+
+.main {
+
+    width: 94%;
+
+    padding:
+        15px 0 60px;
+}
+
+
+.hero {
+
+    margin:
+        20px 0 25px;
+}
+
+
+.hero h1 {
+
+    font-size:
+        clamp(
+            2rem,
+            11vw,
+            3rem
+        );
+}
+
+
+.hero p {
+
+    font-size: 0.9rem;
+
+    padding: 0 8px;
+}
+
+
+.results {
+
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+
+    padding: 5px;
+}
+
+
+.result {
+
+    min-height: 220px;
+
+    padding: 18px;
+}
+
+
+.result p {
+
+    font-size: 0.9rem;
+}
+
+
+.result p:first-child {
+
+    font-size: 1.15rem;
+}
+ 
+
+}
+
+/* =========================================================
+VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+ 
+.header-link {
+
+    padding:
+        6px 7px;
+
+    font-size:
+        0.62rem;
+}
+
+
+.result {
+
+    padding: 15px;
+}
+
+
+.result p {
+
+    font-size: 0.82rem;
+
+    padding: 9px 11px;
+}
+
+
+.result p:first-child {
+
+    font-size: 1rem;
+}
+ 
+
+}
+
+/* =========================================================
+REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+ 
+html {
+    scroll-behavior: auto;
+}
+
+
+*,
+*::before,
+*::after {
+
+    transition-duration: 0.01ms !important;
+
+    animation-duration: 0.01ms !important;
+
+    animation-iteration-count: 1 !important;
+}
+ 
+
+}
