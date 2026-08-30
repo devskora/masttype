@@ -1,979 +1,500 @@
+const DEFAULT_PARAGRAPHS = [
+  `Success does not always come quickly. Sometimes we work hard for a long time without seeing a clear result. During such moments, patience becomes very important. A person who continues learning and improving can eventually make progress. Success is not only about winning or reaching a final goal. It is also about becoming better than we were yesterday. Small improvements may seem unimportant at first, but they can become significant after months of consistent effort. Instead of comparing ourselves with others, it is better to focus on our own progress. Hard work, patience, discipline, and a positive attitude can help us move forward.`,
+  `A healthy lifestyle includes several simple habits that support our everyday activities. Eating a variety of nutritious foods, drinking enough water, getting sufficient sleep, and staying physically active are important parts of a balanced life. Exercise can help improve strength, stamina, coordination, and overall fitness. Rest is equally important because the body and mind need time to recover. Good habits do not need to be complicated. Taking a walk, playing a sport, stretching, or spending time outdoors can be useful activities. The goal should be to build habits that are realistic and sustainable. A balanced lifestyle can help us feel energetic and focused.`,
+  `School is an important place for learning, but education is not limited to classrooms. Students learn from teachers, books, friends, experiences, experiments, and even mistakes. School also provides opportunities to develop communication, teamwork, responsibility, and problem-solving skills. Sometimes a subject may seem boring or difficult, but understanding its practical importance can make it more interesting. Asking questions is a good way to understand confusing topics. Students should not be afraid of making mistakes because mistakes are a natural part of learning. A curious student can learn something new from almost every situation and gradually develop a stronger understanding of the world.`,
+  `The internet has changed the way people communicate and share information. A message can travel across the world within seconds, and people can learn about events happening in distant places. Students can use online resources to understand difficult topics, practice skills, and find educational material. However, not everything found online is accurate. It is important to check information before believing or sharing it. People should also protect their personal information and use strong passwords for their accounts. Responsible internet use means knowing both its benefits and its risks. When used carefully, the internet can be a powerful tool for learning and communication.`,
+  `A good friend can make ordinary days more enjoyable. Friendship is built through trust, respect, honesty, and understanding. Good friends support each other during difficult moments and celebrate each other's achievements. They may have different opinions, hobbies, or personalities, but they can still respect one another. A strong friendship does not require constant agreement. Sometimes friends can disagree and then solve the problem by communicating calmly. It is also important to be a good listener instead of always talking about ourselves. True friendship grows through shared experiences and mutual care. Treating others kindly can help create meaningful and lasting relationships.`,
+  `The night sky has fascinated people for thousands of years. When we look upward on a clear night, we can see the Moon, stars, and sometimes bright planets. Space is incredibly large, containing countless stars and galaxies. Scientists use powerful telescopes and spacecraft to learn more about the universe. They study planets, stars, black holes, and many other objects. Space exploration has also helped humans develop useful technologies and understand Earth better. There are still many unanswered questions about the universe. As science advances, future generations may discover new information that changes our understanding of space and our place within it.`,
+  `Reading and writing are important skills that help us communicate ideas. Reading exposes us to new words, information, opinions, and stories. Writing allows us to organize our thoughts and explain them clearly to other people. Both skills improve with regular practice. Instead of worrying about making every sentence perfect, beginners should focus on expressing their ideas clearly. Over time, grammar, vocabulary, and sentence structure can improve naturally through practice. Keeping a small journal or writing short paragraphs every day can be useful. Even a few minutes of daily writing can gradually make communication more confident, organized, and effective.`,
+  `Teamwork is necessary in many areas of life. A team can combine different skills and ideas to solve problems more effectively. Good teamwork requires communication, cooperation, responsibility, and respect. Every member should understand their role and contribute to the shared goal. Sometimes people may disagree about the best approach, but listening to different opinions can lead to better solutions. A successful team does not depend on one person doing everything. Instead, members support one another and use their individual strengths. Learning to work with others is useful at school, in sports, at work, and in many everyday situations.`,
+  `Mistakes are often treated as failures, but they can also be valuable teachers. When something goes wrong, we have an opportunity to understand what happened and find a better approach. A programmer learns from coding errors, a student learns from incorrect answers, and an athlete learns from mistakes during practice. The important thing is to analyze the mistake instead of repeating it without understanding. Nobody performs perfectly all the time. Improvement usually happens through a combination of practice, mistakes, feedback, and correction. If we remain patient and keep trying, mistakes can become useful steps toward better performance and deeper understanding.`,
 
+  `A peaceful environment can make it easier to concentrate and think clearly. When a workspace is organized, it becomes easier to find important books, notes, or tools. Removing unnecessary distractions can also help improve focus. Before starting a task, it is useful to decide exactly what needs to be completed. Working on one important task at a time can prevent confusion. Short breaks can help maintain attention when studying or working for longer periods. Everyone has different preferences, so the best environment may vary from person to person. The main goal is to create a place where learning and productive work feel comfortable and manageable.`,
+  `A strong habit is easier to build when the reason behind it is clear. If you understand why an activity matters, it becomes easier to continue when the initial excitement disappears. Studying can build knowledge, coding can develop problem-solving skills, exercise can support physical health, and reading can expand understanding. The reason does not have to be dramatic. Even a simple desire to become more capable can provide direction. It is also useful to make habits practical instead of relying only on motivation. Keep the required materials ready, choose a reasonable time, and make the first step easy. When a useful activity becomes familiar, starting can require less effort. Good habits are created through repeated actions supported by a clear purpose.`,
 
-// const USER_DATA_KEY = "MastType_User_Data_dvk";
+  `Sometimes the fastest way to learn something is to stop trying to memorize every detail and instead understand the main idea first. Once the structure of a topic is clear, individual facts have somewhere to connect. This can be useful in science, history, programming, mathematics, and many other subjects. Start by asking what the topic is about, why it matters, and how its main parts are connected. Then learn the details that support that structure. Memorization still has an important role, especially for formulas, definitions, vocabulary, and important facts. However, understanding provides a framework that makes those details easier to use. When knowledge is connected instead of isolated, it becomes easier to remember and apply in unfamiliar situations.`,
 
-// function getUserData() {
-// try {
-// const data = JSON.parse(localStorage.getItem(USER_DATA_KEY));
+  `A useful way to improve is to focus on one weakness at a time. When you look at everything that could be improved simultaneously, the amount of work can seem overwhelming. Choosing one specific area creates a clearer target. In coding, you might focus on writing cleaner functions. In studying, you might focus on understanding one difficult chapter. In typing, you might focus on accuracy before trying to increase speed. In sports, you might work on one technique while maintaining the rest of your training. Once that area becomes stronger, you can choose another. Improvement does not require fixing everything immediately. Small focused changes can gradually build a much stronger overall ability.`,
 
-// return Array.isArray(data) ? data.slice(-100) : [];
-// } catch (error) {
-// console.warn("Could not read user data:", error);
-// return [];
-// }
-// }
-// let userData = getUserData();
+  `The first attempt at a difficult task can teach you more than you expect. Before trying, you may have an idea about what will happen, but actual experience reveals details that are difficult to predict. A coding project may expose technical problems, a study method may show which topics remain confusing, and a new activity may reveal which skills require more practice. Instead of judging the first attempt only by its result, examine what it taught you. What worked? What failed? What surprised you? What would you change? These questions turn experience into information. The next attempt can then be based on better knowledge. Improvement often happens through a series of attempts where each version becomes slightly more informed than the previous one.`,
 
-// /* =========================================================
-// ELEMENTS
-// ========================================================= */
+  `A clear workspace can create a small psychological signal that it is time to focus. When the materials needed for a task are ready and unnecessary objects are moved aside, there are fewer decisions to make before starting. This can be especially helpful when working on a computer. Keeping project files organized, closing irrelevant tabs, and having a clear task can reduce friction. The same principle applies to studying. Preparing books, notes, stationery, and questions before a session can make the beginning smoother. Organization does not need to become a large project. The goal is simply to remove avoidable obstacles. When starting becomes easy, it becomes more likely that you will begin consistently.`,
 
-// const themeBtn = document.querySelector(".theme-btn");
-// const body = document.body;
-// const typingArea = document.querySelector(".paragraph-area");
+  `Learning a new technology can feel confusing because there are often many concepts, tools, and terms introduced at once. Trying to understand everything immediately can create unnecessary pressure. A better approach is to identify the foundation first. Learn what the technology is designed to do, understand its basic concepts, and build a small example. Once the foundation is comfortable, explore more advanced features. Documentation can become much easier to understand when you already know the basic vocabulary. Projects also help because they give each concept a practical purpose. You do not need to memorize an entire technology. The important goal is understanding enough to build, experiment, solve problems, and know where to look when you encounter something unfamiliar.`,
 
-// const paragraphContainer = document.querySelector(".paragraph");
-// const typeAbleText = document.querySelector(".type-able-text");
-// const userTyped = document.querySelector(".typed");
+  `A person's daily choices do not need to be perfect to be meaningful. Sometimes there will be distractions, mistakes, delays, or changes in priorities. What matters is the overall direction created by repeated choices. If most days include some useful learning, reasonable responsibilities, movement, rest, and time for important relationships, that pattern can support long-term development. One unproductive day does not erase previous effort. Similarly, one productive day does not create permanent success. Thinking in terms of patterns rather than individual moments can make goals feel more realistic. Look at what happens repeatedly over weeks and months. Long-term outcomes are often influenced more by consistent patterns than by isolated good or bad days.`,
 
-// const timeController = document.querySelector(".time-controller");
-// const wordController = document.querySelector(".word-controller");
-// const timeWord = document.querySelector(".time-word");
+  `A difficult concept can become easier when you approach it from multiple directions. Reading one explanation may not be enough for everyone. You can try a diagram, example, video, practical experiment, question, or a different explanation. Each method may reveal a different part of the idea. If one explanation does not make sense, that does not automatically mean you cannot learn the subject. It may simply mean that the explanation does not match the way you currently understand things. Trying another approach can create the connection you were missing. This is why flexibility is useful in learning. The goal is understanding, so you can change the method whenever the current method is not helping.`,
 
-// const typingResultContainer = document.querySelector(".typing");
+  `A useful project should be challenging enough to teach something but small enough to finish. Projects that are far beyond your current ability can become difficult to manage, while projects that require nothing new may provide little learning. Choosing a middle level creates opportunities to practice existing skills while adding a few new ones. For a beginner programmer, a simple application with one unfamiliar feature can be enough. After completing it, another project can introduce a different challenge. Each project becomes a step toward larger abilities. Finishing projects also teaches an important lesson: creating something from beginning to end requires planning, debugging, testing, and improvement. That experience cannot always be gained from isolated exercises alone.`,
 
-// const typingStatus = document.querySelector("#typing-status");
+  `Your ability to learn from a difficult experience depends partly on what questions you ask afterward. Instead of only asking whether the result was good or bad, examine the process. What decisions were made? Which assumptions were incorrect? Which part required more time than expected? What information was missing? What would you change if you could start again? These questions turn an experience into a source of useful feedback. The goal is not to repeatedly think about the past or blame yourself for mistakes. It is to extract information that can improve future decisions. Reflection is most useful when it leads to action. After identifying a lesson, decide how you will apply it the next time a similar situation appears.`,
 
-// /* =========================================================
-// THEME
-// ========================================================= */
+  `A strong habit is easier to build when the reason behind it is clear. If you understand why an activity matters, it becomes easier to continue when the initial excitement disappears. Studying can build knowledge, coding can develop problem-solving skills, exercise can support physical health, and reading can expand understanding. The reason does not have to be dramatic. Even a simple desire to become more capable can provide direction. It is also useful to make habits practical instead of relying only on motivation. Keep the required materials ready, choose a reasonable time, and make the first step easy. When a useful activity becomes familiar, starting can require less effort. Good habits are created through repeated actions supported by a clear purpose.`,
 
-// const THEME_KEY = "MastType_Theme";
+  `Sometimes the fastest way to learn something is to stop trying to memorize every detail and instead understand the main idea first. Once the structure of a topic is clear, individual facts have somewhere to connect. This can be useful in science, history, programming, mathematics, and many other subjects. Start by asking what the topic is about, why it matters, and how its main parts are connected. Then learn the details that support that structure. Memorization still has an important role, especially for formulas, definitions, vocabulary, and important facts. However, understanding provides a framework that makes those details easier to use. When knowledge is connected instead of isolated, it becomes easier to remember and apply in unfamiliar situations.`,
 
-// function applyTheme(theme) {
+  `A useful way to improve is to focus on one weakness at a time. When you look at everything that could be improved simultaneously, the amount of work can seem overwhelming. Choosing one specific area creates a clearer target. In coding, you might focus on writing cleaner functions. In studying, you might focus on understanding one difficult chapter. In typing, you might focus on accuracy before trying to increase speed. In sports, you might work on one technique while maintaining the rest of your training. Once that area becomes stronger, you can choose another. Improvement does not require fixing everything immediately. Small focused changes can gradually build a much stronger overall ability.`,
 
-// const isDark = theme === "dark";
+  `The first attempt at a difficult task can teach you more than you expect. Before trying, you may have an idea about what will happen, but actual experience reveals details that are difficult to predict. A coding project may expose technical problems, a study method may show which topics remain confusing, and a new activity may reveal which skills require more practice. Instead of judging the first attempt only by its result, examine what it taught you. What worked? What failed? What surprised you? What would you change? These questions turn experience into information. The next attempt can then be based on better knowledge. Improvement often happens through a series of attempts where each version becomes slightly more informed than the previous one.`,
 
-// body.dataset.isDark = String(isDark);
+  `A clear workspace can create a small psychological signal that it is time to focus. When the materials needed for a task are ready and unnecessary objects are moved aside, there are fewer decisions to make before starting. This can be especially helpful when working on a computer. Keeping project files organized, closing irrelevant tabs, and having a clear task can reduce friction. The same principle applies to studying. Preparing books, notes, stationery, and questions before a session can make the beginning smoother. Organization does not need to become a large project. The goal is simply to remove avoidable obstacles. When starting becomes easy, it becomes more likely that you will begin consistently.`,
 
-// themeBtn.classList.toggle("active-theme-dark", isDark);
+  `Learning a new technology can feel confusing because there are often many concepts, tools, and terms introduced at once. Trying to understand everything immediately can create unnecessary pressure. A better approach is to identify the foundation first. Learn what the technology is designed to do, understand its basic concepts, and build a small example. Once the foundation is comfortable, explore more advanced features. Documentation can become much easier to understand when you already know the basic vocabulary. Projects also help because they give each concept a practical purpose. You do not need to memorize an entire technology. The important goal is understanding enough to build, experiment, solve problems, and know where to look when you encounter something unfamiliar.`,
 
-// themeBtn.setAttribute(
-// "aria-label",
-// isDark
-// ? "Switch to light mode"
-// : "Switch to dark mode"
-// );
+  `A person's daily choices do not need to be perfect to be meaningful. Sometimes there will be distractions, mistakes, delays, or changes in priorities. What matters is the overall direction created by repeated choices. If most days include some useful learning, reasonable responsibilities, movement, rest, and time for important relationships, that pattern can support long-term development. One unproductive day does not erase previous effort. Similarly, one productive day does not create permanent success. Thinking in terms of patterns rather than individual moments can make goals feel more realistic. Look at what happens repeatedly over weeks and months. Long-term outcomes are often influenced more by consistent patterns than by isolated good or bad days.`,
 
-// themeBtn.setAttribute(
-// "aria-pressed",
-// String(isDark)
-// );
-// }
+  `A difficult concept can become easier when you approach it from multiple directions. Reading one explanation may not be enough for everyone. You can try a diagram, example, video, practical experiment, question, or a different explanation. Each method may reveal a different part of the idea. If one explanation does not make sense, that does not automatically mean you cannot learn the subject. It may simply mean that the explanation does not match the way you currently understand things. Trying another approach can create the connection you were missing. This is why flexibility is useful in learning. The goal is understanding, so you can change the method whenever the current method is not helping.`,
 
-// /*
+  `A useful project should be challenging enough to teach something but small enough to finish. Projects that are far beyond your current ability can become difficult to manage, while projects that require nothing new may provide little learning. Choosing a middle level creates opportunities to practice existing skills while adding a few new ones. For a beginner programmer, a simple application with one unfamiliar feature can be enough. After completing it, another project can introduce a different challenge. Each project becomes a step toward larger abilities. Finishing projects also teaches an important lesson: creating something from beginning to end requires planning, debugging, testing, and improvement. That experience cannot always be gained from isolated exercises alone.`,
 
-// Load saved theme.
+  `Your ability to learn from a difficult experience depends partly on what questions you ask afterward. Instead of only asking whether the result was good or bad, examine the process. What decisions were made? Which assumptions were incorrect? Which part required more time than expected? What information was missing? What would you change if you could start again? These questions turn an experience into a source of useful feedback. The goal is not to repeatedly think about the past or blame yourself for mistakes. It is to extract information that can improve future decisions. Reflection is most useful when it leads to action. After identifying a lesson, decide how you will apply it the next time a similar situation appears.`,
+  `A person becomes better at solving problems when they learn to separate the problem from the emotion surrounding it. A difficult situation can feel overwhelming, especially when the expected result does not happen. However, emotions do not always provide a clear explanation of what actually went wrong. Taking a moment to describe the problem objectively can make the next step easier to identify. Ask what happened, what was expected, what information is available, and what can be changed. This method is useful in programming, schoolwork, sports, and everyday decisions. The goal is not to ignore feelings but to prevent them from completely controlling the solution process. Calm observation can reveal possibilities that are difficult to notice when attention is focused only on frustration.`,
 
-// If there is no saved preference:
-// use the user's system preference.
-// */
-// function loadTheme() {
-// const savedTheme = localStorage.getItem(THEME_KEY);
+  `Building a useful skill requires more than collecting information. Information becomes valuable when you can remember it, understand it, and apply it in a new situation. This is why practical work is such an important part of learning. If you study JavaScript, for example, writing a small application can reveal whether you understand the concepts beyond their definitions. If you study physics, solving unfamiliar problems can test whether you can apply the formulas correctly. Practice creates situations where knowledge has to become action. When something goes wrong, you receive feedback that tells you what needs improvement. The process may feel slower than simply reading, but it produces stronger understanding. Learning becomes powerful when information repeatedly turns into practical experience.`,
 
-// if (savedTheme === "dark" || savedTheme === "light") {
+  `There is a difference between taking a break and completely abandoning a goal. A break can provide recovery and allow you to return with better attention, while abandoning a goal means deciding that you will no longer continue. Sometimes breaks are necessary because energy and attention are limited. The important thing is knowing when to return. A short pause can be planned before starting a task so that rest does not accidentally become endless distraction. After the break, begin with a simple step rather than waiting until you feel perfectly motivated. This creates a healthy rhythm between effort and recovery. Long-term progress does not require constant work. It requires enough effort to move forward and enough recovery to keep that effort sustainable.`,
 
-// applyTheme(savedTheme);
+  `One of the best ways to become independent at learning is to become comfortable searching for answers yourself. This does not mean refusing help. It means developing the ability to investigate a question before immediately depending on someone else. Start by identifying exactly what you do not understand. Then look for reliable explanations, examples, documentation, or demonstrations. Try the information yourself and see whether it solves the problem. If you are still stuck, you can ask a more specific question. This process teaches both the subject and the skill of finding knowledge. Over time, you become less dependent on memorizing every answer because you know how to discover information when you need it.`,
 
-// return;
-// }
-// const prefersDark =
-// window.matchMedia &&
-// window.matchMedia("(prefers-color-scheme: dark)").matches;
+  `A mistake in a project can sometimes reveal an opportunity to improve the entire system. For example, if a particular error keeps happening, fixing only that one error may not be enough. You can also ask why the error was possible and whether the design could prevent similar problems. This way of thinking moves beyond temporary fixes and looks for better systems. The same principle can apply to studying or organizing daily responsibilities. If you repeatedly forget something, perhaps the solution is not simply trying harder to remember. A reminder, checklist, or better organization may work more reliably. Good problem solving often means improving the system instead of repeatedly fighting the same problem. This can save time and reduce unnecessary frustration.`,
 
-// applyTheme(prefersDark ? "dark" : "light");
-// }
+  `Being consistent does not mean performing at exactly the same level every day. Human energy, circumstances, and responsibilities naturally change. Some days allow more focused work, while other days require a lighter approach. Consistency means maintaining the general direction even when the amount of effort changes. On a difficult day, completing a smaller version of an important task can still maintain the habit. On a better day, you may have enough energy to do more. This flexible approach prevents one imperfect day from becoming a reason to stop completely. A sustainable routine should have room for real life. Long-term progress depends less on having perfect days and more on continuing to return to useful actions over time.`,
 
-// /* Theme button */
+  `The ability to explain a complicated idea simply is a sign of strong understanding. When you truly understand something, you can usually describe its main purpose and important parts without depending completely on complicated terminology. This does not mean every subject should be reduced to simple statements. Advanced topics can remain complex. The goal is to understand the structure underneath the complexity. Try explaining the idea to someone who has never studied it. Notice where you become uncertain or start repeating words from the textbook without understanding them. Those points can show where more learning is needed. Simplifying an explanation forces you to organize information and identify the most important relationships. This technique can make studying and communication more effective.`,
 
-// themeBtn.addEventListener("click", () => {
+  `Small distractions can become significant when they happen repeatedly. Checking one notification may take only a few seconds, but the attention shift can make it harder to return to the original task. The same thing can happen with unnecessary tab switching, repeatedly checking messages, or starting unrelated activities during focused work. Reducing these interruptions can make concentration easier without requiring extraordinary willpower. Before beginning an important task, decide which distractions can wait. Put nonessential notifications aside and keep only the resources needed for the current activity. This does not mean avoiding technology completely. It means controlling when technology receives your attention. A focused environment allows your brain to stay with a problem long enough to understand it deeply.`,
 
-// const isCurrentlyDark =
-// body.dataset.isDark === "true";
+  `A person's interests can change, and that is a normal part of growing and learning. Something that feels extremely important today may become less interesting later, while a subject that once seemed boring may become fascinating after you understand more about it. Exploring different areas can help you discover what genuinely interests you. You do not need to decide your entire future based on one temporary interest. Try projects, read about different subjects, ask questions, and notice which activities make you curious enough to continue. At the same time, developing foundational skills such as communication, problem solving, learning, and discipline can remain useful regardless of your future direction. Flexibility allows you to explore while still building abilities that transfer between different fields.`,
 
-// const newTheme =
-// isCurrentlyDark ? "light" : "dark";
+  `The quality of your questions can determine the quality of your learning. A broad question may produce a huge amount of information, while a precise question can lead directly to the part you need. When something is confusing, try to identify exactly where your understanding stops. Instead of saying that an entire subject is difficult, identify the specific definition, step, formula, or piece of code that causes confusion. Then investigate that part. This makes learning more efficient because you are solving a specific problem rather than fighting a vague feeling of confusion. Over time, you become better at identifying knowledge gaps. That skill is useful in almost every field because experts are not people who know everything; they are often people who know how to find what they need to learn next.`,
+  `A useful way to improve any skill is to make practice slightly more challenging than what you can already do comfortably. If every task is extremely easy, there may not be enough opportunity to learn something new. At the same time, making every task extremely difficult can create frustration and make it harder to understand what went wrong. A balanced level of challenge gives you a chance to stretch your abilities while still being able to learn from mistakes. In coding, this might mean building a project that uses one new concept. In studying, it could mean solving questions that require applying an idea instead of simply remembering it. In sports, it may involve practicing a skill that is slightly more difficult than your current level. Gradual challenge encourages steady development.`,
 
-// applyTheme(newTheme);
-
-// /*
-
-// Save preference permanently in this browser.
-// */
-// localStorage.setItem(THEME_KEY, newTheme);
-// });
-// loadTheme();
-// /* =========================================================
-// TEST STATE
-// ========================================================= */
-
-// let typedText = "";
-// let paragraph = "";
-// let historyParagraph = "";
-
-// let mistype = 0;
-
-// let thisTest = {};
-
-// const word$Time = {
-// word: Number(wordController.value) || 10,
-// time: Number(timeController.value) || 10
-// };
-
-// /* =========================================================
-// TIMER
-// ========================================================= */
-
-// const time = {
-
-// isTimerOn: false,
-
-// start: null,
-
-// end: null,
-
-// startTime() {
-// return Date.now();
-// },
-
-// endTime() {
-// return Date.now();
-// },
-
-// duration() {
-
-// if (
-//   typeof this.start !== "number" ||
-//   typeof this.end !== "number"
-// ) {
-//   return 0;
-// }
-
-// return Math.max(0, this.end - this.start);
-// }
-// };
-// /* =========================================================
-// TYPING
-// ========================================================= */
-
-// function userType(event) {
-
-// /*
-
-// Only allow typing while typing area is focused.
-// */
-// if (typingArea.dataset.focus !== "true") {
-// return;
-// }
-// /*
-// Ignore modifier keys and special keys.
-// */
-// if (
-// event.ctrlKey ||
-// event.metaKey ||
-// event.altKey ||
-// event.key === "Shift" ||
-// event.key === "Control" ||
-// event.key === "Alt" ||
-// event.key === "Meta" ||
-// event.key === "Tab" ||
-// event.key === "CapsLock" ||
-// event.key === "Escape"
-// ) {
-// return;
-// }
-// /*
-// Backspace is disabled for this typing test.
-// */
-// if (event.key === "Backspace") {
-// event.preventDefault();
-// return;
-// }
-// /*
-// Only process one-character keys.
-// */
-// if (event.key.length !== 1) {
-// return;
-// }
-// event.preventDefault();
-// /*
-
-// Don't allow typing after test completion.
-// */
-// if (!paragraph.length) {
-// return;
-// }
-// const expectedCharacter = paragraph[0];
-// const typedCharacter = event.key;
-// /*
-
-// Start timer on first correct character.
-// */
-// if (!time.isTimerOn) {
-// if (typedCharacter !== expectedCharacter) {
-//   return;
-// }
-
-// time.start = time.startTime();
-// time.isTimerOn = true;
-// }
-// /*
-
-// Correct character
-// */
-// if (typedCharacter === expectedCharacter) {
-// const span = document.createElement("span");
-// span.className = "typed-character";
-
-// span.textContent = typedCharacter;
-
-// userTyped.appendChild(span);
-
-// typedText += typedCharacter;
-// }
-// /*
-
-// Wrong character
-// */
-// else {
-// const span = document.createElement("span");
-// span.className = "wrong-character";
-
-// span.textContent = typedCharacter;
-
-// userTyped.appendChild(span);
-
-// /*
-//  * Store the typed character for display,
-//  * but remove the expected character from
-//  * the remaining paragraph.
-//  */
-// typedText += typedCharacter;
-
-// mistype++;
-// }
-// paragraph = paragraph.slice(1);
-
-// typeAbleText.textContent = paragraph;
-
-// /*
-
-// Test completed.
-// */
-// if (paragraph.length === 0) {
-// finishTest();
-// }
-// }
-// /* Keyboard listener */
-
-// document.addEventListener("keydown", userType);
-
-// /* =========================================================
-// FINISH TEST
-// ========================================================= */
-
-// function finishTest() {
-
-// typingArea.dataset.focus = "false";
-
-// body.dataset.overflow = "show";
-
-// time.end = time.endTime();
-
-// time.isTimerOn = false;
-
-// const duration = time.duration();
-
-// const durationSeconds = duration / 1000;
-
-// /*
-
-// Prevent division by zero.
-// */
-// const safeDurationSeconds =
-// Math.max(durationSeconds, 0.001);
-// const wpm = Math.round(
-// (historyParagraph.length / 5) /
-// safeDurationSeconds *
-// 60
-// );
-// const accuracy = Math.max(
-// 0,
-// Math.round(
-// 100 -
-// (mistype / Math.max(historyParagraph.length, 1)) * 100
-// )
-// );
-
-// const latestDate = new Date();
-
-// thisTest = {
-
-// wpm,
-
-// paragraph: historyParagraph,
-
-// paragraphLength: historyParagraph.length,
-
-// duration,
-
-// mistype,
-
-// accuracy,
-
-// timedDate: latestDate.toISOString()
-// };
-// /*
-
-// Save only latest 100 tests.
-// */
-// userData.push(thisTest);
-// userData = userData.slice(-100);
-// try {
-
-// localStorage.setItem(
-//   USER_DATA_KEY,
-//   JSON.stringify(userData)
-// );
-// } catch (error) {
-// console.warn(
-//   "Could not save test result:",
-//   error
-// );
-// }
-// /*
-
-// Screen-reader status.
-// */
-// if (typingStatus) {
-// typingStatus.textContent =
-//   `Test complete. Speed ${wpm} words per minute. Accuracy ${accuracy} percent.`;
-// }
-// userTyped.textContent = "";
-
-// typeAbleText.textContent = "";
-
-// paragraph = "";
-
-// getResult(thisTest);
-// }
-
-// /* =========================================================
-// RESTART TEST
-// ========================================================= */
-
-// function isRestart() {
-
-// /*
-
-// Remove old result if it exists.
-// */
-// const oldResult =
-// document.querySelector(".result");
-// if (oldResult) {
-// oldResult.remove();
-// }
-// /*
-
-// Reset typing state.
-// */
-// typedText = "";
-// mistype = 0;
-// time.isTimerOn = false;
-
-// time.start = null;
-
-// time.end = null;
-
-// /*
-
-// Select random paragraph.
-// */
-// const randomIndex =
-// Math.floor(Math.random() * Paragraphes.length);
-// const selectedParagraph =
-// Paragraphes[randomIndex];
-// /*
-
-// Create test text according to
-// selected word count.
-
-// 5 characters ≈ 1 word.
-// */
-// const maxCharacters =
-// Math.max(1, Number(word$Time.word) * 5);
-// paragraph =
-// selectedParagraph.slice(0, maxCharacters);
-// historyParagraph = paragraph;
-
-// /*
-
-// Reset UI.
-// */
-// userTyped.textContent = "";
-// typeAbleText.textContent = paragraph;
-// /*
-
-// Activate typing area.
-// */
-// typingArea.dataset.focus = "true";
-// body.dataset.overflow = "show";
-// if (typingStatus) {
-
-// typingStatus.textContent =
-//   "Typing test restarted. Start typing.";
-// }
-// }
-// /* =========================================================
-// TYPING AREA FOCUS
-// ========================================================= */
-
-// let isFocus = false;
-
-// typingArea.addEventListener("click", () => {
-
-// isFocus = !isFocus;
-
-// typingArea.dataset.focus =
-// String(isFocus);
-
-// /*
-
-// Don't use another toggle here.
-
-// Original code was toggling the value twice,
-// causing inconsistent focus state.
-// */
-// body.dataset.overflow =
-// isFocus ? "show" : "hide";
-// });
-// /* =========================================================
-// WORD / TIME MODE
-// ========================================================= */
-
-// let isTime = true;
-
-// /*
-
-// Current UI only supports word mode properly.
-// Time controls can be enabled later when the
-// countdown logic is implemented.
-// */
-// timeController.disabled = true;
-// wordController.disabled = false;
-// timeWord.addEventListener("click", () => {
-
-// isTime = !isTime;
-
-// if (isTime) {
-
-// timeWord.textContent = "Time";
-
-// timeController.disabled = true;
-
-// wordController.disabled = false;
-
-// timeWord.setAttribute(
-//   "aria-pressed",
-//   "true"
-// );
-// } else {
-// timeWord.textContent = "Word";
-
-// timeController.disabled = false;
-
-// wordController.disabled = true;
-
-// timeWord.setAttribute(
-//   "aria-pressed",
-//   "false"
-// );
-// }
-// /*
-
-// Start a fresh test after mode change.
-// */
-// isRestart();
-// });
-// /* =========================================================
-// WORD COUNT
-// ========================================================= */
-// wordController.addEventListener("change", () => {
-
-// const selectedWords =
-// Number(wordController.value);
-
-// if (!Number.isFinite(selectedWords)) {
-// return;
-// }
-
-// word$Time.word = selectedWords;
-
-// isRestart();
-// });
-
-// /* =========================================================
-// RESULT
-// ========================================================= */
-
-// function getResult(testResult) {
-
-// /*
-
-// Prevent duplicate result overlays.
-// */
-// const existingResult =
-// document.querySelector(".result");
-// if (existingResult) {
-// existingResult.remove();
-// }
-// const result =
-// document.createElement("section");
+  `Your attention is one of the few resources that cannot be completely recovered after it has been spent. Time can sometimes be rearranged, but an hour filled with constant interruptions may not provide the same value as an hour of focused work. This is why choosing what deserves attention is important. Not every notification needs an immediate response, and not every interesting topic needs to become today's priority. Creating boundaries around focused work can help protect concentration. It is also useful to decide when entertainment and relaxation will happen instead of letting them automatically fill every free moment. Attention should not be treated as something that must always be productive, because relaxation is valuable too. The goal is intentional use rather than constant busyness.`,
 
-// result.className = "result";
+  `A difficult problem can become easier when you write down what you already know. When a situation feels confusing, keeping everything inside your head can make it difficult to see the structure. Writing the known information, the unknown information, and the possible next steps can make the problem clearer. This technique works for mathematics, programming, school projects, planning, and everyday decisions. Sometimes you discover that you already know more than you thought. Other times, writing the problem reveals exactly which piece of information is missing. Once the problem is visible, you can search for that specific information or ask a focused question. Writing is not only useful for recording answers; it can also be a tool for thinking.`,
 
-// result.setAttribute(
-// "aria-label",
-// "Typing test result"
-// );
+  `The quality of practice matters because repetition alone does not guarantee improvement. If you repeatedly make the same mistake without noticing it, you may simply become more comfortable with the mistake. Effective practice includes attention and feedback. After completing an activity, ask what went well and what could be changed. Try to identify one specific weakness instead of judging the entire performance. Then focus your next practice session on that weakness. This creates a cycle of action, observation, adjustment, and repetition. Over time, the cycle can produce meaningful improvement. Whether you are coding, studying, typing, playing a sport, or learning a creative skill, thoughtful practice can be much more valuable than simply spending more time doing the same thing.`,
 
-// const speed =
-// document.createElement("p");
+  `A strong project usually begins with a clear understanding of the problem it is supposed to solve. It can be tempting to start building features immediately, especially when an idea feels exciting. However, spending some time defining the purpose can prevent unnecessary work. Ask who the project is for, what problem it solves, what the most important feature is, and what can be left for later. A simple first version can then be created around the main purpose. Once it works, additional features can be considered. This approach is useful for websites, applications, school projects, and personal experiments. Building fewer things carefully can often teach more than trying to build everything at once. Clarity at the beginning can save significant effort later.`,
 
-// speed.textContent =`
-// Speed: ${testResult.wpm} WPM`;
+  `There is value in doing something simply because you enjoy learning about it. Not every activity needs to become a competition, career, or measurable achievement. Exploring a topic out of curiosity can lead to unexpected discoveries and sometimes reveal interests that later become important. You might learn about space, programming, photography, history, electronics, sports, design, or another subject simply because it seems interesting. Enjoyment can make learning easier to continue because the activity itself provides a reason to return. At the same time, curiosity can remain flexible. You can explore something for a while and move on when your interest changes. Learning does not always need a final destination. Sometimes the process of discovering something new is valuable by itself.`,
 
-// const accuracy =
-// document.createElement("p");
+  `Good teamwork depends on more than dividing tasks. People need to understand what they are responsible for, communicate progress, and share important information. If one person is struggling silently, the entire project can be affected. Asking for help early can prevent a small problem from becoming a major delay. Team members also have different strengths, so allowing people to contribute where they are most useful can improve the overall result. Disagreements are normal, but they should focus on the problem rather than attacking people. Listening to different ideas can sometimes produce a better solution than any individual idea alone. Teamwork becomes stronger when people communicate clearly, respect each other, and remain focused on the shared goal.`,
 
-// accuracy.textContent =
-// `Accuracy: ${testResult.accuracy}%`;
+  `A useful lesson from sports is that performance depends on preparation as well as ability. Talent can help, but practice, technique, concentration, recovery, and consistency also matter. A person may perform differently on different days because many factors affect performance. This is why one result should not be treated as a complete measurement of ability. Instead, look for patterns across multiple attempts. Identify what can be improved and practice that part. Good preparation also includes knowing when to rest and when to seek guidance. Competition can provide motivation, but personal development remains important even when there is no competition. Sports can teach discipline, patience, teamwork, and the ability to respond constructively to both successful and unsuccessful performances.`,
 
-// const words =
-// document.createElement("p");
+  `The internet makes information easy to access, but easy access does not mean every piece of information is reliable. When learning something important, it is useful to consider where the information came from and whether it is supported by trustworthy evidence. Different websites may present conflicting claims, so comparing reliable sources can improve understanding. This is especially important when studying science, technology, history, or current events. Learning how to evaluate information is itself a valuable skill. Instead of believing the first answer that appears, ask who created it, what evidence is provided, and whether other credible sources agree. Digital literacy allows you to use the enormous amount of information available online without accepting every claim automatically.`,
 
-// words.textContent =`
-// Length: ${testResult.paragraphLength} characters`;
+  `A long-term goal can feel distant when you look only at the final result. The distance between where you are now and where you want to be may seem too large to cross in one step. Instead, focus on the actions that move you forward today. One study session, one coding practice, one completed assignment, one useful workout, or one thoughtful review may seem small, but each contributes to the larger process. You do not need to know exactly how every future step will happen. As you gain experience, you can adjust the plan. The important thing is to keep learning and moving in a useful direction. Large achievements are often the result of many ordinary actions performed consistently over time.`,
 
-// const mistypeElement =
-// document.createElement("p");
+  `A person's progress is often built during ordinary moments rather than dramatic ones. Reading a few pages, solving a problem, practicing a skill, organizing a project, or reviewing a mistake may not feel important by itself. However, these small actions create experience. Over time, repeated experience changes what feels difficult and what feels familiar. This is why it can be useful to respect ordinary practice instead of always searching for a big breakthrough. A breakthrough can be exciting, but it is usually supported by many smaller efforts that happened beforehand. When progress feels slow, remember that learning can be happening even when the result is not immediately visible. Keep taking reasonable steps, review what you learn, and allow time for those efforts to accumulate.`,
 
-// mistypeElement.textContent =`
-// Mistypes: ${testResult.mistype}`;
+  `The ability to concentrate is becoming increasingly valuable because there are so many things competing for attention. Messages, videos, games, notifications, websites, and endless streams of information can make it difficult to remain with one task. Concentration can improve when you intentionally create periods without unnecessary interruptions. Start with a manageable amount of time and focus on one clearly defined activity. If your attention moves away, notice it and return to the task without becoming frustrated. You can also keep a small note nearby for unrelated thoughts that appear during work. This prevents you from needing to act on every distraction immediately. Focus is not about eliminating every distraction forever. It is about becoming better at choosing what deserves your attention at a particular moment.`,
 
-// const restartButton =
-// document.createElement("button");
+  `The first version of something does not need to be perfect. Whether you are writing an essay, designing a website, building a program, or creating a project, the first attempt can simply be a starting point. Trying to make everything perfect before finishing anything can slow progress because you spend too much time worrying about details before understanding the complete result. A useful process is to create a basic version, test it, identify weaknesses, and improve it. This is especially important in programming because seeing the whole system working can reveal problems that were difficult to predict beforehand. Improvement becomes easier when there is something concrete to examine. Create, test, learn, and refine. A good final result often comes from several imperfect versions.`,
 
-// restartButton.type = "button";
+  `Understanding your own mistakes can be more valuable than simply being told the correct answer. If someone gives you the solution immediately, you may know what the answer is without understanding why it works. When you investigate the mistake yourself, you have to examine your reasoning and identify where it changed direction. This creates deeper learning. Teachers, tutorials, documentation, and other people can still provide valuable guidance, but trying to understand the problem first can make their explanations more meaningful. When you discover the cause, write it down or explain it in your own words. Later, you may recognize the same pattern much faster. Mistakes become useful when they improve your future decisions instead of simply being forgotten.`,
 
-// restartButton.className =
-// "result-restart-btn btn";
+  `Sometimes progress requires accepting that your original plan was not the best one. Changing direction does not automatically mean that you have failed. You may discover new information, realize that a goal needs to be adjusted, or find a more effective method. Being flexible allows you to respond to reality instead of forcing yourself to follow an outdated plan. This is useful in projects, studying, career exploration, sports, and everyday decisions. A good plan should provide direction while leaving room for learning. If something is not working, pause and examine why. Keep the parts that are useful and change the parts that are not. Adaptability allows you to continue moving forward even when the path becomes different from what you originally expected.`,
 
-// restartButton.setAttribute(
-// "aria-label",
-// "Restart typing test"
-// );
+  `One of the best ways to build knowledge is to revisit important ideas after some time has passed. Information can feel familiar immediately after studying it, but familiarity does not always mean that it will be remembered later. Returning to a concept and trying to recall it without looking can strengthen memory. Practice questions can also show whether you can actually use the information. Reviewing mistakes is especially useful because it directs attention toward weak areas. Instead of repeating everything equally, spend more time on concepts that remain difficult. Learning is not finished when you understand something once. Repetition, application, and review help turn temporary understanding into knowledge that can be used when it matters.`,
 
-// restartButton.title =
-// "Restart typing test";
+  `A balanced life requires recognizing that different responsibilities compete for the same limited time and energy. School, learning, coding, exercise, hobbies, family, friends, and rest can all be important. Trying to give maximum attention to every area simultaneously is usually unrealistic. Priorities can change depending on the day and the situation. During an exam period, studying may receive more attention, while another period may allow more time for projects or hobbies. Balance does not mean giving every activity exactly the same amount of time. It means making room for important areas without allowing one responsibility to completely consume everything else. A flexible balance can support long-term progress because it makes the routine more sustainable and reduces unnecessary pressure.`,
 
-// /*
+  `A useful habit is finishing small tasks before they become large problems. A file that is slightly disorganized, a concept that is only partly understood, or an assignment that has not been started may seem harmless today. If ignored repeatedly, however, small unfinished tasks can accumulate and become stressful. Taking a few minutes to organize something, clarify a question, or complete a simple responsibility can prevent that buildup. This does not mean trying to finish everything immediately. It means noticing which small tasks are easy to resolve and handling them when appropriate. Keeping your surroundings, notes, projects, and responsibilities reasonably organized can make future work easier. Small acts of maintenance often protect you from larger problems later.`,
 
-// Create SVG safely instead of inserting
-// unnecessary HTML.
-// */
-// restartButton.innerHTML = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" >  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/> <path d="M3 3v5h5"/> </svg> ;
-// result.appendChild(speed);
-// result.appendChild(accuracy);
+  `Real improvement often requires honest evaluation. It is easy to focus only on what went well, but understanding weaknesses is equally important. Honest evaluation does not mean being negative about yourself. It means looking at the result clearly and asking what could be improved. After completing a project, consider what was effective, what caused problems, and what you would change next time. After studying, identify which topics you can explain confidently and which ones still require practice. After training, think about technique, consistency, and recovery rather than only the final performance. This process creates useful feedback. The goal is not to criticize yourself but to collect information that helps you make better decisions during the next attempt.`,
 
-// result.appendChild(words);
+  `The ability to keep learning is valuable because the world continues to change. Technologies develop, new information appears, and skills that are useful today may be approached differently in the future. A person who knows how to learn can adapt more easily because they are not dependent on one fixed set of knowledge. Learning does not always require formal classes. It can happen through books, practice, projects, conversations, experiments, and careful observation. The important part is maintaining curiosity and being willing to update your understanding when new evidence appears. You do not need to master everything. Build strong fundamentals, explore areas that interest you, and remain open to learning new things. Continuous learning creates more opportunities to adapt and grow over time.`,
 
-// result.appendChild(mistypeElement);
+  `Every skill has a stage where improvement feels slower than expected. At the beginning, new information can create quick progress because there are many basic things to discover. Later, the remaining weaknesses may be harder to notice and require more focused practice. This can make someone think they are no longer improving, even though deeper learning is happening. During these periods, it helps to change the way you practice. Try more difficult problems, review mistakes, build something practical, or ask someone experienced for feedback. Progress is not always a straight line. Sometimes you need to spend more time understanding a smaller detail before moving forward. Staying patient during slower periods can help you continue until another stage of improvement appears.`,
 
-// result.appendChild(restartButton);
+  `A simple plan can be more useful than a complicated schedule that is difficult to follow. When a routine contains too many rules, missing one part can make the entire plan feel unsuccessful. A simpler approach is to identify the most important tasks and give them reasonable time. For example, you might choose a study goal, a coding goal, some physical activity, and enough time for rest. The exact activities can change depending on the day. What matters is having priorities. A simple plan is also easier to restart after an interruption. Planning should reduce confusion rather than create additional stress. The best schedule is one that supports your responsibilities and can realistically be repeated over a long period.`,
 
-// typingResultContainer.appendChild(result);
+  `Technology can be a powerful learning tool when it is used actively. The internet provides access to tutorials, documentation, educational videos, interactive tools, and communities where people discuss problems. However, simply consuming information does not automatically create skill. Watching many tutorials without practicing can create the feeling of learning without much actual ability. A better approach is to combine learning with application. Read about a concept, try it yourself, make a mistake, investigate the mistake, and then attempt the task again. Technology becomes especially useful when it helps you create something rather than only consume content. The goal should be to use digital resources as tools for understanding, experimenting, communicating, and building useful projects.`,
 
-// restartButton.addEventListener(
-// "click",
-// exitFromResult
-// );
+  `A good question can sometimes save more time than a long search. When you know exactly what you are trying to understand, it becomes easier to find relevant information. This is especially important when working with technical subjects. Instead of searching for a very broad topic, identify the specific problem. For example, if a program is not working, describe what you expected, what actually happened, and where the problem appears. Clear questions lead to clearer explanations. This skill improves with experience because you gradually learn how to describe problems accurately. Asking a teacher, teammate, or experienced person can also be useful when you have already tried reasonable solutions. Good questions are not signs of weakness; they are tools for efficient learning.`,
 
-// /*
+  `Physical activity can teach lessons that apply beyond exercise. Training requires patience because improvements usually develop gradually. It also teaches awareness because technique and movement need attention. Some sessions may feel easier than others, and performance can change depending on energy, sleep, and recovery. This is normal. A balanced approach focuses on developing useful physical abilities while allowing appropriate recovery. Exercise should support health and confidence rather than becoming a constant comparison with other people. Progress can be measured through better technique, improved coordination, increased strength, or greater comfort with movement. The important part is building habits that can be maintained. Regular activity can become one part of a broader lifestyle that includes learning, rest, responsibilities, and enjoyable experiences.`,
 
-// Put keyboard focus on restart button
-// so keyboard/screen-reader users can access it.
-// */
-// restartButton.focus();
-// }
-// /* =========================================================
-// EXIT RESULT
-// ========================================================= */
-// function exitFromResult() {
+  `Good study is more than spending a large number of hours looking at a book. The quality of attention matters. Active methods such as solving questions, recalling information without looking, explaining concepts, and reviewing mistakes can make study sessions more useful. Before beginning, it can help to decide what you want to understand by the end of the session. After studying, testing yourself can reveal whether the information is actually remembered. Difficult topics may require multiple sessions instead of one extremely long session. Taking reasonable breaks can also help maintain concentration. The purpose of studying is to build understanding that can be used later, not simply to increase the number of hours spent sitting with notes. Effective learning combines attention, practice, review, and rest.`,
 
-// const result =
-// document.querySelector(".result");
+  `A project often teaches lessons that a tutorial cannot. Tutorials can provide a clear path, but real projects contain decisions and unexpected problems. You have to decide what features are necessary, how information should be organized, what should happen when something fails, and how different parts should connect. These decisions develop problem-solving ability. Small projects are especially useful because they can be completed and understood without becoming overwhelming. A project does not need to be original or impressive to be valuable. The main purpose is learning. After finishing, reviewing what could be improved can make the next project better. Building repeatedly creates experience that eventually makes larger projects easier to approach.`,
 
-// if (result) {
-// result.remove();
-// }
+  `Being organized can reduce unnecessary mental effort. When tasks, notes, files, and responsibilities are scattered everywhere, the brain has to spend extra energy remembering what needs to happen next. A simple system can make things easier. You might keep a short task list, organize files into clear folders, and write down important ideas instead of trying to remember everything. Organization should be practical rather than complicated. If maintaining the system takes more time than it saves, it may need to be simplified. The purpose is to make useful information easier to find and important tasks easier to start. A small amount of organization each day can prevent larger amounts of confusion later and create a calmer working environment.`,
 
-// isRestart();
-// }
+  `There are times when doing less can produce better results. Trying to improve everything at once can divide attention and make it difficult to see progress in any one area. Choosing a few priorities allows you to give them more focused attention. This does not mean ignoring everything else. It means recognizing that time and energy are limited. For example, you might choose one major learning goal while maintaining other responsibilities at a reasonable level. Once the main goal becomes more stable, another priority can receive greater attention. Progress often becomes easier when there is enough space to concentrate. Knowing what not to focus on can be just as important as knowing what deserves your attention.`,
 
-// /* =========================================================
-// INITIALIZE
-// ========================================================= */
+  `A useful mindset is to treat difficult moments as temporary situations rather than permanent definitions of your ability. A challenging exam, a confusing programming problem, or a disappointing performance can feel important in the moment, but one event does not describe everything you can become. It can provide information about what needs attention. After a difficult experience, take time to identify what happened and what can be changed. Maybe more practice is needed, maybe the method should change, or maybe the goal needs to be divided into smaller steps. The important part is to avoid turning one difficult experience into a conclusion about your entire future. Skills develop through many attempts, and every attempt can provide information for the next one.`,
 
-// isRestart();
+  `Motivation can help you start something, but a routine can help you continue. Motivation often changes depending on mood, sleep, circumstances, and recent experiences. A person may feel highly motivated one day and completely uninterested the next. Building simple routines reduces the need to depend on motivation for every task. If a useful activity already has a normal place in your day, starting it can become easier. This does not mean forcing yourself to work constantly. A good routine should include responsibilities, learning, movement, relaxation, and enough recovery. The purpose of routine is to make important actions more consistent. Over time, repeated behavior can become easier because you spend less mental energy deciding whether to begin.`,
 
+  `The best way to understand whether you truly know something is often to try using it without assistance. Looking at an example can make a concept seem familiar, but solving a new problem independently tests your actual understanding. This is especially useful when studying mathematics, science, programming, or languages. After learning a concept, close your notes and try to explain or apply it. If you get stuck, that is useful information because you now know exactly what needs more practice. Returning to the material becomes more focused instead of simply rereading everything. Active practice can feel harder than passive reading, but that difficulty can make learning more meaningful. The goal is not to avoid mistakes but to discover and fix gaps in understanding.`,
 
+  `Sometimes the biggest obstacle is not the difficulty of a task but the uncertainty about where to begin. When a project has many parts, the mind can keep thinking about the entire challenge instead of taking action. A useful solution is to define the first visible step. If you are building a website, start by deciding what the page needs. If you are studying a chapter, begin with the first concept and write down what you already know. If you are organizing something, choose one small area first. Completing the first step creates information about what should happen next. You do not need to see the entire path before moving forward. Often, progress reveals the path gradually.`,
 
+  `A calm response can be more powerful than a quick reaction. When something unexpected happens, emotions can make a situation feel larger or more urgent than it actually is. Taking a short pause can create enough space to understand what happened before deciding what to do. This does not mean ignoring important problems or avoiding action. It means giving yourself a moment to separate the situation from your first emotional reaction. Calm thinking can make communication clearer and decisions more thoughtful. This skill can be useful during disagreements, difficult assignments, technical problems, competitions, and everyday challenges. Nobody stays calm perfectly all the time, but practicing the habit of pausing and thinking can gradually improve the way you respond to difficult situations.`,
 
+  `Improvement is easier when you know what you are actually trying to improve. Instead of having a vague goal like becoming better, identify a specific skill or behavior. In coding, you might want to improve debugging, JavaScript knowledge, or project structure. In studying, you might focus on understanding a particular chapter or becoming better at solving questions. In sports, you might work on technique, coordination, or endurance. A specific target makes practice more focused because you know what to observe. It also makes progress easier to recognize. You can ask yourself what is better now, what is still difficult, and what should be practiced next. Clear targets turn general effort into purposeful learning and make improvement easier to evaluate.`,
 
+  `A useful lesson from long-term projects is that the exciting beginning does not last forever. At first, a new project can feel interesting because everything is unfamiliar and possibilities seem endless. Later, repetitive tasks may appear boring. This is where consistency becomes important. Progress often depends on completing ordinary tasks that are not especially exciting. Cleaning code, revising notes, practicing fundamentals, fixing small bugs, and reviewing previous mistakes may not feel impressive, but these activities create quality. Learning to continue when excitement decreases is an important part of developing any serious skill. You do not need to love every step. Sometimes the satisfaction comes from seeing what the completed work becomes after many ordinary actions have been finished.`,
 
-const Paragraphes = [`Success does not always come quickly. Sometimes we work hard for a long time without seeing a clear result. During such moments, patience becomes very important. A person who continues learning and improving can eventually make progress. Success is not only about winning or reaching a final goal. It is also about becoming better than we were yesterday. Small improvements may seem unimportant at first, but they can become significant after months of consistent effort. Instead of comparing ourselves with others, it is better to focus on our own progress. Hard work, patience, discipline, and a positive attitude can help us move forward.`,`A healthy lifestyle includes several simple habits that support our everyday activities. Eating a variety of nutritious foods, drinking enough water, getting sufficient sleep, and staying physically active are important parts of a balanced life. Exercise can help improve strength, stamina, coordination, and overall fitness. Rest is equally important because the body and mind need time to recover. Good habits do not need to be complicated. Taking a walk, playing a sport, stretching, or spending time outdoors can be useful activities. The goal should be to build habits that are realistic and sustainable. A balanced lifestyle can help us feel energetic and focused.`,
-`School is an important place for learning, but education is not limited to classrooms. Students learn from teachers, books, friends, experiences, experiments, and even mistakes. School also provides opportunities to develop communication, teamwork, responsibility, and problem-solving skills. Sometimes a subject may seem boring or difficult, but understanding its practical importance can make it more interesting. Asking questions is a good way to understand confusing topics. Students should not be afraid of making mistakes because mistakes are a natural part of learning. A curious student can learn something new from almost every situation and gradually develop a stronger understanding of the world.`,
-`The internet has changed the way people communicate and share information. A message can travel across the world within seconds, and people can learn about events happening in distant places. Students can use online resources to understand difficult topics, practice skills, and find educational material. However, not everything found online is accurate. It is important to check information before believing or sharing it. People should also protect their personal information and use strong passwords for their accounts. Responsible internet use means knowing both its benefits and its risks. When used carefully, the internet can be a powerful tool for learning and communication.`,
-`A good friend can make ordinary days more enjoyable. Friendship is built through trust, respect, honesty, and understanding. Good friends support each other during difficult moments and celebrate each other's achievements. They may have different opinions, hobbies, or personalities, but they can still respect one another. A strong friendship does not require constant agreement. Sometimes friends can disagree and then solve the problem by communicating calmly. It is also important to be a good listener instead of always talking about ourselves. True friendship grows through shared experiences and mutual care. Treating others kindly can help create meaningful and lasting relationships.`,
-`The night sky has fascinated people for thousands of years. When we look upward on a clear night, we can see the Moon, stars, and sometimes bright planets. Space is incredibly large, containing countless stars and galaxies. Scientists use powerful telescopes and spacecraft to learn more about the universe. They study planets, stars, black holes, and many other objects. Space exploration has also helped humans develop useful technologies and understand Earth better. There are still many unanswered questions about the universe. As science advances, future generations may discover new information that changes our understanding of space and our place within it.`,
-`Reading and writing are important skills that help us communicate ideas. Reading exposes us to new words, information, opinions, and stories. Writing allows us to organize our thoughts and explain them clearly to other people. Both skills improve with regular practice. Instead of worrying about making every sentence perfect, beginners should focus on expressing their ideas clearly. Over time, grammar, vocabulary, and sentence structure can improve naturally through practice. Keeping a small journal or writing short paragraphs every day can be useful. Even a few minutes of daily writing can gradually make communication more confident, organized, and effective.`,
-`Teamwork is necessary in many areas of life. A team can combine different skills and ideas to solve problems more effectively. Good teamwork requires communication, cooperation, responsibility, and respect. Every member should understand their role and contribute to the shared goal. Sometimes people may disagree about the best approach, but listening to different opinions can lead to better solutions. A successful team does not depend on one person doing everything. Instead, members support one another and use their individual strengths. Learning to work with others is useful at school, in sports, at work, and in many everyday situations.`,
-`Mistakes are often treated as failures, but they can also be valuable teachers. When something goes wrong, we have an opportunity to understand what happened and find a better approach. A programmer learns from coding errors, a student learns from incorrect answers, and an athlete learns from mistakes during practice. The important thing is to analyze the mistake instead of repeating it without understanding. Nobody performs perfectly all the time. Improvement usually happens through a combination of practice, mistakes, feedback, and correction. If we remain patient and keep trying, mistakes can become useful steps toward better performance and deeper understanding.`,
+  `A useful workspace does not need expensive equipment or a perfect design. What matters is that it supports concentration and makes important materials easy to access. Keeping the area reasonably organized can reduce the time spent searching for things. A comfortable position can also make longer study or computer sessions easier. Digital organization matters too. Clear folders, sensible file names, and a simple project structure can save time later. When everything is scattered, small tasks can become unnecessarily frustrating. Organization is not about making everything look perfect. It is about creating a system that helps you find what you need and return to work quickly. Simple systems are often easier to maintain than complicated ones.`,
 
-`A peaceful environment can make it easier to concentrate and think clearly. When a workspace is organized, it becomes easier to find important books, notes, or tools. Removing unnecessary distractions can also help improve focus. Before starting a task, it is useful to decide exactly what needs to be completed. Working on one important task at a time can prevent confusion. Short breaks can help maintain attention when studying or working for longer periods. Everyone has different preferences, so the best environment may vary from person to person. The main goal is to create a place where learning and productive work feel comfortable and manageable.`
+  `There is a difference between being busy and making progress. A person can spend many hours doing activities and still avoid the most important task. Checking messages, reorganizing files repeatedly, watching tutorials without practicing, or constantly planning can feel productive without producing much improvement. Real progress usually involves some form of meaningful action. This does not mean every minute must create a visible result. Learning and thinking also take time. The useful question is whether your activities are connected to what you actually want to accomplish. At the end of a day, identifying one or two meaningful things you completed can provide a better measure of productivity than simply counting the number of hours you stayed busy.`,
+
+  `Learning becomes more interesting when you connect different subjects together. Coding can connect with mathematics and logic. Sports can connect with physics and biology. History can connect with geography, economics, and culture. Understanding these connections can make individual facts easier to remember because they become part of a larger picture. When learning something new, ask where else the idea appears. A concept from one subject may provide a useful way to understand another. This kind of connected thinking can also improve creativity because knowledge from different areas can combine to produce new ideas. You do not have to study everything at once. Simply noticing relationships between subjects can gradually create a broader and more flexible understanding.`,
+
+  `The way you speak to yourself can influence how you respond to challenges. If every mistake is immediately described as proof that you are incapable, a difficult task can become emotionally heavier. A more useful approach is to describe the situation accurately. Instead of saying that you cannot do something, you can recognize that you cannot do it yet or that you need more practice. This does not mean pretending everything is easy. Honest self-evaluation is important, but it can be combined with the belief that skills can develop. Constructive self-talk helps you focus on actions rather than labels. When you make a mistake, ask what happened, what you can learn, and what you can try differently next time.`,
+  `Progress becomes easier to notice when you keep track of what you are learning. Without any record, small improvements can disappear from your memory. Writing down completed projects, topics studied, problems solved, or skills practiced can show how much has changed over time. A record does not need to be complicated. Even a simple list can be useful. Looking back at older work can also reveal mistakes that you no longer make, which is a strong sign of growth. Tracking should not become a source of unnecessary pressure. Its purpose is to provide information and motivation. When you can see evidence of your effort, it becomes easier to understand that improvement is happening even when daily progress feels slow.`,
+
+  `A useful skill is knowing when to slow down. Moving quickly is not always the same as moving effectively. Sometimes rushing through a lesson means missing an important concept, and rushing through a coding project can create problems that take longer to fix later. Slowing down allows you to pay attention to details, understand instructions, and make better decisions. This does not mean working slowly all the time. It means adjusting your speed according to the situation. Some tasks require quick action, while others require careful thinking. Learning to recognize the difference can improve both efficiency and quality. When something is important or unfamiliar, giving yourself enough time to understand it properly can prevent many unnecessary mistakes.`,
+
+  `A person's attention is influenced by what they repeatedly consume. If most free time is spent jumping between short pieces of entertainment, long periods of focused work may feel more difficult. This does not mean entertainment is bad. Enjoyment and relaxation are normal parts of life. The important thing is maintaining balance and making sure entertainment does not completely replace activities that support long-term goals. Reading, learning, building projects, practicing skills, exercising, and spending time with people can all provide different kinds of value. Being intentional about what receives your attention can change how your days feel. Your time and attention are limited, so choosing where to place them is an important part of building the life you want.`,
+
+  `A difficult subject often becomes easier when you connect it to something familiar. New information can feel confusing when it exists as a collection of unrelated facts. Examples, comparisons, diagrams, experiments, and practical applications can create connections that make the idea easier to remember. For instance, programming concepts can become clearer when you build a small project that uses them, while scientific principles can become easier to understand when you observe an everyday example. Asking how a concept is used outside a textbook can also increase interest. Understanding does not always arrive from reading the same explanation repeatedly. Sometimes a different example or perspective is enough to make the entire topic suddenly clearer.`,
+
+  `The ability to start again is one of the most useful skills a person can develop. A routine may be interrupted, a project may fail, or a period of low motivation may cause progress to slow down. It can be tempting to think that because the plan was broken, there is no point continuing. But progress does not require an uninterrupted record. What matters is returning to useful actions after an interruption. Starting again does not erase previous effort. The experience of what went wrong can actually make the next attempt better. Instead of waiting for a perfect Monday, a new month, or a special date, you can begin with the next reasonable step. Restarting is a normal part of long-term progress.`,
+
+  `Good preparation can make difficult work much easier. Before starting a task, spending a few minutes understanding what is required can prevent confusion later. Preparation might include collecting the necessary materials, reviewing basic information, deciding on a goal, or creating a simple sequence of steps. In coding, preparation can mean understanding the requirements before writing code. In studying, it can mean identifying which topics need the most attention. In sports, it can include appropriate warm-up and understanding the training objective. Preparation does not guarantee that everything will go perfectly, but it reduces avoidable problems. It also makes starting easier because you already know what the first step should be. A little preparation can save a lot of unnecessary effort.`,
+
+  `Being curious about how things work can make everyday life more interesting. A computer, a bicycle, a mobile phone, a website, a game, or even a simple household object contains systems that can be explored. Instead of only using something, you can sometimes ask what happens behind the scenes. This type of curiosity can lead to useful knowledge and new interests. Technology especially provides many opportunities to learn because software and hardware are connected to mathematics, science, design, and communication. You do not need to understand everything immediately. Start with one question and investigate it. The answer may create another question, and that question can lead to another discovery. Curiosity turns ordinary experiences into opportunities for deeper understanding.`,
+
+  `A person's ability is not fixed at one level forever. Skills can improve through learning, practice, feedback, and experience. Someone who struggles with a task today may become comfortable with it after enough practice. This does not mean that everyone will become equally skilled at everything, because interests, opportunities, and individual circumstances are different. It means that current difficulty should not automatically be treated as a permanent limitation. When something feels difficult, focus on identifying what part needs improvement. Then practice that part and check the result. Progress may be uneven, with periods of faster improvement and periods where change is harder to notice. Continuing to learn gives your abilities opportunities to develop over time.`,
+
+  `One useful way to improve decision making is to think about consequences before acting. A quick decision can sometimes be appropriate, but important choices deserve a moment of reflection. Ask what could happen next, what information is missing, and whether there is a safer or more useful alternative. This approach does not require overthinking every small decision. It simply means recognizing when a choice deserves attention. Learning from previous decisions can also improve future judgment. If a particular approach repeatedly causes problems, that pattern is worth noticing. Good decision making develops through experience and reflection. Nobody makes perfect choices every time, but thoughtful people can learn from outcomes and gradually make better decisions.`,
+
+  `The value of a skill often becomes clearer when you use it to create something. Learning concepts is important, but applying them can show whether you truly understand them. In programming, building a small website or application can reveal gaps that tutorials did not expose. In writing, creating an actual article can teach lessons about structure and clarity. In science, performing an appropriate experiment can connect theory with observation. Projects do not need to be impressive or complicated. A simple project that you understand completely can teach more than a large project copied without understanding. Creating things also develops problem solving because real projects rarely work perfectly on the first attempt. Building, testing, fixing, and improving is a powerful way to learn.`,
+  `A strong mindset does not mean thinking positively all the time. It means being able to look at a situation realistically and still search for a useful next step. Some problems cannot be solved immediately, and some plans will not work exactly as expected. Instead of ignoring difficulties, a strong mindset accepts them and focuses on what can be learned. This approach is useful in school, coding, sports, and everyday life. When something becomes difficult, breaking it into smaller parts can make it easier to handle. It is also important to remember that asking for help is completely reasonable when a problem is beyond your current understanding. Growth happens when challenges are treated as opportunities to develop skills rather than as proof that improvement is impossible.`,
+
+  `The beginning of any new skill can feel uncomfortable because your brain is learning unfamiliar patterns. When you start coding, a new programming language may seem confusing. When you begin studying a difficult subject, many concepts may appear unrelated. When you start a sport, even basic movements can require concentration. This discomfort does not necessarily mean that you are bad at the activity. It often means that you are still learning. Repetition gradually makes unfamiliar tasks more understandable. Instead of expecting yourself to perform like an experienced person immediately, focus on understanding the next step. With enough practice, concepts that once required intense concentration can become easier. Being a beginner is not a problem; it is simply the starting point of learning.`,
+
+  `Planning can make difficult goals feel much more manageable. A plan does not need to contain every minute of the day. It can simply identify the most important tasks and give them a reasonable order. For example, you might decide which subject to study first, which coding problem to solve, and when to take a break. A useful plan should leave some flexibility because unexpected things can happen. If one task takes longer than expected, the rest of the schedule may need to change. Planning is not about controlling everything. It is about reducing confusion and making the next action clear. When your priorities are clear, you spend less time deciding what to do and more time actually doing it.`,
+
+  `Attention is a valuable resource because the quality of your work depends partly on where you place it. You can have plenty of time available, but if your attention is constantly interrupted, completing a meaningful task can become difficult. One way to protect attention is to create specific periods for focused work. During that time, unnecessary notifications and distractions can be reduced. It can also help to keep a written list of tasks so that your mind does not need to remember everything at once. When a distracting thought appears, you can note it and return to the current task. Focus is not about never getting distracted. It is about becoming better at noticing distractions and returning your attention to the work that matters.`,
+
+  `Good questions often lead to better learning than simply collecting more information. When you encounter a new topic, asking why, how, when, where, and what would happen if something changed can reveal deeper connections. For example, learning a programming function becomes more useful when you understand not only its syntax but also why it is useful and when another approach might be better. The same principle applies to science and mathematics. Questions turn passive information into active investigation. You do not need to know the perfect question immediately. Even a simple question can lead to another question and eventually to a deeper understanding. Curiosity is valuable because it encourages the mind to explore rather than simply memorize.`,
+
+  `A healthy approach to improvement includes both effort and recovery. Working continuously may seem productive, but the ability to concentrate and perform well can decrease when you are exhausted. Recovery gives your body and mind time to recharge. Sleep, breaks, enjoyable activities, and reasonable amounts of physical movement can all be part of a balanced routine. Rest should not be viewed as something that has to be earned only after extreme effort. It is a normal part of maintaining energy. When you return to a task after proper recovery, you may notice that difficult problems feel easier to approach. Sustainable progress comes from finding a rhythm that allows you to work consistently without expecting yourself to operate at maximum intensity every moment.`,
+
+  `The way you respond to criticism can influence how quickly you improve. Not every criticism is accurate or helpful, but useful feedback can reveal something you did not notice yourself. Instead of immediately becoming defensive, it can be helpful to ask whether the feedback contains a specific point that can be improved. For example, a teacher might identify a weakness in an explanation, or a teammate might notice a problem with communication. You can consider the information, keep what is useful, and ignore what is not constructive. Feedback becomes valuable when it leads to a practical adjustment. Nobody performs perfectly from the beginning. Being willing to listen, evaluate feedback, and improve can help you develop skills more quickly.`,
+
+  `A difficult task becomes less intimidating when you focus on the process instead of the final result. Looking at a large project as one enormous challenge can create unnecessary pressure. Instead, identify the individual steps required to complete it. Each completed step provides a small sense of direction and makes the remaining work clearer. This method is useful for school assignments, programming projects, personal goals, and many other activities. The process may still contain unexpected problems, but those problems can be handled one at a time. You do not need to know exactly how everything will work before you begin. Sometimes the next step becomes clear only after the current step has been completed.`,
+
+  `Improvement often requires changing your method rather than simply increasing your effort. If you repeatedly practice something in the same way and receive the same result, doing more of exactly the same thing may not solve the problem. You can examine what is happening and experiment with another approach. In coding, this might mean reading documentation or testing a smaller part of the program. In studying, it might mean using practice questions instead of only rereading notes. In sports, it could mean working on technique with appropriate guidance. More effort is useful when it is directed effectively. Learning to adjust your method is an important part of becoming better because it turns experience into information and information into smarter action.`,
+
+  `Your future skills are built through what you choose to practice today. Every time you spend focused time learning something useful, you are developing abilities that may help you later. You do not need to know exactly where every skill will lead. Learning programming can improve logical thinking, reading can improve comprehension, mathematics can improve problem solving, and sports can teach discipline and teamwork. Some skills may become important for a career, while others may simply make everyday life easier or more enjoyable. The important thing is to keep exploring and developing useful abilities. A person's interests can change over time, so learning should remain flexible. Building a strong collection of skills gives you more choices when new opportunities appear.`,
+
+  `A good day does not have to be a perfect day. Sometimes plans change, unexpected responsibilities appear, or energy is lower than expected. It is easy to think that the entire day is wasted because one task was missed, but that way of thinking can make a small problem much bigger. A better approach is to look at what can still be completed. Even one useful task can make the remaining part of the day meaningful. Flexibility is an important part of productivity because real life cannot always follow a fixed schedule. The goal should be to make reasonable progress rather than demand perfection from yourself. When a plan changes, adjust it and continue. A flexible mindset makes it easier to stay consistent over weeks and months.`,
+
+  `Practice is what turns information into ability. Reading about a programming concept can give you an idea of how it works, but writing code yourself helps you understand the concept more deeply. The same is true for mathematics, science, sports, music, and many other skills. Practice allows you to discover problems that may not be obvious while simply watching or reading. It also helps your brain become more comfortable with repeated tasks. Effective practice does not mean repeating something mindlessly. It means paying attention, noticing mistakes, and making adjustments. Sometimes practicing a smaller part of a skill is more useful than repeatedly attempting the entire task. With enough thoughtful practice, actions that once required significant concentration can gradually become easier and more natural.`,
+
+  `Comparing your progress with someone else's can make it difficult to appreciate your own improvement. People begin with different experiences, opportunities, strengths, challenges, and amounts of practice. Someone who appears far ahead may have been working on the same skill for much longer. Instead of using another person's progress as a measure of your worth, you can use it as inspiration or information. Ask what you can learn from their approach while still following your own timeline. A better comparison is often between your current abilities and your previous abilities. If you understand something today that was confusing before, that is meaningful progress. Personal growth becomes easier to recognize when you focus on learning rather than constantly measuring yourself against others.`,
+
+  `Asking questions is one of the simplest ways to improve understanding. When something seems confusing, pretending to understand it usually creates more problems later. A clear question identifies the exact point where knowledge is missing. Questions can also lead to deeper thinking because they encourage you to examine assumptions instead of accepting everything immediately. In programming, asking why an error occurs can lead to a better understanding of the language. In science, asking why a result happens can lead to a stronger grasp of the concept. There is no need to feel embarrassed about asking a genuine question. Everyone learns by discovering what they do not know. Curiosity combined with careful questioning can turn confusion into understanding and make difficult subjects much easier to approach.`,
+
+  `The quality of your environment can influence how easily you concentrate. A workspace filled with unnecessary distractions can make even a simple task feel difficult. Organizing the area before starting can reduce interruptions and make the next action clearer. This does not mean that everything needs to be perfectly arranged. A simple setup with the materials you need and fewer distractions can be enough. Digital environments matter too. Closing unnecessary tabs, silencing nonessential notifications, and keeping useful resources nearby can help maintain attention. Your environment should support the behavior you want to repeat. When the easiest option is also the productive option, it becomes simpler to stay consistent. Small environmental changes can sometimes have a surprisingly large effect on concentration and routine.`,
+
+  `One of the most useful skills is knowing how to begin when a task feels difficult. Large projects can create hesitation because the final result seems far away. Instead of thinking about everything that must be completed, identify the smallest useful action you can take right now. Open the document, write the first line, solve the first question, read the first section, or organize the required materials. Starting reduces the uncertainty that exists before action. Once the first step is complete, the next step often becomes clearer. This approach does not make every difficult task easy, but it makes beginning less intimidating. Progress usually requires movement before motivation appears. Taking one manageable step can create momentum and make a larger challenge feel possible.`,
+
+  `Knowledge becomes more valuable when you can explain it in your own words. Memorizing a definition can help temporarily, but explaining the idea without looking at the original material shows whether you actually understand it. This technique can be useful for school subjects, programming concepts, scientific ideas, and many other topics. If you cannot explain something simply, that may indicate that some part of the concept is still unclear. You can then return to the difficult section and study it again. Teaching another person is another useful method because it forces you to organize your thoughts. Understanding grows when information is connected, questioned, practiced, and explained. The goal of learning should be more than remembering words; it should be developing the ability to use and communicate ideas.`,
+
+  `Energy management can be just as important as time management. A person may have several free hours but still struggle to work effectively if they are tired, distracted, or mentally overloaded. This is why sleep, regular meals, movement, breaks, and reasonable schedules matter. Different tasks also require different kinds of attention. Difficult problem solving may be easier when your mind is fresh, while simpler organization can be done when your energy is lower. Understanding your own patterns can help you place important tasks at useful times. The goal is not to maximize work every minute. It is to use available energy intelligently while allowing enough recovery. A balanced approach can make productivity more sustainable and reduce the feeling that every day must be an exhausting competition.`,
+
+  `Small improvements are easy to ignore because they rarely feel impressive in the moment. Learning one new concept, solving one additional problem, writing cleaner code, improving technique, or becoming slightly more organized may seem insignificant by itself. However, repeated improvements can accumulate. After several weeks or months, the difference between the starting point and the current level can become much more noticeable. This is why patience matters. Improvement often happens quietly before it becomes visible. Keeping a simple record of completed tasks or skills learned can make progress easier to recognize. The purpose of tracking is not to create pressure but to provide evidence that effort is producing change. Consistent small improvements can build a strong foundation for larger achievements in the future.`,
+
+  `Being responsible does not mean doing everything perfectly. Responsibility means taking ownership of your choices and making a reasonable effort to handle what is expected of you. If you make a mistake, accepting it can be more useful than trying to blame someone else. Taking responsibility also includes recognizing when you need help. Asking for assistance is not the opposite of responsibility; sometimes it is the responsible thing to do. Good responsibility involves planning, communicating, completing important tasks, and learning from problems. It also means understanding your limits and not making promises that cannot realistically be kept. Over time, responsible behavior builds trust with other people and with yourself. It creates a foundation for becoming more independent and capable in different areas of life.`,
+  `Discipline becomes easier when you understand that you do not need to feel motivated before starting something important. Motivation can be strong one day and weak the next, but useful habits can continue even when your mood changes. A disciplined person does not necessarily work harder than everyone else every day. Instead, they learn how to start, continue, adjust, and return after interruptions. This applies to studying, coding, exercising, reading, and many other activities. The key is to make the first step simple enough that starting does not feel overwhelming. Once you begin, continuing often becomes easier. Discipline is built gradually through repeated choices. Every time you complete an important task despite distractions, you strengthen your ability to manage your attention and follow through on your plans.`,
+
+  `Every mistake contains information that can be useful if you are willing to examine it. When something goes wrong, the first reaction may be frustration, but taking time to understand the reason can turn the experience into learning. In coding, an error message can point toward a problem in the program. In studying, a wrong answer can reveal a concept that needs more practice. In sports, a poor performance can show which part of preparation needs attention. The goal is not to make mistakes deliberately, but to avoid wasting them. Instead of asking only, "Why did I fail?" it can be more helpful to ask, "What can I learn from this?" This change in perspective makes challenges less discouraging and creates opportunities for continuous improvement.`,
+
+  `A productive day does not have to be packed with activities from morning until night. Productivity is better understood as making meaningful progress on important responsibilities while also taking care of yourself. A day with fewer completed tasks can still be successful if those tasks were important and done with proper attention. Trying to do too many things at once can create stress and reduce the quality of work. Choosing a few priorities can make the day easier to manage. It is also important to include breaks, meals, movement, and enough sleep because these support concentration and energy. Productivity should help you live better, not make you feel guilty whenever you are resting. A balanced approach allows effort to continue for longer without becoming exhausting.`,
+
+  `Confidence can grow from keeping small promises to yourself. If you decide to study for a certain amount of time and actually do it, you create evidence that you can follow your own plan. The same thing happens when you practice coding, complete a workout, finish an assignment, or spend time learning something difficult. These small experiences gradually build trust in your own abilities. Confidence does not mean believing that every task will be easy. It means knowing that you can learn, adapt, and ask for help when necessary. Comparing yourself constantly with others can distract you from your own progress. Instead, look at what you could not do before and what you can do now. Personal progress is one of the strongest foundations for genuine confidence.`,
+
+  `Focus is a skill that becomes stronger through practice. In the beginning, concentrating for a long period can feel difficult, especially when there are many distractions nearby. Notifications, social media, games, videos, and constant task switching can make it harder to stay with one activity. A useful strategy is to decide exactly what you want to accomplish before starting. Instead of saying, "I will study," choose something more specific, such as completing a particular topic or solving a certain number of problems. Removing unnecessary distractions can also make concentration easier. When your attention moves away from the task, simply notice it and return without becoming frustrated. Focus does not require perfect concentration every second. It requires repeatedly bringing your attention back to what matters.`,
+
+  `A strong foundation makes advanced learning much easier. When someone wants to become good at coding, mathematics, science, sports, or another skill, it can be tempting to skip basic concepts and immediately study advanced techniques. However, fundamentals are the building blocks that support more complicated ideas. Understanding variables, conditions, functions, and data structures in programming, for example, can make later concepts much easier to understand. The same principle applies to sports and academics. Basic movement, technique, definitions, and core principles may seem simple, but they provide stability. Revisiting fundamentals is not a sign of weakness. Even experienced people regularly review basics when they want to improve. A strong foundation allows you to solve new problems with greater confidence and understanding.`,
+
+  `Goals become more useful when they are connected to a practical plan. Saying that you want to become better at something is a good starting point, but it does not explain what you should do today. A useful goal can be divided into smaller actions that are easy to understand. If someone wants to improve coding, they might choose to learn one concept, practice it, and build a small project. If the goal is academic improvement, they might study a topic, solve questions, and review mistakes. The exact plan can change as new information appears. What matters is having a direction and taking regular action. Progress becomes easier to measure when goals are specific enough to show what has actually been completed.`,
+
+  `Learning from other people can save time because experience often contains lessons that are difficult to discover alone. Teachers, experienced programmers, coaches, books, tutorials, and knowledgeable friends can provide explanations, examples, and different ways of thinking. However, learning from someone does not mean copying everything they do without thinking. Different people have different circumstances and learning styles. It is useful to understand an idea and then decide how it fits your own situation. Asking questions is also an important part of learning. A good question can reveal exactly what you do not understand. Listening carefully to an explanation and then trying the concept yourself can make the knowledge much stronger. Learning becomes most valuable when information turns into understanding and practical ability.`,
+
+  `A setback can change your plan without changing your overall direction. Sometimes an unexpected problem makes a schedule impossible, a project takes longer than expected, or progress becomes slower for a while. It is easy to think that one setback means everything has failed, but that is rarely true. Plans are tools, not permanent rules. If something does not work, you can examine what happened and create a better approach. Maybe the task needs to be divided into smaller steps, the schedule needs more flexibility, or additional practice is required. Being adaptable is an important skill because real life rarely follows a perfect plan. The ability to adjust and continue can be more valuable than creating a plan that only works under perfect conditions.`,
+
+  `Good habits are easier to maintain when they fit naturally into your daily life. A habit that requires an unrealistic amount of effort may work for a short period but become difficult to continue. Starting with manageable actions can make consistency easier. For example, regular reading can begin with a small amount of time, and coding practice can begin with one focused task. As the habit becomes familiar, it can gradually develop. The purpose is not to make every day identical but to create a reliable pattern. If a habit is interrupted, restarting quickly is more important than feeling guilty about the interruption. Over time, repeated small actions can become part of normal life. Sustainable habits create progress because they continue long after the initial excitement disappears.`,
+  `Patience is an important quality because meaningful improvement rarely happens instantly. When someone begins learning a new skill, the early stage can feel difficult and confusing. It is easy to look at someone experienced and wonder why progress is not happening at the same speed. However, everyone starts somewhere, and skills develop through repeated practice. Patience does not mean doing nothing and simply waiting. It means continuing to make reasonable effort while accepting that results may take time. A person who remains patient can focus on learning instead of becoming frustrated by every small mistake. Whether the goal is coding, studying, sports, fitness, or any other skill, steady effort can create progress. Sometimes the biggest changes are invisible at first, but they become obvious after months of consistent work.`,
+
+  `A clear goal can give direction to daily effort. Without a goal, it can be difficult to understand why a particular task matters or where your time should go. A goal does not have to be extremely large. It can be something simple, such as understanding a difficult chapter, completing a small coding project, improving a particular skill, or building a better daily routine. Breaking a large goal into smaller steps makes it easier to begin. Each completed step provides useful feedback and creates a sense of progress. Goals should also be realistic and flexible because circumstances can change. If a plan does not work, the goal does not necessarily need to be abandoned. Sometimes only the method needs to change. A clear goal combined with consistent action can turn an idea into measurable progress.`,
+
+  `Reading is a simple activity that can greatly expand a person's understanding of the world. Books, articles, textbooks, and other reliable sources can introduce ideas that we may never encounter through our normal experiences. Reading also improves vocabulary, comprehension, imagination, and the ability to follow complex explanations. However, reading quickly is not always the same as understanding deeply. Sometimes it is better to slow down, think about an important paragraph, and connect the idea with something already known. Asking questions while reading can make the experience more active. Even a small amount of regular reading can build knowledge over time. The topics do not always have to be academic. Science, history, technology, biographies, stories, and practical subjects can all teach valuable lessons when approached with curiosity.`,
+
+  `Creativity is not limited to artists, writers, or designers. It is also useful in coding, science, mathematics, business, sports, and everyday problem solving. Being creative means looking at a situation from different angles and considering possibilities that may not be obvious at first. Creativity often becomes stronger when people experiment without expecting every attempt to succeed. A failed idea can still provide information that helps create a better one. Curiosity is an important part of creativity because asking questions can reveal new possibilities. It can also help to study how other people solve problems and then try to develop your own approach. Creativity does not require every idea to be completely original. Combining existing ideas in a useful way can also lead to something valuable.`,
+
+  `Good communication is more than simply speaking clearly. It also involves listening carefully, understanding the other person's point of view, and choosing words that match the situation. Sometimes people respond too quickly because they are already preparing what they want to say instead of paying attention to what is being said. Listening can prevent misunderstandings and make conversations more productive. Written communication also benefits from clear structure and simple language. When explaining a difficult idea, examples can make the information easier to understand. It is also important to remember that people may interpret the same words differently depending on their experiences. Good communication improves with practice. Asking questions, listening patiently, explaining ideas clearly, and being willing to correct misunderstandings can make conversations much more effective.`,
+
+  `Consistency is one of the most powerful parts of improvement because skills become stronger through repeated practice. A person does not need to have an extraordinary day every day. Even ordinary practice can be valuable when it happens regularly. For example, solving a few coding problems repeatedly can improve logical thinking, while regular study can strengthen understanding of difficult subjects. Consistency also means returning after an interruption. Missing one day does not erase previous progress, and a difficult week does not mean that the entire plan has failed. The important thing is to restart instead of waiting for a perfect moment. A sustainable routine is usually better than an extreme routine that becomes impossible to maintain. Small actions performed consistently can eventually produce results that once seemed difficult to imagine.`,
+
+  `Curiosity can turn ordinary situations into opportunities for learning. A curious person does not simply accept that something works; they may ask why it works, how it works, and whether it could work differently. This mindset is especially useful when learning science, technology, mathematics, or programming. Asking questions can lead to deeper understanding because it encourages active thinking. Curiosity also helps people discover interests they may not have known about before. Sometimes a simple question can lead to an entire project or a new area of study. However, curiosity should be combined with reliable information and careful thinking. Not every answer found online is accurate. Checking sources and comparing explanations can help separate useful knowledge from misinformation. Staying curious while thinking critically is a powerful combination.`,
+
+  `Rest is an important part of productive living because the brain and body cannot work effectively without recovery. Many people think that working continuously is always better, but tiredness can reduce concentration, learning ability, and performance. Taking appropriate breaks can help maintain attention during longer tasks. Sleep is especially important because it supports physical recovery and normal brain function. Rest does not mean being lazy or avoiding responsibilities. It means understanding that sustainable effort requires recovery. A balanced schedule can include focused work, exercise, study, hobbies, social time, and enough sleep. When people take care of their energy, they can often approach important tasks with better concentration. The goal should not be to stay busy every minute, but to use energy wisely and maintain a healthy rhythm over time.`,
+
+  `Problem solving becomes easier when a large challenge is divided into smaller questions. Looking at an entire difficult problem at once can make it feel overwhelming. Instead, the first step can be identifying exactly what is not working. Then the problem can be separated into smaller parts and each part can be examined individually. This approach is useful in programming, mathematics, school projects, and everyday situations. It is also helpful to test one possible solution at a time rather than changing many things simultaneously. When a solution fails, the result provides information about what to try next. Good problem solving is not about immediately knowing the answer. It is about developing a method for investigating the situation. With practice, difficult problems can become more manageable because the process becomes familiar.`,
+
+  `The future is influenced by the choices we make repeatedly in the present. One single decision may not completely change someone's life, but repeated decisions can create patterns. Choosing to practice a skill, complete responsibilities, take care of health, manage distractions, and learn from mistakes can gradually build useful habits. At the same time, it is important not to become obsessed with predicting exactly what the future will look like. Plans can change, opportunities can appear unexpectedly, and people can discover new interests. A better approach is to build skills and habits that remain useful even when circumstances change. Instead of worrying about controlling everything that will happen, focus on preparing yourself to handle different possibilities. The future cannot be known perfectly, but today's actions can help create more opportunities for tomorrow.`,
+  `Success does not always come quickly. Sometimes we work hard for a long time without seeing a clear result. During such moments, patience becomes very important. A person who continues learning and improving can eventually make progress. Success is not only about winning or reaching a final goal. It is also about becoming better than we were yesterday. Small improvements may seem unimportant at first, but they can become significant after months of consistent effort. Instead of comparing ourselves with others, it is better to focus on our own progress and keep moving forward. Every small step teaches us something valuable and helps us become more capable. The journey itself can be just as meaningful as the destination.`,
+
+  `Coding is a skill that teaches much more than programming languages. It teaches patience, logical thinking, problem solving, and the ability to learn from mistakes. When a program does not work, the best response is not to give up but to understand why it failed. Every error can provide useful information about what needs to be improved. With regular practice, difficult concepts slowly become easier to understand. A beginner may struggle with simple problems at first, but consistent practice can build confidence over time. The important thing is to keep experimenting, asking questions, reading documentation, and building small projects. Coding becomes much more enjoyable when learning is treated as a process rather than a race. Progress comes from curiosity, practice, and the willingness to solve problems.`,
+
+  `Discipline is not about being perfect every single day. It is about continuing to take useful actions even when motivation is low. Some days feel productive, while other days feel difficult or distracting. What matters is the ability to return to the routine instead of completely abandoning it. A person who studies, practices, exercises, or works on a skill regularly can gradually create strong habits. These habits reduce the need to depend on motivation all the time. Discipline also means understanding when rest is necessary and avoiding unrealistic expectations. Progress becomes more sustainable when effort, recovery, and responsibilities are balanced. Small actions repeated consistently can eventually create results that seem much bigger than the individual actions themselves. A strong routine is built through patience and repeated effort.`,
+
+  `Workout is not only about becoming stronger physically. Regular exercise can also teach patience, consistency, concentration, and self-control. When someone starts training, improvement may seem slow at first. A few extra repetitions or better technique may not look like a huge achievement, but these small improvements can become meaningful over time. The important thing is to train safely, use proper technique, recover properly, and give the body enough rest. A good workout routine should support overall health rather than becoming an obsession with appearance. Exercise can be a way to feel more energetic and capable in daily life. The best approach is to focus on gradual progress and enjoy the process of becoming stronger and more active.`,
+
+  `Learning becomes easier when curiosity is stronger than the fear of making mistakes. Nobody understands every subject immediately, and difficult topics often require several attempts before they become clear. Instead of feeling frustrated by confusion, it can be useful to ask better questions and break the topic into smaller parts. Reading, practicing, explaining concepts, and solving problems can strengthen understanding. Mistakes are also a normal part of learning because they show where more attention is needed. A person who stays curious can turn ordinary situations into opportunities to discover something new. Over time, knowledge becomes more useful when it is connected to real examples and practical experience. Learning is not a race against other people; it is a continuous process of becoming more capable.`,
+
+  `Time is one of the most valuable resources because everyone receives a limited number of hours each day. Once a moment passes, it cannot be brought back. This does not mean that every minute must be filled with work. Rest, hobbies, conversations, and enjoyable activities are also important parts of life. The real skill is learning how to use time intentionally. Planning a few important tasks can make a day feel more organized. Avoiding unnecessary distractions can create more space for things that actually matter. Even thirty focused minutes can be useful when they are spent carefully. Instead of trying to control every minute, it is better to build a balanced routine that gives enough time to learning, responsibilities, health, relationships, and rest.`,
+
+  `Failure does not always mean that a person is incapable. Sometimes failure simply shows that a method did not work as expected. When something goes wrong, taking a moment to understand the reason can turn the experience into a lesson. A failed project can reveal a technical problem, a poor plan can reveal missing information, and a difficult exam can show which topics need more practice. The important part is what happens afterward. Giving up immediately prevents the experience from becoming useful, while reflection can help create a better attempt. Everyone makes mistakes while learning new skills. What matters is developing the ability to recover, adjust the approach, and try again with greater understanding.`,
+
+  `Focus becomes easier when attention is directed toward one meaningful task at a time. Modern life contains many distractions, including notifications, entertainment, unnecessary scrolling, and constant switching between activities. When attention keeps moving from one thing to another, even simple work can take much longer. Creating a quiet environment and choosing one clear task can make concentration easier. It also helps to divide large projects into smaller steps because a huge goal can feel overwhelming. Taking short breaks can help maintain energy without turning the entire session into a distraction. Focus is not something that appears perfectly overnight. It can be developed gradually through practice. Every time someone returns their attention to the task, they are strengthening the habit of concentration.`,
+
+  `Confidence grows from experience rather than from simply telling yourself that you are capable. When a person practices a skill, solves problems, completes difficult tasks, and learns from mistakes, they collect evidence that they can handle challenges. Confidence does not require knowing everything. In fact, confident people can admit when they do not understand something and ask for help. Comparing yourself constantly with other people can make progress difficult to notice. A better approach is to compare your current abilities with your previous abilities. If you understand something today that confused you last month, that is real progress. Confidence becomes stronger when effort is consistent and expectations remain realistic. Small achievements can gradually create the belief that bigger challenges are possible.`,
+
+  `A good routine can make daily life easier because it reduces the number of decisions that need to be made repeatedly. When important activities such as studying, coding, exercise, sleep, and relaxation have a reasonable place in the day, it becomes easier to manage responsibilities. However, a routine does not need to be followed perfectly. Unexpected events, schoolwork, tiredness, or family responsibilities can change the plan. The important skill is being able to adjust and continue rather than thinking that one missed task has ruined the entire day. A useful routine should be realistic enough to repeat for a long time. Consistency comes from flexibility, patience, and returning to the plan after interruptions. Over time, a balanced routine can make progress feel more natural.`,
 ];
-let userData = JSON.parse(localStorage.getItem('MastType_User_Data_dvk')) ||[];
-let freshUser = userData.slice(-100);
-userData = freshUser;
+/* =========================================================
+   MastType Pro — Performance & Architecture Optimized Script
+   ========================================================= */
 
-  let thisTest = {};
+// Default Paragraph Fallback Stack (Prevents empty array crashes)
 
-// document.addEventListener('mousemove',(event) => {
-// gsap.to('.cursor',{
-// x: event.clientX,
-// y: event.clientY,
-// duration: .3,
-// ease: 'elastic.out(1)',
-// delay: .1,
-// })
-// })
+let userData = JSON.parse(localStorage.getItem("MastType_User_Data_dvk")) || [];
+userData = userData.slice(-100);
 
-//theme
+let thisTest = {};
+
+/* -------------------------
+   Theme Engine Setup
+   ------------------------- */
 let theme = localStorage.getItem("MastType_Theme_dvk") || "light";
-
 const themeBtn = document.querySelector(".theme-btn");
 const body = document.body;
 
-/* -------------------------
-Apply saved theme
-------------------------- */
-
 function applyTheme() {
-
- 
-const isDark = theme === "dark";
-
-body.dataset.isDark = String(isDark);
-
-themeBtn.classList.toggle(
-    "active-theme-dark",
-    isDark
-);
-
-themeBtn.setAttribute(
-    "aria-pressed",
-    String(isDark)
-);
-
-themeBtn.setAttribute(
+  const isDark = theme === "dark";
+  body.dataset.isDark = String(isDark);
+  themeBtn.classList.toggle("active-theme-dark", isDark);
+  themeBtn.setAttribute("aria-pressed", String(isDark));
+  themeBtn.setAttribute(
     "aria-label",
-    isDark
-        ? "Switch to light mode"
-        : "Switch to dark mode"
-);
- 
-
+    isDark ? "Switch to light mode" : "Switch to dark mode",
+  );
 }
 
-/* -------------------------
-Load saved theme
-------------------------- */
-
 applyTheme();
-
-/* -------------------------
-Theme toggle
-------------------------- */
 
 themeBtn.addEventListener("click", () => {
-
- 
-if (theme === "dark") {
-
-    theme = "light";
-
-} else {
-
-    theme = "dark";
-
-}
-
-
-/* Apply theme */
-
-applyTheme();
-
-
-/* Save theme */
-
-localStorage.setItem(
-    "MastType_Theme_dvk",
-    theme
-);
- 
-
+  theme = theme === "dark" ? "light" : "dark";
+  applyTheme();
+  localStorage.setItem("MastType_Theme_dvk", theme);
 });
 
-
-//test
-
-const paragraphContainer = document.querySelector(".paragraph");
+/* -------------------------
+   DOM Element References
+   ------------------------- */
 const typeAbleText = document.querySelector(".type-able-text");
 const userTyped = document.querySelector(".typed");
-const typingArea = document.querySelector('.paragraph-area')
+const typingArea = document.querySelector(".paragraph-area");
+const userInput = document.querySelector(".user-input");
+const wordController = document.querySelector(".word-controller");
+const typingResultContainer = document.querySelector(".typing");
 
+/* -------------------------
+   Test State Management
+   ------------------------- */
 let typedText = "";
 let paragraph = "";
 let historyParagraph = "";
 let mistype = 0;
-const word$Time = {
-word: 10,
-time: 10,
-}
-let time = {
-isTimerOn: false,
-start: null,
-end: null,
-startTime: () => {
-const startTime = new Date();
-return Date.now();
-},
-endTime: () => {
+const word$Time = { word: 10, time: 10 };
 
-const endTime = new Date();
-return Date.now();
-},
-duration: () => {
-return time.end-time.start;
-},
-}
-function userType(event) {
+let timeState = {
+  isTimerOn: false,
+  start: 0,
+  end: 0,
+  duration: function () {
+    return this.end - this.start;
+  },
+};
 
-if (typingArea.dataset.focus === 'true') {
-if (event.key !== "Backspace" && event.key !== 'Shift') {
-
-if (event.key === paragraph[0]) {
-  if (time.isTimerOn === false) {
-
-  time.start = time.startTime();
-  time.isTimerOn = true;
-  }
-  userTyped.style.color = "green";
-
-  paragraph = paragraph.slice(1, paragraph.length);
-
-  typedText += event.key;
-  typeAbleText.innerText = paragraph;
-  userTyped.innerHTML += `<span class='typed-character'>${typedText[typedText.length-1]}</span>`;
-} else {
-  if (time.isTimerOn === false) {
+/* -------------------------
+   Core Typing Logic
+   ------------------------- */
+function handleCharacterInput(event) {
+  // Ignore non-character action keys
+  if (
+    ["Backspace", "Shift", "Control", "Alt", "Tab", "Escape"].includes(
+      event.key,
+    )
+  ) {
     return;
   }
-  userTyped.style.color = "red";
-  typedText += paragraph[0];
-  paragraph = paragraph.slice(1, paragraph.length);
 
-  typeAbleText.innerText = paragraph;
-  userTyped.innerHTML += `<span class='wrong-character'>${typedText[typedText.length-1]}</span>`;
+  const activeResult = document.querySelector(".result");
+  if (activeResult || paragraph.length === 0) return;
 
-  mistype++;
-  lastCorrect = false;
+  // Start timer on first valid keystroke
+  if (!timeState.isTimerOn) {
+    timeState.start = Date.now();
+    timeState.isTimerOn = true;
+  }
+
+  const expectedChar = paragraph[0];
+  const inputChar = event.key;
+
+  // High-performance DOM Node construction (Avoids innerHTML performance penalty)
+  const charSpan = document.createElement("span");
+
+  if (inputChar === expectedChar) {
+    charSpan.className = "typed-character";
+    charSpan.textContent = inputChar;
+  } else {
+    charSpan.className = "wrong-character";
+    charSpan.textContent = expectedChar;
+    mistype++;
+  }
+
+  userTyped.appendChild(charSpan);
+  typedText += inputChar;
+  paragraph = paragraph.slice(1);
+  typeAbleText.textContent = paragraph;
+
+  // Test Finish Evaluation
+  if (paragraph.length === 0) {
+    finishTest();
+  }
 }
 
-if (paragraph.length === 0) {
-  typingArea.dataset.focus = 'false'
-  time.end = time.endTime();
+function finishTest() {
+  typingArea.dataset.focus = "false";
+  timeState.end = Date.now();
+  userInput.readOnly = true;
 
-  userTyped.innerText = ``;
-  typeAbleText.innerText = '';
+  const durationInSeconds = Math.max(timeState.duration() / 1000, 1);
+  const wpm = Math.round(
+    (historyParagraph.length / 5 / durationInSeconds) * 60,
+  );
+  const accuracy = Math.max(
+    0,
+    100 - Math.floor((mistype / historyParagraph.length) * 100),
+  );
 
-  let speed =  (historyParagraph.length/5)/(time.duration()/1000)*60;
-  let latestDate = new Date()
-  thisTest = {}
-  thisTest.wpm = Math.round(((historyParagraph.length/5)/(time.duration()/1000)*60));
- thisTest.paragraph = historyParagraph;
- thisTest.paragraphLength = historyParagraph.length;
- thisTest.duration = time.duration();
- thisTest.mistype = mistype;
- thisTest.accuracy = 100-Math.floor(((mistype/(Math.floor(thisTest.paragraphLength)))*100));
- thisTest.timedDate = `${latestDate.getFullYear()}-${latestDate.getMonth()+1}-${latestDate.getDate()} ${latestDate.getHours()}:${latestDate.getMinutes()}`;
- console.log(thisTest.timedDate);
- paragraph = ''
- userTyped.innertext = userType;
-  userData.push(thisTest);
-  localStorage.setItem('MastType_User_Data_dvk',JSON.stringify(userData));
-  getResult(thisTest);
-}
-} //else if (event.key === "Backspace") {
-// paragraph = typedText[typedText.length - 1] + paragraph;
-// console.log("then", typedText);
-// typedText = typedText.slice(0, typedText.length - 1);
-// console.log("now ", typedText);
-// userTyped.innerText = typedText;
-// typeAbleText.innerText = paragraph;
+  const latestDate = new Date();
+  thisTest = {
+    wpm: wpm,
+    paragraph: historyParagraph,
+    paragraphLength: historyParagraph.length,
+    duration: timeState.duration(),
+    mistype: mistype,
+    accuracy: accuracy,
+    timedDate: `${latestDate.getFullYear()}-${latestDate.getMonth() + 1}-${latestDate.getDate()} ${latestDate.getHours()}:${latestDate.getMinutes()}`,
+  };
 
-// typeAbleText.innerText = paragraph;
-// }
-}
+  userData.unshift(thisTest);
+  localStorage.setItem("MastType_User_Data_dvk", JSON.stringify(userData));
+  renderResults(thisTest);
 }
 
-document.addEventListener("keydown", (event) => {
-userType(event);
+/* -------------------------
+   Input Listeners & Focus
+   ------------------------- */
+userInput.addEventListener("keydown", (event) => {
+  handleCharacterInput(event);
+  userInput.value = "";
 });
 
+typingArea.addEventListener("click", () => {
+  typingArea.dataset.focus = "true";
+  userInput.focus();
+});
+
+userInput.addEventListener("focus", () => {
+  typingArea.dataset.focus = "true";
+});
+
+userInput.addEventListener("blur", () => {
+  typingArea.dataset.focus = "false";
+});
+
+/* -------------------------
+   Test Reset Controls
+   ------------------------- */
 function isRestart() {
-typingArea.dataset.focus = 'true'
+  typingArea.dataset.focus = "true";
+  userInput.readOnly = false;
+  userInput.focus();
 
-const result = document.querySelector('.result');
-if (result === true) {
+  const selectedText =
+    DEFAULT_PARAGRAPHS[Math.floor(Math.random() * DEFAULT_PARAGRAPHS.length)];
+  const wordLimit = parseInt(wordController.value, 10);
 
+  if (!isNaN(wordLimit)) {
+    paragraph = selectedText.split(" ").slice(0, wordLimit).join(" ");
+  } else {
+    paragraph = selectedText;
+  }
 
-result.remove;
+  typedText = "";
+  mistype = 0;
+  userTyped.innerHTML = "";
+  typeAbleText.textContent = paragraph;
+  historyParagraph = paragraph;
+
+  timeState.isTimerOn = false;
+  timeState.start = 0;
+  timeState.end = 0;
 }
-paragraph = Paragraphes[Math.floor(Math.random() * Paragraphes.length)];
-paragraph = paragraph.slice(0,word$Time.word*5);
-typedText = "";
-userTyped.innerText = '';
-historyParagraph = "";
-mistype = 0;
-time.isTimerOn = false;
-time.start = null;
-time.end = null;
-typeAbleText.innerText = paragraph;
-historyParagraph = paragraph;
-}
 
-localStorage.setItem("name", "dev");
-
-//focus on type bar
-let isFocus = false;
-
-typingArea.addEventListener("click", (event) => {
-
-if (isFocus) {
-isFocus = false;
-typingArea.dataset.focus = 'false';
-
-body.dataset.overflow = 'hide';
-} else {
-isFocus = true;
-typingArea.dataset.focus = 'true';
-body.dataset.overflow = 'show';
-}
-typingArea.dataset.focus = `${typingArea.dataset.focus === "true" ? "false" : "true"}`;
+wordController.addEventListener("change", () => {
+  word$Time.word = wordController.value;
+  isRestart();
 });
 
-//words-length quantity
+/* -------------------------
+   Result Display Engine
+   ------------------------- */
+function renderResults(testResult) {
+  const result = document.createElement("section");
+  result.className = "result";
 
-const timeController = document.querySelector('.time-controller');
-const wordController = document.querySelector('.word-controller');
-const timeWord = document.querySelector('.time-word');
-let isTime = true;
-timeWord.addEventListener('click', () => {
-if (isTime) {
-// timeWord.innerText = 'Time';
+  result.innerHTML = `
+    <h3>Test Completed</h3>
+    <div class="result-grid">
+      <p><strong>Speed:</strong> ${testResult.wpm} WPM</p>
+      <p><strong>Accuracy:</strong> ${testResult.accuracy}%</p>
+      <p><strong>Length:</strong> ${testResult.paragraphLength} Chars</p>
+      <p><strong>Mistypes:</strong> ${testResult.mistype}</p>
+    </div>
+    <button type="button" class="result-restart-btn btn" aria-label="Restart Test">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+        <path d="M3 3v5h5"/>
+      </svg> Active Next Test
+    </button>
+  `;
 
-// timeController.disabled = false;
-// wordController.disabled = true;
-isTime = false;
-} else {
-// timeWord.innerText = 'Word';
+  typingResultContainer.appendChild(result);
 
-// timeController.disabled = true;
-// wordController.disabled = false;
-isTime = true;;
-}
-});
-wordController.addEventListener('change', () => {
-word$Time.word = wordController.value;
-isRestart();
-
-
-
-})
-// timeController.addEventListener('change', () => {
-// word$Time.time = timeController.value;
-// isRestart();
-// console.log(word$Time);
-// })
-
-//result
-
-const typingResultContainer = document.querySelector('.typing');
-
-function getResult(testResult) {
-let result = document.createElement('section');
-result.classList.add('result');
-const speed = document.createElement('p');
-
-const accuracy = document.createElement('p');
-
-const words = document.createElement('p');
-
-const mistype = document.createElement('p');
-
-const restartButton = document.createElement('button');
-
-speed.innerText = `Speed : ${Math.floor(thisTest.wpm)}wpm`;
-
-accuracy.innerText = `Accuracy : ${thisTest.accuracy}%`;
-restartButton.classList.add('result-restart-btn','btn')
-
-restartButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw-icon lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>`;
-
-words.innerText = `Length : ${thisTest.paragraphLength}Characters`;
-
-mistype.innerText = `Mistype : ${thisTest.mistype}Characters`;
-
-result.appendChild(speed);
-
-result.appendChild(accuracy);
-
-result.appendChild(words);
-
-result.appendChild(mistype);
-
-result.appendChild(restartButton)
-
-typingResultContainer.appendChild(result);
-const restartBtnFromResult = document.querySelector('.result-restart-btn');
-
-restartBtnFromResult.addEventListener('click', () => {
-exitFromResult();
-})
-
-
-
-}
-isRestart();
-
-function exitFromResult() {
-const result = document.querySelector('.result');
-result.remove();
-isRestart();
-
+  const restartBtn = result.querySelector(".result-restart-btn");
+  restartBtn.addEventListener("click", () => {
+    result.remove();
+    isRestart();
+  });
 }
 
+// Initial Kickstart
+isRestart();
 
-
+const restartBtn = document.querySelector(".restart");
+restartBtn.addEventListener("click", () => isRestart());

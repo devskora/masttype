@@ -1,469 +1,242 @@
 /* =========================================================
-MastType Pro — Results JavaScript
-Performance • Accessibility • Error Handling • Theme
-========================================================= */
+   MastType Pro — Optimized Results JavaScript
+   SEO • Accessibility (a11y) • Performance • Theme Engine
+   ========================================================= */
 
-/* =========================================================
-DOM ELEMENTS
-========================================================= */
+"use strict";
 
+/* -------------------------
+   Constants & Keys
+   ------------------------- */
+const STORAGE_KEY = "MastType_User_Data_dvk";
+const THEME_KEY = "MastType_Theme_dvk";
+
+/* -------------------------
+   DOM Elements Selection
+   ------------------------- */
 const resultContainer = document.querySelector(".results");
 const themeBtn = document.querySelector(".theme-btn");
 const body = document.body;
 
-/* =========================================================
-CONSTANTS
-========================================================= */
+/* -------------------------
+   Helper Functions
+   ------------------------- */
 
-const STORAGE_KEY = "MastType_User_Data_dvk";
-const THEME_KEY = "MastType_Theme_dvk";
-
-/* =========================================================
-RESULT DATA
-========================================================= */
-
+/**
+ * Safely fetches and parses results from localStorage.
+ * @returns {Array} List of result objects.
+ */
 function getResults() {
+  try {
+    const storedResults = localStorage.getItem(STORAGE_KEY);
+    if (!storedResults) return [];
 
- 
-try {
-
-    const storedResults =
-        localStorage.getItem(STORAGE_KEY);
-
-    if (!storedResults) {
-        return [];
-    }
-
-    const parsedResults =
-        JSON.parse(storedResults);
-
-    return Array.isArray(parsedResults)
-        ? parsedResults
-        : [];
-
-} catch (error) {
-
-    console.error(
-        "MastType Pro: Unable to read saved results.",
-        error
-    );
-
+    const parsedResults = JSON.parse(storedResults);
+    return Array.isArray(parsedResults) ? parsedResults : [];
+  } catch (error) {
+    console.warn("MastType Pro: Unable to read saved results from LocalStorage.", error);
     return [];
-}
- 
-
+  }
 }
 
-/* =========================================================
-SAFE VALUE
-========================================================= */
-
+/**
+ * Sanitizes and provides fallback values for safe rendering.
+ * @param {*} value - Value to check.
+ * @param {string} fallback - Fallback string if value is null/empty.
+ * @returns {string}
+ */
 function safeValue(value, fallback = "—") {
-
- 
-if (
-    value === undefined ||
-    value === null ||
-    value === ""
-) {
+  if (value === undefined || value === null || String(value).trim() === "") {
     return fallback;
+  }
+  return String(value);
 }
 
-return String(value);
- 
-
+/**
+ * Formats date to ISO Standard for accessibility (<time datetime="...">).
+ * @param {string} dateString 
+ * @returns {string}
+ */
+function toISODate(dateString) {
+  const parsedDate = new Date(dateString);
+  return !isNaN(parsedDate.getTime()) ? parsedDate.toISOString() : new Date().toISOString();
 }
 
-/* =========================================================
-CREATE RESULT CARD
-========================================================= */
+/* -------------------------
+   Accessible Card Generation
+   ------------------------- */
 
+/**
+ * Creates an accessible Result Card Element.
+ * @param {Object} data - Test data record.
+ * @param {number} index - Index in result array.
+ * @returns {HTMLElement} Article element card.
+ */
 function createResultCard(data, index) {
+  const card = document.createElement("article");
+  card.className = "result";
+  card.setAttribute("role", "region");
+  card.setAttribute("aria-labelledby", `result-heading-${index}`);
 
- 
-const result = document.createElement("article");
+  const wpmVal = safeValue(data.wpm, "0");
+  const accuracyVal = safeValue(data.accuracy, "0");
+  const lenVal = safeValue(data.paragraphLength, "0");
+  const mistakeVal = safeValue(data.mistype, "0");
+  const rawDate = safeValue(data.timedDate, "Recent");
+  const paragraphVal = safeValue(data.paragraph, "No typing text stored for this session.");
 
-result.className = "result";
+  // Accessible HTML Structure with Semantic HTML5 Definition List
+  card.innerHTML = `
+    <h3 id="result-heading-${index}" class="sr-only">Typing Test Result #${index + 1}</h3>
+    
+    <p class="result-highlight" aria-label="Speed: ${wpmVal} Words Per Minute">
+      <span>Speed:</span> <strong>${wpmVal} WPM</strong>
+    </p>
 
-result.setAttribute(
-    "aria-label",
-    `Typing test result ${index + 1}`
-);
+    <div class="result-grid" role="group" aria-label="Performance Metrics">
+      <p aria-label="Accuracy rate: ${accuracyVal} percent">
+        <span>Accuracy:</span> <strong>${accuracyVal}%</strong>
+      </p>
+      <p aria-label="Total mistakes: ${mistakeVal} characters">
+        <span>Mistakes:</span> <strong>${mistakeVal}</strong>
+      </p>
+      <p aria-label="Paragraph length: ${lenVal} characters">
+        <span>Length:</span> <strong>${lenVal} chars</strong>
+      </p>
+      <p>
+        <span>Time:</span> 
+        <time datetime="${toISODate(rawDate)}">${rawDate}</time>
+      </p>
+    </div>
 
+    <div class="result-details">
+      <h4>Typed Snippet</h4>
+      <p class="result-paragraph">${paragraphVal}</p>
+    </div>
+  `;
 
-/* -------------------------
-   WPM
-------------------------- */
-
-const wpm = document.createElement("h3");
-
-wpm.textContent =
-    `Speed: ${safeValue(data.wpm)} WPM`;
-
-
-/* -------------------------
-   Accuracy
-------------------------- */
-
-const accuracy = document.createElement("p");
-
-accuracy.textContent =
-    `Accuracy: ${safeValue(data.accuracy)}%`;
-
-
-/* -------------------------
-   Paragraph Length
-------------------------- */
-
-const paragraphLength =
-    document.createElement("p");
-
-paragraphLength.textContent =
-    `Paragraph Length: ${safeValue(
-        data.paragraphLength
-    )} characters`;
-
-
-/* -------------------------
-   Paragraph
-------------------------- */
-
-const paragraphLabel =
-    document.createElement("h4");
-
-paragraphLabel.textContent =
-    "Paragraph";
-
-
-const paragraph =
-    document.createElement("p");
-
-paragraph.className =
-    "result-paragraph";
-
-paragraph.textContent =
-    safeValue(
-        data.paragraph,
-        "No paragraph available."
-    );
-
-
-/* -------------------------
-   Mistakes
-------------------------- */
-
-const mistype =
-    document.createElement("p");
-
-mistype.textContent =
-    `Mistakes: ${safeValue(
-        data.mistype
-    )} characters`;
-
-
-/* -------------------------
-   Time
-------------------------- */
-
-const time =
-    document.createElement("time");
-
-const savedDate =
-    safeValue(
-        data.timedDate,
-        "Unknown"
-    );
-
-time.textContent =
-    `Time: ${savedDate}`;
-
-time.setAttribute(
-    "aria-label",
-    `Test time: ${savedDate}`
-);
-
-
-/* =====================================================
-   APPEND
-===================================================== */
-
-result.append(
-    wpm,
-    accuracy,
-    paragraphLength,
-    paragraphLabel,
-    paragraph,
-    mistype,
-    time
-);
-
-
-return result;
- 
-
+  return card;
 }
 
-/* =========================================================
-RENDER RESULTS
-========================================================= */
+/* -------------------------
+   DOM Render Logic
+   ------------------------- */
 
+/**
+ * Renders saved typing results with zero UI flickering.
+ */
 function renderResults() {
+  if (!resultContainer) return;
 
- 
-if (!resultContainer) {
+  const results = getResults();
+
+  // Clear previous DOM Nodes safely
+  resultContainer.replaceChildren();
+
+  /* Empty State Handling */
+  if (results.length === 0) {
+    const emptyState = document.createElement("div");
+    emptyState.className = "empty-results-container";
+    emptyState.setAttribute("role", "status");
+    emptyState.setAttribute("aria-live", "polite");
+
+    emptyState.innerHTML = `
+      <p class="empty-results">
+        No typing tests recorded yet. Complete your first typing test to track progress!
+      </p>
+    `;
+
+    resultContainer.appendChild(emptyState);
     return;
-}
+  }
 
+  /* Fragment batching to prevent reflow issues */
+  const fragment = document.createDocumentFragment();
 
-const results =
-    getResults();
-
-
-/* Clear old results */
-
-resultContainer.replaceChildren();
-
-
-/* Empty state */
-
-if (results.length === 0) {
-
-    const emptyMessage =
-        document.createElement("p");
-
-    emptyMessage.className =
-        "empty-results";
-
-    emptyMessage.textContent =
-        "No typing tests yet. Complete a test to see your results.";
-
-    emptyMessage.setAttribute(
-        "role",
-        "status"
-    );
-
-    resultContainer.appendChild(
-        emptyMessage
-    );
-
-    return;
-}
-
-
-/* DocumentFragment prevents
-   unnecessary repeated DOM updates */
-
-const fragment =
-    document.createDocumentFragment();
-
-
-results.forEach((data, index) => {
-
-    const card =
-        createResultCard(
-            data,
-            index
-        );
-
+  results.forEach((data, index) => {
+    const card = createResultCard(data, index);
     fragment.appendChild(card);
+  });
 
-});
-
-
-resultContainer.appendChild(
-    fragment
-);
- 
-
+  resultContainer.appendChild(fragment);
 }
 
-/* =========================================================
-THEME
-========================================================= */
+/* -------------------------
+   Theme Engine (Storage + System A11y)
+   ------------------------- */
 
 function getSavedTheme() {
-
- 
-try {
-
-    return localStorage.getItem(
-        THEME_KEY
-    );
-
-} catch {
-
+  try {
+    return localStorage.getItem(THEME_KEY);
+  } catch {
     return null;
-}
- 
-
+  }
 }
 
 function saveTheme(theme) {
-
- 
-try {
-
-    localStorage.setItem(
-        THEME_KEY,
-        theme
-    );
-
-} catch {
-
-    /* localStorage may be unavailable */
+  try {
+    localStorage.setItem(THEME_KEY, theme);
+  } catch (error) {
+    console.warn("MastType Pro: Could not save theme preference.", error);
+  }
 }
- 
-
-}
-
-/* =========================================================
-UPDATE THEME UI
-========================================================= */
 
 function updateThemeUI(isDark) {
+  if (!themeBtn) return;
 
- 
-if (!themeBtn) {
-    return;
+  themeBtn.classList.toggle("active-theme-dark", isDark);
+  themeBtn.setAttribute("aria-pressed", String(isDark));
+
+  const modeText = isDark ? "Switch to light theme" : "Switch to dark theme";
+  themeBtn.setAttribute("aria-label", modeText);
+  themeBtn.setAttribute("title", modeText);
 }
-
-
-themeBtn.classList.toggle(
-    "active-theme-dark",
-    isDark
-);
-
-
-themeBtn.setAttribute(
-    "aria-pressed",
-    String(isDark)
-);
-
-
-themeBtn.setAttribute(
-    "aria-label",
-    isDark
-        ? "Switch to light mode"
-        : "Switch to dark mode"
-);
-
-
-themeBtn.setAttribute(
-    "title",
-    isDark
-        ? "Switch to light mode"
-        : "Switch to dark mode"
-);
- 
-
-}
-
-/* =========================================================
-APPLY THEME
-========================================================= */
 
 function applyTheme(theme) {
-
- 
-const isDark =
-    theme === "dark";
-
-
-body.dataset.isDark =
-    String(isDark);
-
-
-updateThemeUI(
-    isDark
-);
- 
-
+  const isDark = theme === "dark";
+  body.dataset.isDark = String(isDark);
+  updateThemeUI(isDark);
 }
-
-/* =========================================================
-INITIAL THEME
-========================================================= */
 
 function initializeTheme() {
+  const savedTheme = getSavedTheme();
 
- 
-const savedTheme =
-    getSavedTheme();
-
-
-/* User's saved preference */
-
-if (
-    savedTheme === "dark" ||
-    savedTheme === "light"
-) {
-
-    applyTheme(
-        savedTheme
-    );
-
+  if (savedTheme === "dark" || savedTheme === "light") {
+    applyTheme(savedTheme);
     return;
+  }
+
+  // Fallback to system user color preference
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  applyTheme(prefersDark ? "dark" : "light");
 }
 
-
-/* System preference fallback */
-
-const prefersDark =
-    window.matchMedia &&
-    window.matchMedia(
-        "(prefers-color-scheme: dark)"
-    ).matches;
-
-
-applyTheme(
-    prefersDark
-        ? "dark"
-        : "light"
-);
- 
-
-}
-
-/* =========================================================
-THEME BUTTON
-========================================================= */
-
+/* -------------------------
+   Event Listeners Setup
+   ------------------------- */
 if (themeBtn) {
+  themeBtn.addEventListener("click", () => {
+    const isCurrentlyDark = body.dataset.isDark === "true";
+    const newTheme = isCurrentlyDark ? "light" : "dark";
 
- 
-themeBtn.addEventListener(
-    "click",
-    () => {
-
-        const isCurrentlyDark =
-            body.dataset.isDark === "true";
-
-
-        const newTheme =
-            isCurrentlyDark
-                ? "light"
-                : "dark";
-
-
-        applyTheme(
-            newTheme
-        );
-
-
-        saveTheme(
-            newTheme
-        );
-
-    }
-);
- 
-
+    applyTheme(newTheme);
+    saveTheme(newTheme);
+  });
 }
 
-/* =========================================================
-INITIALIZE APP
-========================================================= */
+// System theme dynamically update handling
+if (window.matchMedia) {
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+    if (!getSavedTheme()) {
+      applyTheme(e.matches ? "dark" : "light");
+    }
+  });
+}
 
-initializeTheme();
-
-renderResults();
+/* -------------------------
+   Initialize Application
+   ------------------------- */
+document.addEventListener("DOMContentLoaded", () => {
+  initializeTheme();
+  renderResults();
+});
