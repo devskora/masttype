@@ -351,7 +351,7 @@ function handleCharacterInput(event) {
   }
 
   const expectedChar = paragraph[0];
-  const inputChar = event.key;
+  const inputChar = event.target.value;
 
   // High-performance DOM Node construction (Avoids innerHTML performance penalty)
   const charSpan = document.createElement("span");
@@ -409,7 +409,7 @@ function finishTest() {
 /* -------------------------
    Input Listeners & Focus
    ------------------------- */
-userInput.addEventListener("keydown", (event) => {
+userInput.addEventListener("input", (event) => {
   handleCharacterInput(event);
   userInput.value = "";
 });
