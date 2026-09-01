@@ -254,6 +254,7 @@ input:focus-visible {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  /* z-index: -2; */
   border: 1px solid var(--card-border);
   border-radius: var(--radius-lg);
   background: var(--card-bg);
@@ -412,3 +413,26 @@ input:focus-visible {
   }
 }
 
+.result-paragraph {
+  max-height: 50px;
+  /* overflow: hidden; */
+  /* z-index: -3; */
+  overflow-y: auto;
+
+  
+  position: relative;
+}
+
+/* .result::after {
+  content: 'You Can Scroll';
+  margin: 3px;
+  bottom: -3px;
+  z-index: 20;
+  right: -5px;
+  position: absolute;
+  background: var(--accent-primary);
+  border-radius: 30px;
+  padding: 5px 10px;
+  opacity: .1;
+
+} */
