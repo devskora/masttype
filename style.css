@@ -1,3 +1,4 @@
+
 /* =========================================================
    MastType Pro — Refactored UI/UX & Accessible Stylesheet
    ========================================================= */
@@ -145,11 +146,12 @@ input:focus-visible {
   align-items: center;
   gap: 6px;
 }
+
 .header-nav {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
 }
 
 .header-link {
@@ -279,9 +281,18 @@ input:focus-visible {
   color: var(--text-muted);
   transition: all var(--transition-fast);
 }
+
 .result-restart-btn {
-    border: 1px solid rgb(76, 76, 76);
+  border: 1px solid var(--card-border);
+  background: var(--accent-primary);
+  color: #ffffff;
 }
+
+.result-restart-btn:hover {
+  background: var(--accent-hover);
+  color: #ffffff;
+}
+
 .btn:hover:not(:disabled) {
   color: var(--text-main);
   background: rgba(148, 163, 184, 0.12);
@@ -315,11 +326,10 @@ select.btn {
    ------------------------- */
 .paragraph-area {
   width: 100%;
-  min-height: 240px;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   padding: clamp(20px, 4vw, 36px);
   background: var(--card-bg);
   border: 1px solid var(--card-border);
@@ -331,11 +341,15 @@ select.btn {
 
 .paragraph {
   width: 100%;
+  max-height: 45vh;
+  overflow-y: auto;
   font-size: clamp(1.15rem, 2.2vw, 1.45rem);
   line-height: 1.6;
   letter-spacing: 0.02em;
+  font-weight: 600;
   user-select: none;
   word-break: break-word;
+  padding-bottom: 12px;
 }
 
 .typed-character {
@@ -350,14 +364,17 @@ select.btn {
   padding: 0 1px;
 }
 
-/* Input Container & Controls */
+/* Input Container & Sticky Controls */
 .input-container {
   width: 100%;
   max-width: 500px;
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 24px;
+  position: sticky;
+  bottom: 16px;
+  margin-top: 16px;
+  z-index: 10;
 }
 
 .user-input {
@@ -367,8 +384,9 @@ select.btn {
   font-size: 1rem;
   border: 1px solid var(--card-border);
   border-radius: var(--radius-pill);
-  background: rgba(148, 163, 184, 0.08);
+  background: var(--bg-main);
   color: var(--text-main);
+  box-shadow: var(--shadow-md);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
@@ -441,13 +459,15 @@ select.btn {
 /* -------------------------
    Results Modal
    ------------------------- */
-.result {
+.test-result {
   position: fixed;
-  inset: 0;
-  margin: auto;
-  width: min(420px, 90%);
-  height: fit-content;
-  padding: 28px 24px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(90vw, 480px);
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: clamp(20px, 4vw, 32px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -458,21 +478,41 @@ select.btn {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: var(--shadow-lg);
-  z-index: 100;
+  z-index: 1000;
 }
 
 .result-grid {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 12px;
+}
+
+.result-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background: rgba(148, 163, 184, 0.08);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
   text-align: center;
 }
 
-.result-grid p {
-  padding: 12px;
-  background: rgba(148, 163, 184, 0.08);
-  border-radius: var(--radius-sm);
-  font-size: 0.95rem;
-  font-weight: 600;
+.result-grid dt {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.result-grid dd {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+
+.typed {
+  height: auto;
 }
