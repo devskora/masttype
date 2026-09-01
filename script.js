@@ -526,8 +526,13 @@ const container = document.querySelector('.paragraph');
 
 // Jab bhi naya content add ho, niche scroll karwane ke liye:
 function scrollToBottom() {
-  scrollHeight = .36+scrollHeight
+  console.log(window.innerWidth , typingArea.style.height);
+  if (window.innerWidth >= 480 ) {
+
+  
+  scrollHeight = .356+scrollHeight;
   container.scrollTop =scrollHeight-25;
-  console.log(.35/684,.0005116)
+  
+  }
 
 }

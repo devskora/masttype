@@ -1,4 +1,35 @@
+ /* ------------------------- */ 
+:root {
+  --bg-main: #f8fafc;
+  --text-main: #0f172a;
+  --text-muted: #475569;
 
+  --card-bg: rgba(255, 255, 255, 0.75);
+  --card-border: rgba(15, 23, 42, 0.08);
+
+  --accent-primary: #2563eb;
+  --accent-hover: #1d4ed8;
+
+  --correct-color: #10b981;
+  --correct-bg: rgba(16, 185, 129, 0.1);
+  --incorrect-color: #ef4444;
+  --incorrect-bg: rgba(239, 68, 68, 0.15);
+
+  --disabled-bg: rgba(148, 163, 184, 0.16);
+  --disabled-color: #94a3b8;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+}
 /* Footer Styles */
 .footer {
   margin-top: 3rem;
@@ -52,3 +83,25 @@
   margin-bottom: 1rem;
   opacity: 0.9;
 }
+.body {
+  overflow-x: hidden;
+
+}
+.header {
+  overflow-x: auto;
+}
+.header::scroll-marker {
+  border-radius: 30px;
+}
+.header::-webkit-scrollbar {
+  border-radius: 30px;
+  /* background: var(--accent-hover); */
+  position: absolute;
+  bottom: 0;
+left: 0;
+right: 0;
+background: transparent;
+}
+/* .header-nav {
+  position: absolute;
+} */
