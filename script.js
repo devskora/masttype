@@ -317,6 +317,7 @@ let typedText = "";
 let paragraph = "";
 let historyParagraph = "";
 let mistype = 0;
+let scrollHeight = 28-65;
 const word$Time = { word: 10, time: 10 };
 
 let timeState = {
@@ -333,6 +334,7 @@ let timeState = {
    ------------------------- */
 function handleCharacterInput(event) {
   // Ignore non-character action keys
+  scrollToBottom();
   if (
     ["Backspace", "Shift", "Control", "Alt", "Tab", "Escape"].includes(
       event.key,
@@ -369,7 +371,7 @@ function handleCharacterInput(event) {
   typedText += inputChar;
   paragraph = paragraph.slice(1);
   typeAbleText.textContent = paragraph;
-
+scrollToBottom();
   // Test Finish Evaluation
   if (paragraph.length === 0) {
     finishTest();
@@ -431,6 +433,7 @@ userInput.addEventListener("blur", () => {
    Test Reset Controls
    ------------------------- */
 function isRestart() {
+  scrollHeight = 28-65;
   typingArea.dataset.focus = "true";
   userInput.readOnly = false;
   userInput.focus();
@@ -468,21 +471,41 @@ function renderResults(testResult) {
   const result = document.createElement("section");
   result.className = "result";
 
+ 
+
   result.innerHTML = `
-    <h3>Test Completed</h3>
-    <div class="result-grid">
-      <p><strong>Speed:</strong> ${testResult.wpm} WPM</p>
-      <p><strong>Accuracy:</strong> ${testResult.accuracy}%</p>
-      <p><strong>Length:</strong> ${testResult.paragraphLength} Chars</p>
-      <p><strong>Mistypes:</strong> ${testResult.mistype}</p>
-    </div>
-    <button type="button" class="result-restart-btn btn" aria-label="Restart Test">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <section class="test-result" aria-labelledby="result-heading">
+    <h2 id="result-heading">Typing Test Completed</h2>
+    
+    <dl class="result-grid">
+      <div class="result-item">
+        <dt>Speed:</dt>
+        <dd><strong>${testResult.wpm}</strong> WPM</dd>
+      </div>
+      <div class="result-item">
+        <dt>Accuracy:</dt>
+        <dd><strong>${testResult.accuracy}%</strong></dd>
+      </div>
+      <div class="result-item">
+        <dt>Length:</dt>
+        <dd><strong>${testResult.paragraphLength}</strong> Chars</dd>
+      </div>
+      <div class="result-item">
+        <dt>Mistypes:</dt>
+        <dd><strong>${testResult.mistype}</strong></dd>
+      </div>
+    </dl>
+
+    <button type="button" class="result-restart-btn btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
         <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
         <path d="M3 3v5h5"/>
-      </svg> Active Next Test
+      </svg>
+      <span>Start Next Test</span>
     </button>
-  `;
+  </section>
+
+`;
 
   typingResultContainer.appendChild(result);
 
@@ -498,3 +521,13 @@ isRestart();
 
 const restartBtn = document.querySelector(".restart");
 restartBtn.addEventListener("click", () => isRestart());
+
+const container = document.querySelector('.paragraph');
+
+// Jab bhi naya content add ho, niche scroll karwane ke liye:
+function scrollToBottom() {
+  scrollHeight = .36+scrollHeight
+  container.scrollTop =scrollHeight-25;
+  console.log(.35/684,.0005116)
+
+}
