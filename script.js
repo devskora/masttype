@@ -275,32 +275,6 @@ userData = userData.slice(-100);
 let thisTest = {};
 
 /* -------------------------
-   Theme Engine Setup
-   ------------------------- */
-let theme = localStorage.getItem("MastType_Theme_dvk") || "light";
-const themeBtn = document.querySelector(".theme-btn");
-const body = document.body;
-
-function applyTheme() {
-  const isDark = theme === "dark";
-  body.dataset.isDark = String(isDark);
-  themeBtn.classList.toggle("active-theme-dark", isDark);
-  themeBtn.setAttribute("aria-pressed", String(isDark));
-  themeBtn.setAttribute(
-    "aria-label",
-    isDark ? "Switch to light mode" : "Switch to dark mode",
-  );
-}
-
-applyTheme();
-
-themeBtn.addEventListener("click", () => {
-  theme = theme === "dark" ? "light" : "dark";
-  applyTheme();
-  localStorage.setItem("MastType_Theme_dvk", theme);
-});
-
-/* -------------------------
    DOM Element References
    ------------------------- */
 const typeAbleText = document.querySelector(".type-able-text");
@@ -317,6 +291,7 @@ let typedText = "";
 let paragraph = "";
 let historyParagraph = "";
 let mistype = 0;
+let expectTypedText = 0;
 let scrollHeight = 28-65;
 const word$Time = { word: 10, time: 10 };
 
@@ -334,15 +309,27 @@ let timeState = {
    ------------------------- */
 function handleCharacterInput(event) {
   // Ignore non-character action keys
-  scrollToBottom();
   if (
-    ["Backspace", "Shift", "Control", "Alt", "Tab", "Escape"].includes(
+    [ "Shift", "Control", "Alt", "Tab", "Escape"].includes(
       event.key,
     )
   ) {
     return;
   }
-
+  if (event.inputType === "deleteContentBackward") {
+    ableToScroll--
+    const shifting = userTyped.lastChild;
+    userTyped.removeChild(userTyped.lastChild);
+    paragraph = historyParagraph[typedText.length-1]+paragraph;
+    typedText = typedText.slice(0,typedText.length-1);
+    typeAbleText.prepend(shifting);
+  if (expectTypedText > 0) {
+    expectTypedText--
+  }
+    console.log('paragraph is ',paragraph,'\n','typedText is ',typedText);
+    userTyped.style.color = 'var(--correct-color)';
+    return
+  }
   const activeResult = document.querySelector(".result");
   if (activeResult || paragraph.length === 0) return;
 
@@ -353,7 +340,7 @@ function handleCharacterInput(event) {
   }
 
   const expectedChar = paragraph[0];
-  const inputChar = event.target.value;
+  const inputChar = event.target.value[event.target.value.length-1];
 
   // High-performance DOM Node construction (Avoids innerHTML performance penalty)
   const charSpan = document.createElement("span");
@@ -361,18 +348,22 @@ function handleCharacterInput(event) {
   if (inputChar === expectedChar) {
     charSpan.className = "typed-character";
     charSpan.textContent = inputChar;
+    charSpan.style.animation = `correct-character .6s ease-in-out`
+
   } else {
     charSpan.className = "wrong-character";
     charSpan.textContent = expectedChar;
+    charSpan.style.animation = `wrong-character 2s ease-in-out`;
     mistype++;
   }
-
+ableToScroll++
   userTyped.appendChild(charSpan);
   typedText += inputChar;
+  expectTypedText++
   paragraph = paragraph.slice(1);
-  typeAbleText.textContent = paragraph;
-scrollToBottom();
+  typeAbleText.removeChild(typeAbleText.firstChild);
   // Test Finish Evaluation
+scrollToBottom();
   if (paragraph.length === 0) {
     finishTest();
   }
@@ -393,6 +384,26 @@ function finishTest() {
   );
 
   const latestDate = new Date();
+  let xp = 0;
+
+  if (wpm >= 100) {
+    xp = 100;
+  } else if (wpm >= 90) {
+    xp = 80
+  } else if (wpm >= 75) {
+    xp = 70
+  } else if (wpm >= 50) {
+    xp = 40
+  } else if (wpm >= 30) {
+    xp = 30
+  } else if (wpm >= 15) {
+    xp = 10
+  } else if (wpm >= 5) {
+    xp = 5
+  } else {
+    xp = 2;
+  }
+
   thisTest = {
     wpm: wpm,
     paragraph: historyParagraph,
@@ -401,6 +412,7 @@ function finishTest() {
     mistype: mistype,
     accuracy: accuracy,
     timedDate: `${latestDate.getFullYear()}-${latestDate.getMonth() + 1}-${latestDate.getDate()} ${latestDate.getHours()}:${latestDate.getMinutes()}`,
+    xp,
   };
 
   userData.unshift(thisTest);
@@ -413,7 +425,7 @@ function finishTest() {
    ------------------------- */
 userInput.addEventListener("input", (event) => {
   handleCharacterInput(event);
-  userInput.value = "";
+  // userInput.value = "";
 });
 
 typingArea.addEventListener("click", () => {
@@ -433,6 +445,7 @@ userInput.addEventListener("blur", () => {
    Test Reset Controls
    ------------------------- */
 function isRestart() {
+  userInput.value = '';
   scrollHeight = 28-65;
   typingArea.dataset.focus = "true";
   userInput.readOnly = false;
@@ -443,6 +456,7 @@ function isRestart() {
   const wordLimit = parseInt(wordController.value, 10);
 
   if (!isNaN(wordLimit)) {
+
     paragraph = selectedText.split(" ").slice(0, wordLimit).join(" ");
   } else {
     paragraph = selectedText;
@@ -451,11 +465,12 @@ function isRestart() {
   typedText = "";
   mistype = 0;
   userTyped.innerHTML = "";
-  typeAbleText.textContent = paragraph;
+  
+  typeAbleText.innerHTML = getParagraph();
   historyParagraph = paragraph;
 
   timeState.isTimerOn = false;
-  timeState.start = 0;
+  timeState.start = 0;``
   timeState.end = 0;
 }
 
@@ -525,14 +540,42 @@ restartBtn.addEventListener("click", () => isRestart());
 const container = document.querySelector('.paragraph');
 
 // Jab bhi naya content add ho, niche scroll karwane ke liye:
+let ableToScroll = 0;
+let height = 0;
 function scrollToBottom() {
-  console.log(window.innerWidth , typingArea.style.height);
-  if (window.innerWidth >= 480 ) {
-
+   if (Math.floor(container.offsetWidth/18) <= ableToScroll) {
+    ableToScroll = 0;
+ height = height+(parseFloat(getComputedStyle(container).fontSize)*1.5)
+ console.log(height, 'is height lksdjflaksdjf')
+  container.scrollTop =height;
   
-  scrollHeight = .356+scrollHeight;
-  container.scrollTop =scrollHeight-25;
+  console.log(ableToScroll)
+ 
+   }
   
-  }
+  console.log(ableToScroll,'heheheheheh')
+console.log(container.offsetWidth, ableToScroll)
+ 
 
 }
+console.log(705/18)
+
+function getParagraph() {
+  let string = '';
+  for (let i = 0; i< paragraph.length;i++ ) {
+    string += `<span class='type-able-paragraph-characters'>${paragraph[i]}</span>`
+  }
+  return string;
+};
+
+function checkUserDevice() {
+  if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
+    console.log('mobile')
+    container.classList.add('mobile')
+  } else {
+    console.log('destop');
+    container.classList.remove('mobile')
+    
+  }
+}
+checkUserDevice();

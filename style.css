@@ -6,52 +6,6 @@
 /* -------------------------
    Root Variables & Themes
    ------------------------- */
-:root {
-  --bg-main: #f8fafc;
-  --text-main: #0f172a;
-  --text-muted: #475569;
-
-  --card-bg: rgba(255, 255, 255, 0.75);
-  --card-border: rgba(15, 23, 42, 0.08);
-
-  --accent-primary: #2563eb;
-  --accent-hover: #1d4ed8;
-
-  --correct-color: #10b981;
-  --correct-bg: rgba(16, 185, 129, 0.1);
-  --incorrect-color: #ef4444;
-  --incorrect-bg: rgba(239, 68, 68, 0.15);
-
-  --disabled-bg: rgba(148, 163, 184, 0.16);
-  --disabled-color: #94a3b8;
-
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
-
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --radius-pill: 999px;
-
-  --transition-fast: 0.15s ease;
-  --transition-normal: 0.25s ease;
-}
-
-body[data-is-dark="true"] {
-  --bg-main: #0b0f17;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-
-  --card-bg: rgba(17, 24, 39, 0.65);
-  --card-border: rgba(255, 255, 255, 0.1);
-
-  --accent-primary: #3b82f6;
-  --accent-hover: #60a5fa;
-
-  --correct-color: #34d399;
-  --incorrect-color: #f87171;
-}
 
 /* -------------------------
    Reset & Base Setup
@@ -177,27 +131,8 @@ input:focus-visible {
 }
 
 /* Theme Switcher Button */
-.theme-btn {
-  position: relative;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-pill);
-  background: var(--card-bg);
-  cursor: pointer;
-  box-shadow: var(--shadow-sm);
-  transition: transform var(--transition-fast), background-color var(--transition-fast);
-}
 
-.theme-btn svg {
-  width: 16px;
-  height: 16px;
-  color: var(--text-main);
-  transition: transform var(--transition-fast);
-}
+
 
 /* -------------------------
    Main Layout & Hero Section
@@ -308,18 +243,6 @@ input:focus-visible {
   cursor: not-allowed;
 }
 
-select.btn {
-  appearance: none;
-  -webkit-appearance: none;
-  padding-right: 32px;
-  border: 1px solid var(--card-border);
-  background: var(--card-bg);
-  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
-                    linear-gradient(135deg, currentColor 50%, transparent 50%);
-  background-position: calc(100% - 14px) 16px, calc(100% - 9px) 16px;
-  background-size: 5px 5px, 5px 5px;
-  background-repeat: no-repeat;
-}
 
 /* -------------------------
    Typing Workspace & Text Area
@@ -355,13 +278,16 @@ select.btn {
 .typed-character {
   color: var(--correct-color);
   font-weight: 600;
+  border-radius: 3px;
+
 }
 
 .wrong-character {
-  color: var(--incorrect-color);
-  background-color: var(--incorrect-bg);
+  color: var(--correct-color);
+  
   border-radius: 3px;
   padding: 0 1px;
+  text-decoration:line-through;
 }
 
 /* Input Container & Sticky Controls */
@@ -396,16 +322,20 @@ select.btn {
 }
 
 .restart {
-  width: 44px;
-  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  max-height: 44px;
+  max-width: 44px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
+  
   border: 1px solid var(--card-border);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-full-round);
   background: var(--card-bg);
+  
   color: var(--text-main);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
@@ -418,8 +348,9 @@ select.btn {
 }
 
 .restart svg {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  scale: 1.6;
+  height: 25px;
 }
 
 /* -------------------------
@@ -515,4 +446,44 @@ select.btn {
 
 .typed {
   height: auto;
+}
+
+@keyframes wrong-character {
+  0% {
+    color: var(--incorrect-color);
+
+  background-color: var(--incorrect-bg);
+  }
+  100% {
+    color: var(--correct-color);
+    background-color: transparent;
+  }
+}
+@keyframes correct-character {
+  0% {
+    color: var(--accent-primary);
+    background-color: var(--correct-bg);
+  }
+  100% {
+    color: var(--correct-color);
+    background-color: transparent;
+  }
+}
+.theme-input {
+  padding: 5px;
+  background-color: blue;
+}
+.type-able-paragraph-characters,.wrong-character,.typed-character {
+  min-width: 18px;
+  max-width: 18px;
+  height: auto;
+  text-align: center;
+  /* background-color: #05966860; */
+  display: inline-block;
+
+
+}
+
+.mobile {
+  max-height: 40vh;
 }

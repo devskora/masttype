@@ -165,78 +165,78 @@ function renderResults() {
    Theme Engine (Storage + System A11y)
    ------------------------- */
 
-function getSavedTheme() {
-  try {
-    return localStorage.getItem(THEME_KEY);
-  } catch {
-    return null;
-  }
-}
+// function getSavedTheme() {
+//   try {
+//     return localStorage.getItem(THEME_KEY);
+//   } catch {
+//     return null;
+//   }
+// }
 
-function saveTheme(theme) {
-  try {
-    localStorage.setItem(THEME_KEY, theme);
-  } catch (error) {
-    console.warn("MastType Pro: Could not save theme preference.", error);
-  }
-}
+// function saveTheme(theme) {
+//   try {
+//     localStorage.setItem(THEME_KEY, theme);
+//   } catch (error) {
+//     console.warn("MastType Pro: Could not save theme preference.", error);
+//   }
+// }
 
-function updateThemeUI(isDark) {
-  if (!themeBtn) return;
+// function updateThemeUI(isDark) {
+//   if (!themeBtn) return;
 
-  themeBtn.classList.toggle("active-theme-dark", isDark);
-  themeBtn.setAttribute("aria-pressed", String(isDark));
+//   themeBtn.classList.toggle("active-theme-dark", isDark);
+//   themeBtn.setAttribute("aria-pressed", String(isDark));
 
-  const modeText = isDark ? "Switch to light theme" : "Switch to dark theme";
-  themeBtn.setAttribute("aria-label", modeText);
-  themeBtn.setAttribute("title", modeText);
-}
+//   const modeText = isDark ? "Switch to light theme" : "Switch to dark theme";
+//   themeBtn.setAttribute("aria-label", modeText);
+//   themeBtn.setAttribute("title", modeText);
+// }
 
-function applyTheme(theme) {
-  const isDark = theme === "dark";
-  body.dataset.isDark = String(isDark);
-  updateThemeUI(isDark);
-}
+// function applyTheme(theme) {
+//   const isDark = theme === "dark";
+//   body.dataset.isDark = String(isDark);
+//   updateThemeUI(isDark);
+// }
 
-function initializeTheme() {
-  const savedTheme = getSavedTheme();
+// function initializeTheme() {
+//   const savedTheme = getSavedTheme();
 
-  if (savedTheme === "dark" || savedTheme === "light") {
-    applyTheme(savedTheme);
-    return;
-  }
+//   if (savedTheme === "dark" || savedTheme === "light") {
+//     applyTheme(savedTheme);
+//     return;
+//   }
 
-  // Fallback to system user color preference
-  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-  applyTheme(prefersDark ? "dark" : "light");
-}
+//   // Fallback to system user color preference
+//   const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+//   applyTheme(prefersDark ? "dark" : "light");
+// }
 
-/* -------------------------
-   Event Listeners Setup
-   ------------------------- */
-if (themeBtn) {
-  themeBtn.addEventListener("click", () => {
-    const isCurrentlyDark = body.dataset.isDark === "true";
-    const newTheme = isCurrentlyDark ? "light" : "dark";
+// /* -------------------------
+//    Event Listeners Setup
+//    ------------------------- */
+// if (themeBtn) {
+//   themeBtn.addEventListener("click", () => {
+//     const isCurrentlyDark = body.dataset.isDark === "true";
+//     const newTheme = isCurrentlyDark ? "light" : "dark";
 
-    applyTheme(newTheme);
-    saveTheme(newTheme);
-  });
-}
+//     applyTheme(newTheme);
+//     saveTheme(newTheme);
+//   });
+// }
 
-// System theme dynamically update handling
-if (window.matchMedia) {
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-    if (!getSavedTheme()) {
-      applyTheme(e.matches ? "dark" : "light");
-    }
-  });
-}
+// // System theme dynamically update handling
+// if (window.matchMedia) {
+//   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+//     if (!getSavedTheme()) {
+//       applyTheme(e.matches ? "dark" : "light");
+//     }
+//   });
+// }
 
 /* -------------------------
    Initialize Application
    ------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
-  initializeTheme();
+  // initializeTheme();
   renderResults();
 });
