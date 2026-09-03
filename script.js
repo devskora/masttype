@@ -326,7 +326,6 @@ function handleCharacterInput(event) {
   if (expectTypedText > 0) {
     expectTypedText--
   }
-    console.log('paragraph is ',paragraph,'\n','typedText is ',typedText);
     userTyped.style.color = 'var(--correct-color)';
     return
   }
@@ -363,7 +362,7 @@ ableToScroll++
   paragraph = paragraph.slice(1);
   typeAbleText.removeChild(typeAbleText.firstChild);
   // Test Finish Evaluation
-scrollToBottom();
+// scrollToBottom();
   if (paragraph.length === 0) {
     finishTest();
   }
@@ -546,19 +545,14 @@ function scrollToBottom() {
    if (Math.floor(container.offsetWidth/18) <= ableToScroll) {
     ableToScroll = 0;
  height = height+(parseFloat(getComputedStyle(container).fontSize)*1.5)
- console.log(height, 'is height lksdjflaksdjf')
   container.scrollTop =height;
   
-  console.log(ableToScroll)
  
    }
   
-  console.log(ableToScroll,'heheheheheh')
-console.log(container.offsetWidth, ableToScroll)
  
 
 }
-console.log(705/18)
 
 function getParagraph() {
   let string = '';
@@ -570,10 +564,8 @@ function getParagraph() {
 
 function checkUserDevice() {
   if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
-    console.log('mobile')
     container.classList.add('mobile')
   } else {
-    console.log('destop');
     container.classList.remove('mobile')
     
   }

@@ -4,7 +4,6 @@ const body = document.body;
 
 function applyTheme() {
   theme =  theme|| themeInput.value ;
-  console.log(theme);
   body.dataset.theme = String(theme);
   themeInput.classList.toggle("active-theme-dark", theme);
   themeInput.setAttribute("aria-pressed", String(theme));
