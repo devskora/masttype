@@ -409,8 +409,6 @@ function handleCharacterInput(event) {
     typeAbleText.removeChild(typeAbleText.firstChild);
   }
 
-  scrollToBottom();
-
   if (paragraph.length === 0) {
     finishTest();
   }
