@@ -3,17 +3,27 @@ const themeInput = document.querySelector(".theme-input");
 const body = document.body;
 
 function applyTheme() {
-  theme =  theme|| themeInput.value ;
-  body.dataset.theme = String(theme);
-  themeInput.classList.toggle("active-theme-dark", theme);
-  themeInput.setAttribute("aria-pressed", String(theme));
+  // Body dataset update karein
+  body.dataset.theme = theme;
   
+  // Input/Select element ki value set karein taaki dropdown mein sahi theme selected dikhe
+  if (themeInput) {
+    themeInput.value = theme;
+    
+    // Class toggle tabhi karein jab dark theme ho (boolean check)
+    themeInput.classList.toggle("active-theme-dark", theme === "dark");
+    themeInput.setAttribute("aria-pressed", String(theme === "dark"));
+  }
 }
 
+// Initial theme apply karein page load par
 applyTheme();
 
-themeInput.addEventListener("change", (e) => {
-  theme = e.target.value;
-  applyTheme();
-  localStorage.setItem("MastType_Theme_dvk", theme);
-});
+// Event listener
+if (themeInput) {
+  themeInput.addEventListener("change", (e) => {
+    theme = e.target.value;
+    localStorage.setItem("MastType_Theme_dvk", theme);
+    applyTheme();
+  });
+}

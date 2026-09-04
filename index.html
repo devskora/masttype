@@ -4,24 +4,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#0b0f17" />
+
+    <!-- Performance: Preload Critical Styles -->
+    <link rel="preload" href="./global.css" as="style" />
+    <link rel="preload" href="./style.css" as="style" />
 
     <!-- Primary SEO -->
     <title>MastType Pro — Free Typing Test, WPM & Accuracy Tracker</title>
     <meta
       name="description"
-      content="MastType Pro is a free online typing test and practice platform. Test your typing speed, measure WPM and accuracy, and improve your typing skills seamlessly."
+      content="MastType Pro is a free online typing test platform. Measure your WPM, accuracy, and improve your typing skills seamlessly."
     />
     <meta
       name="keywords"
-      content="typing test, WPM test, typing speed test, practice typing, accuracy tracker"
+      content="typing test, WPM test, typing speed test, practice typing, accuracy tracker, masttype"
     />
-
-    <link rel="icon" type="image/x-icon" href="favicon.png" />
-
-
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <meta name="author" content="MastType Pro" />
+    <meta name="author" content="Devskora" />
     <link rel="canonical" href="https://devskora.github.io/masttype/" />
 
     <!-- Open Graph / Facebook / LinkedIn -->
@@ -37,6 +37,10 @@
     <meta property="og:url" content="https://devskora.github.io/masttype/" />
     <meta property="og:site_name" content="MastType Pro" />
     <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://devskora.github.io/masttype/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="MastType Pro Typing Speed Test Dashboard" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -45,13 +49,14 @@
       name="twitter:description"
       content="Free typing practice and typing tests with real-time WPM and accuracy tracking."
     />
+    <meta name="twitter:image" content="https://devskora.github.io/masttype/og-image.png" />
 
     <!-- Favicon -->
-    <link rel="icon" href="./favicon.png" sizes="any" />
+    <link rel="icon" type="image/x-icon" href="./favicon.png" />
 
-    <!-- Stylesheet -->
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./global.css" />
     <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="./global.css"/>
 
     <!-- Structured Data / JSON-LD for SEO -->
     <script type="application/ld+json">
@@ -63,6 +68,11 @@
         "description": "Free online typing test and practice platform to measure WPM and accuracy.",
         "applicationCategory": "EducationalApplication",
         "operatingSystem": "All",
+        "author": {
+          "@type": "Person",
+          "name": "Devskora",
+          "url": "https://github.com/devskora"
+        },
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -73,19 +83,17 @@
   </head>
 
   <body>
-    <!-- Skip Navigation for Screen Readers & Keyboard Users -->
+    <!-- Accessibility: Skip Link -->
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <!-- Custom Cursor -->
+    <!-- Custom Cursor (Pure Decorative) -->
     <div class="cursor" aria-hidden="true"></div>
 
     <header class="header">
-      <nav class="header-nav" aria-label="Main navigation">
+      <nav class="header-nav" aria-label="Main Navigation">
         <ul>
           <li class="header-link-list-item">
-            <a href="./index.html" class="header-link" aria-current="page"
-              >HOME</a
-            >
+            <a href="./index.html" class="header-link" aria-current="page">HOME</a>
           </li>
           <li class="header-link-list-item">
             <a href="#typing" class="header-link">TYPING</a>
@@ -101,25 +109,24 @@
           </li>
         </ul>
 
-        <select class="theme-input btn"
-        aria-label="Change Theme" >
-        <option value="dark">Dark</option>
-        <option value="light">Light</option>
-        <option value="warm">Warm</option>
-        <!-- <option value="cool">Cool</option> -->
-
-        
+        <label for="theme-select" class="sr-only">Select Theme</label>
+        <select class="theme-input btn" id="theme-select">
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+          <option value="forest">Forest</option>
+          <option value="monochrome">Monochrome</option>
+          <option value="crimson">Crimson</option>
+          <option value="warm">Warm</option>
+          <option value="kids">Kids</option>
         </select>
-       
       </nav>
     </header>
 
-    <main class="main" id="main-content">
+    <main class="main" id="main-content" tabindex="-1">
       <section class="hero" aria-labelledby="page-title">
         <h1 id="page-title">MastType Pro</h1>
         <p>
-          Free typing tests to measure your WPM, accuracy, and improve your
-          overall typing speed.
+          Free typing tests to measure your WPM, accuracy, and improve your overall typing speed.
         </p>
       </section>
 
@@ -127,26 +134,17 @@
         <h2 class="sub-heading" id="typing-heading">Typing Test</h2>
 
         <!-- Test Settings -->
-        <form
-          class="setting"
-          aria-label="Typing test settings"
-          id="typing-settings"
-        >
+        <form class="setting" aria-label="Typing test options" id="typing-settings" onsubmit="return false;">
           <div class="mode sub-setting">
-            <button type="button" class="btn time-word" aria-pressed="true">
-              Time
+            <button type="button" class="btn time-word" aria-pressed="true" id="mode-toggle">
+              Words
             </button>
           </div>
 
           <div class="time sub-setting">
             <div>
-              <label for="time-controller" class="sr-only">Test duration</label>
-              <select
-                class="btn time-controller"
-                id="time-controller"
-                name="time"
-                disabled
-              >
+              <label for="time-controller" class="sr-only">Test duration in seconds</label>
+              <select class="btn time-controller" id="time-controller" name="time" disabled>
                 <option value="10">10 seconds</option>
                 <option value="20">20 seconds</option>
                 <option value="30">30 seconds</option>
@@ -157,16 +155,10 @@
             </div>
 
             <div>
-              <label for="word-controller" class="sr-only"
-                >Number of words</label
-              >
-              <select
-                class="btn word-controller"
-                id="word-controller"
-                name="words"
-              >
+              <label for="word-controller" class="sr-only">Number of words to type</label>
+              <select class="btn word-controller" id="word-controller" name="words">
                 <option value="10">10 words</option>
-                <option value="20">20 words</option>
+                <option value="20" selected>20 words</option>
                 <option value="40">40 words</option>
                 <option value="80">80 words</option>
                 <option value="100">100 words</option>
@@ -176,51 +168,53 @@
           </div>
         </form>
 
-        <!-- Typing Area -->
-        <section class="paragraph-area" aria-label="Typing test area">
-          <div class="paragraph" aria-label="Text display container">
+        <!-- Typing Interactive Area -->
+        <section class="paragraph-area" aria-label="Typing Practice Container">
+          <div class="paragraph" id="target-text-container" role="region" aria-label="Target passage container">
             <span class="typed" aria-hidden="true"></span>
             <span class="type-able-text" id="target-text"></span>
           </div>
 
-          <label for="user-typing-input" class="sr-only"
-            >Type the text here</label
-          >
           <div class="input-container">
+            <label for="user-typing-input" class="sr-only">Type the displayed text here</label>
             <input
-            type="text"
-            id="user-typing-input"
-            placeholder="Start typing here..."
-            class="user-input"
-            autocomplete="off"
-            capitalize="none"
-            spellcheck="false"
-          />
-          <button
-            type="button"
-            class="restart btn"
-            aria-label="Restart typing test"
-            title="Restart typing test"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-              focusable="false"
+              type="text"
+              id="user-typing-input"
+              placeholder="Start typing here..."
+              class="user-input"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="none"
+              spellcheck="false"
+              aria-describedby="target-text-container"
+            />
+            <button
+              type="button"
+              class="restart btn"
+              id="restart-btn"
+              aria-label="Restart typing test"
+              title="Restart typing test (Hotkey: Tab + Enter)"
             >
-              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-              <path d="M3 3v5h5" />
-            </svg>
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                <path d="M3 3v5h5" />
+              </svg>
+            </button>
           </div>
-          <!-- Live status for screen readers -->
+
+          <!-- Dynamic Status Update Container for Screen Readers -->
           <div
             class="sr-only"
             aria-live="polite"
@@ -228,10 +222,13 @@
             id="typing-status"
           ></div>
         </section>
+
+        <!-- Results Live Area Target -->
+        <div class="typing-result-container"></div>
       </section>
     </main>
 
-    <!-- Footer for AdSense Compliance -->
+    <!-- Footer -->
     <footer class="footer">
       <nav aria-label="Footer navigation">
         <ul class="footer-links">
@@ -244,9 +241,10 @@
       <p>&copy; 2026 MastType Pro. All rights reserved.</p>
     </footer>
 
-    <!-- Main JavaScript -->
+    <!-- Main JavaScript (Deferred Loading) -->
     <script src="./script.js" type="module"></script>
-    <script src="./dark-light.js"></script>
+    <script src="./dark-light.js" defer></script>
   </body>
 </html>
+
 

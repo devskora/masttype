@@ -4,63 +4,90 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#2563eb" />
 
-    <!-- Primary SEO Meta Tags -->
-    <title>Privacy Policy — MastType Pro | Data Protection & Cookies</title>
+    <!-- Advanced Primary SEO Meta Tags -->
+    <title>Privacy Policy | MastType Pro — Data Protection & Cookie Policy</title>
     <meta
       name="description"
-      content="Read the Privacy Policy for MastType Pro. Learn how we collect, use, and protect your data, as well as our policies regarding cookies and Google AdSense advertising."
+      content="Read the official Privacy Policy for MastType Pro. Learn how we handle local data storage, cookies, analytics, and Google AdSense privacy compliance."
     />
     <meta
       name="keywords"
-      content="MastType Pro privacy policy, data privacy, Google AdSense cookies, user data protection, typing test privacy"
+      content="MastType Pro privacy policy, data privacy, Google AdSense cookies, user data protection, typing test privacy, privacy compliance"
     />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="author" content="MastType Pro" />
     <link rel="canonical" href="https://devskora.github.io/masttype/privacy-policy.html" />
 
-    <!-- Open Graph / Facebook / LinkedIn SEO -->
+    <!-- Open Graph / Social SEO -->
     <meta property="og:type" content="article" />
-    <meta
-      property="og:title"
-      content="Privacy Policy — MastType Pro"
-    />
+    <meta property="og:title" content="Privacy Policy — MastType Pro | Data Protection & Cookies" />
     <meta
       property="og:description"
-      content="Understand how MastType Pro manages user privacy, cookies, and Google AdSense data compliance."
+      content="Understand how MastType Pro manages user privacy, local storage, cookies, and Google AdSense data compliance."
     />
     <meta property="og:url" content="https://devskora.github.io/masttype/privacy-policy.html" />
     <meta property="og:site_name" content="MastType Pro" />
     <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://devskora.github.io/masttype/assets/og-privacy.png" />
+    <meta property="og:image:alt" content="MastType Pro Privacy Policy Information" />
 
     <!-- Twitter / X SEO -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Privacy Policy — MastType Pro" />
     <meta
       name="twitter:description"
-      content="Read the official Privacy Policy of MastType Pro."
+      content="Read the official Privacy Policy and cookie usage guidelines of MastType Pro."
     />
+    <meta name="twitter:image" content="https://devskora.github.io/masttype/assets/og-privacy.png" />
 
-    <!-- Favicon -->
+    <!-- Favicon & App Icons -->
     <link rel="icon" href="./favicon.png" sizes="any" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 
     <!-- Global CSS -->
     <link rel="stylesheet" href="./global.css" />
 
-    <!-- Structured Data / JSON-LD for SEO -->
+    <!-- Schema.org JSON-LD Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "Privacy Policy — MastType Pro",
-        "url": "https://devskora.github.io/masttype/privacy-policy.html",
-        "description": "Privacy Policy and Google AdSense cookie guidelines for MastType Pro users.",
-        "isPartOf": {
-          "@type": "WebApplication",
-          "name": "MastType Pro",
-          "url": "https://devskora.github.io/masttype/"
-        }
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://devskora.github.io/masttype/privacy-policy.html",
+            "url": "https://devskora.github.io/masttype/privacy-policy.html",
+            "name": "Privacy Policy — MastType Pro",
+            "description": "Privacy Policy and Google AdSense cookie guidelines for MastType Pro users.",
+            "inLanguage": "en-US",
+            "isPartOf": {
+              "@type": "WebApplication",
+              "@id": "https://devskora.github.io/masttype/#website",
+              "name": "MastType Pro",
+              "url": "https://devskora.github.io/masttype/",
+              "applicationCategory": "EducationalApplication",
+              "operatingSystem": "All"
+            },
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://devskora.github.io/masttype/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Privacy Policy",
+                  "item": "https://devskora.github.io/masttype/privacy-policy.html"
+                }
+              ]
+            }
+          }
+        ]
       }
     </script>
 
@@ -75,7 +102,7 @@
       :root {
         --bg-main: #f8fafc;
         --text-main: #0f172a;
-        --text-muted: #475569;
+        --text-muted: #334155;
 
         --card-bg: rgba(255, 255, 255, 0.75);
         --card-border: rgba(15, 23, 42, 0.08);
@@ -107,7 +134,7 @@
       body[data-is-dark="true"] {
         --bg-main: #0b0f17;
         --text-main: #f8fafc;
-        --text-muted: #94a3b8;
+        --text-muted: #cbd5e1;
 
         --card-bg: rgba(17, 24, 39, 0.65);
         --card-border: rgba(255, 255, 255, 0.1);
@@ -117,6 +144,39 @@
 
         --correct-color: #34d399;
         --incorrect-color: #f87171;
+      }
+
+      /* Multi-theme support */
+      body[data-theme="forest"] {
+        --bg-main: #061e14;
+        --text-main: #f0fdf4;
+        --text-muted: #a7f3d0;
+        --accent-primary: #10b981;
+        --accent-hover: #34d399;
+      }
+
+      body[data-theme="crimson"] {
+        --bg-main: #1a0507;
+        --text-main: #fff1f2;
+        --text-muted: #fecdd3;
+        --accent-primary: #f43f5e;
+        --accent-hover: #fb7185;
+      }
+
+      body[data-theme="warm"] {
+        --bg-main: #fffbe8;
+        --text-main: #422006;
+        --text-muted: #78350f;
+        --accent-primary: #d97706;
+        --accent-hover: #b45309;
+      }
+
+      body[data-theme="kids"] {
+        --bg-main: #fefce8;
+        --text-main: #1e1b4b;
+        --text-muted: #3730a3;
+        --accent-primary: #6366f1;
+        --accent-hover: #4f46e5;
       }
 
       /* -------------------------
@@ -263,6 +323,17 @@
         height: 16px;
         color: var(--text-main);
         transition: transform var(--transition-fast);
+      }
+
+      .theme-input {
+        padding: 6px 12px;
+        border-radius: var(--radius-pill);
+        border: 1px solid var(--card-border);
+        background: var(--card-bg);
+        color: var(--text-main);
+        font-weight: 600;
+        font-size: 0.85rem;
+        cursor: pointer;
       }
 
       /* -------------------------
@@ -450,19 +521,22 @@
           </li>
         </ul>
 
-         <select class="theme-input btn"
-        aria-label="Change Theme" >
-        <option value="dark">Dark</option>
-        <option value="light">Light</option>
-        <option value="warm">Warm</option>
-        <!-- <option value="cool">Cool</option> -->
-
-        
-        </select>
+        <div class="theme-selector-wrapper">
+          <label for="theme-select" class="sr-only">Change Theme</label>
+          <select id="theme-select" class="theme-input btn">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+            <option value="forest">Forest</option>
+            <option value="monochrome">Monochrome</option>
+            <option value="crimson">Crimson</option>
+            <option value="warm">Warm</option>
+            <option value="kids">Kids</option>
+          </select>
+        </div>
       </nav>
     </header>
 
-    <main class="main" id="main-content">
+    <main class="main" id="main-content" tabindex="-1">
       <section class="hero" aria-labelledby="page-title">
         <h1 id="page-title">Privacy Policy</h1>
         <p>Learn how MastType Pro collects, protects, and handles your information.</p>
@@ -508,7 +582,7 @@
       </section>
     </main>
 
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
       <nav aria-label="Footer navigation">
         <ul class="footer-links">
           <li><a href="./about.html">About Us</a></li>
@@ -520,8 +594,26 @@
       <p>&copy; 2026 MastType Pro. All rights reserved.</p>
     </footer>
 
-    <script src="./dark-light.js" type="module"></script>
-    
+    <script type="module">
+      import './dark-light.js';
+
+      const themeSelect = document.getElementById('theme-select');
+
+      // Theme Change Handler
+      themeSelect?.addEventListener('change', (e) => {
+        const selectedTheme = e.target.value;
+        document.body.setAttribute('data-theme', selectedTheme);
+        document.body.setAttribute('data-is-dark', selectedTheme === 'dark' ? 'true' : 'false');
+        localStorage.setItem('masttype-theme', selectedTheme);
+      });
+
+      // Restore Saved Theme on Load
+      const savedTheme = localStorage.getItem('masttype-theme') || 'dark';
+      if (themeSelect) {
+        themeSelect.value = savedTheme;
+        document.body.setAttribute('data-theme', savedTheme);
+        document.body.setAttribute('data-is-dark', savedTheme === 'dark' ? 'true' : 'false');
+      }
+    </script>
   </body>
 </html>
-

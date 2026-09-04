@@ -4,10 +4,6 @@
    ========================================================= */
 
 /* -------------------------
-   Root Variables & Themes
-   ------------------------- */
-
-/* -------------------------
    Reset & Base Setup
    ------------------------- */
 *,
@@ -21,6 +17,7 @@
 html {
   scroll-behavior: smooth;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -32,6 +29,8 @@ body {
   color: var(--text-main);
   transition: background-color var(--transition-normal), color var(--transition-normal);
   line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* -------------------------
@@ -57,8 +56,8 @@ body {
   padding: 10px 18px;
   border-radius: var(--radius-pill);
   background: var(--accent-primary);
-  color: #ffffff !important;
-  font-weight: 600;
+  color: var(--accent-text) !important;
+  font-weight: 700;
   text-decoration: none;
   box-shadow: var(--shadow-md);
   transition: top var(--transition-fast);
@@ -66,6 +65,8 @@ body {
 
 .skip-link:focus {
   top: 20px;
+  outline: 3px solid var(--text-main);
+  outline-offset: 2px;
 }
 
 button:focus-visible,
@@ -92,13 +93,17 @@ input:focus-visible {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+  scrollbar-width: thin;
 }
 
-.header-nav ul {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.header::-webkit-scrollbar {
+  height: 4px;
+}
+
+.header::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: var(--radius-pill);
 }
 
 .header-nav {
@@ -108,16 +113,24 @@ input:focus-visible {
   align-items: center;
 }
 
+.header-nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .header-link {
-  display: block;
+  display: inline-flex;
+  align-items: center;
   padding: 8px 18px;
   border-radius: var(--radius-pill);
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   font-weight: 700;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   color: var(--text-muted);
   text-decoration: none;
-  transition: color var(--transition-fast), background var(--transition-fast);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .header-link:hover {
@@ -126,13 +139,9 @@ input:focus-visible {
 }
 
 .header-link[aria-current="page"] {
-  color: #ffffff;
+  color: var(--accent-text);
   background: var(--accent-primary);
 }
-
-/* Theme Switcher Button */
-
-
 
 /* -------------------------
    Main Layout & Hero Section
@@ -143,6 +152,7 @@ input:focus-visible {
   flex-direction: column;
   align-items: center;
   padding: 24px 0 60px;
+  flex: 1 0 auto;
 }
 
 .hero {
@@ -156,6 +166,7 @@ input:focus-visible {
   font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--text-main);
+  line-height: 1.15;
 }
 
 .hero p {
@@ -201,48 +212,56 @@ input:focus-visible {
 }
 
 .btn {
-  height: 38px;
+  height: 40px;
   padding: 0 16px;
-  border: 1px solid transparent;
+  border: 1px solid var(--card-border);
   border-radius: var(--radius-pill);
-  background: transparent;
+  background: var(--card-bg);
+  color: var(--text-main);
   cursor: pointer;
   font-size: 0.875rem;
+  font-weight: 600;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  display: flex;
-  gap: 3px;
-  font-weight: 600;
-  color: var(--text-muted);
+  gap: 6px;
   transition: all var(--transition-fast);
 }
 
-.result-restart-btn {
-  border: 1px solid var(--card-border);
-  background: var(--accent-primary);
-  color: #ffffff;
-}
-
-.result-restart-btn:hover {
-  background: var(--accent-hover);
-  color: #ffffff;
-}
-
 .btn:hover:not(:disabled) {
+  border-color: var(--accent-primary);
   color: var(--text-main);
   background: rgba(148, 163, 184, 0.12);
 }
 
 .btn[aria-pressed="true"] {
   background: var(--accent-primary);
-  color: #ffffff;
+  color: var(--accent-text);
+  border-color: var(--accent-primary);
 }
 
 .btn:disabled {
-  opacity: 0.4;
+  background: var(--disabled-bg);
+  color: var(--disabled-color);
+  opacity: 0.6;
   cursor: not-allowed;
+  border-color: transparent;
 }
 
+select.btn {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 36px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-position: right 12px center;
+  background-size: 16px;
+  background-repeat: no-repeat;
+}
+
+select.btn option {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
 
 /* -------------------------
    Typing Workspace & Text Area
@@ -267,27 +286,46 @@ input:focus-visible {
   max-height: 45vh;
   overflow-y: auto;
   font-size: clamp(1.15rem, 2.2vw, 1.45rem);
-  line-height: 1.6;
+  line-height: 1.7;
   letter-spacing: 0.02em;
   font-weight: 600;
   user-select: none;
   word-break: break-word;
   padding-bottom: 12px;
+  scrollbar-width: thin;
+}
+
+.paragraph::-webkit-scrollbar {
+  width: 6px;
+}
+
+.paragraph::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: var(--radius-pill);
+}
+
+/* Character States Alignment */
+.type-able-paragraph-characters,
+.wrong-character,
+.typed-character {
+  min-width: 1ch;
+  height: auto;
+  text-align: center;
+  display: inline-block;
+  border-radius: 3px;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .typed-character {
   color: var(--correct-color);
+  background-color: var(--correct-bg);
   font-weight: 600;
-  border-radius: 3px;
-
 }
 
 .wrong-character {
-  color: var(--correct-color);
-  
-  border-radius: 3px;
-  padding: 0 1px;
-  text-decoration:line-through;
+  color: var(--incorrect-color);
+  background-color: var(--incorrect-bg);
+  padding: 0 0px;
 }
 
 /* Input Container & Sticky Controls */
@@ -318,43 +356,39 @@ input:focus-visible {
 
 .user-input:focus {
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
 }
 
 .restart {
-  min-width: 44px;
-  min-height: 44px;
-  max-height: 44px;
-  max-width: 44px;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  
   border: 1px solid var(--card-border);
   border-radius: var(--radius-full-round);
   background: var(--card-bg);
-  
   color: var(--text-main);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
-  transition: transform var(--transition-fast), background-color var(--transition-fast);
+  transition: transform var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast);
 }
 
 .restart:hover {
   transform: rotate(45deg);
+  border-color: var(--accent-primary);
   background: rgba(148, 163, 184, 0.15);
 }
 
 .restart svg {
-  width: 25px;
-  scale: 1.6;
-  height: 25px;
+  width: 20px;
+  height: 20px;
 }
 
 /* -------------------------
-   Custom Pointer & Reduced Motion
+   Custom Pointer & Motion Utilities
    ------------------------- */
 .cursor {
   position: fixed;
@@ -371,7 +405,7 @@ input:focus-visible {
   transition: transform 0.05s ease-out;
 }
 
-@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+@media (hover: none), (pointer: coarse) {
   .cursor {
     display: none !important;
   }
@@ -384,6 +418,9 @@ input:focus-visible {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+  }
+  .cursor {
+    display: none !important;
   }
 }
 
@@ -438,28 +475,36 @@ input:focus-visible {
 }
 
 .result-grid dd {
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 1.25rem;
+  font-weight: 800;
   color: var(--text-main);
 }
 
-
-.typed {
-  height: auto;
+.result-restart-btn {
+  width: 100%;
+  border: 1px solid var(--card-border);
+  background: var(--accent-primary);
+  color: var(--accent-text);
 }
 
-@keyframes wrong-character {
+.result-restart-btn:hover {
+  background: var(--accent-hover);
+  color: var(--accent-text);
+}
+
+/* Keyframes for Character Typing Feedback */
+@keyframes wrong-character-flash {
   0% {
     color: var(--incorrect-color);
-
-  background-color: var(--incorrect-bg);
+    background-color: var(--incorrect-bg);
   }
   100% {
-    color: var(--correct-color);
+    color: var(--incorrect-color);
     background-color: transparent;
   }
 }
-@keyframes correct-character {
+
+@keyframes correct-character-flash {
   0% {
     color: var(--accent-primary);
     background-color: var(--correct-bg);
@@ -469,21 +514,75 @@ input:focus-visible {
     background-color: transparent;
   }
 }
-.theme-input {
-  padding: 5px;
-  background-color: blue;
-}
-.type-able-paragraph-characters,.wrong-character,.typed-character {
-  min-width: 18px;
-  max-width: 18px;
-  height: auto;
+
+/* -------------------------
+   Footer & Legal Pages
+   ------------------------- */
+.footer {
+  margin-top: auto;
+  width: 100%;
+  padding: 2rem 1rem;
+  border-top: 1px solid var(--card-border);
   text-align: center;
-  /* background-color: #05966860; */
-  display: inline-block;
-
-
+  color: var(--text-muted);
 }
 
-.mobile {
-  max-height: 40vh;
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
+
+.footer-links a {
+  color: var(--text-main);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.footer-links a:hover {
+  color: var(--accent-primary);
+  text-decoration: underline;
+}
+
+.legal-page {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  line-height: 1.7;
+}
+
+.legal-page h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-main);
+}
+
+.legal-page h2 {
+  font-size: 1.4rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-main);
+}
+
+.legal-page p,
+.legal-page ul {
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+}
+
+/* Responsive Viewports Optimization */
+@media (max-width: 600px) {
+  .paragraph {
+    max-height: 35vh;
+  }
+  
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

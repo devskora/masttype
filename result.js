@@ -1,5 +1,7 @@
+
+
 /* =========================================================
-   MastType Pro — Optimized Results JavaScript
+   MastType Pro — High-Performance Results Module
    SEO • Accessibility (a11y) • Performance • Theme Engine
    ========================================================= */
 
@@ -15,7 +17,7 @@ const THEME_KEY = "MastType_Theme_dvk";
    DOM Elements Selection
    ------------------------- */
 const resultContainer = document.querySelector(".results");
-const themeBtn = document.querySelector(".theme-btn");
+const themeSelect = document.querySelector("#theme-select");
 const body = document.body;
 
 /* -------------------------
@@ -40,16 +42,21 @@ function getResults() {
 }
 
 /**
- * Sanitizes and provides fallback values for safe rendering.
- * @param {*} value - Value to check.
+ * Sanitizes text to prevent XSS attacks while preserving formatting.
+ * @param {*} value - Value to escape.
  * @param {string} fallback - Fallback string if value is null/empty.
  * @returns {string}
  */
-function safeValue(value, fallback = "—") {
+function escapeHTML(value, fallback = "—") {
   if (value === undefined || value === null || String(value).trim() === "") {
     return fallback;
   }
-  return String(value);
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 /**
@@ -62,12 +69,29 @@ function toISODate(dateString) {
   return !isNaN(parsedDate.getTime()) ? parsedDate.toISOString() : new Date().toISOString();
 }
 
+/**
+ * Formats readable human date string.
+ * @param {string} dateString 
+ * @returns {string}
+ */
+function formatHumanDate(dateString) {
+  const parsedDate = new Date(dateString);
+  if (isNaN(parsedDate.getTime())) return "Recent";
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  }).format(parsedDate);
+}
+
 /* -------------------------
    Accessible Card Generation
    ------------------------- */
 
 /**
- * Creates an accessible Result Card Element.
+ * Creates an accessible Result Card Element using semantic Definition Lists (<dl>).
  * @param {Object} data - Test data record.
  * @param {number} index - Index in result array.
  * @returns {HTMLElement} Article element card.
@@ -75,47 +99,85 @@ function toISODate(dateString) {
 function createResultCard(data, index) {
   const card = document.createElement("article");
   card.className = "result";
-  card.setAttribute("role", "region");
+  card.setAttribute("role", "article");
   card.setAttribute("aria-labelledby", `result-heading-${index}`);
 
-  const wpmVal = safeValue(data.wpm, "0");
-  const accuracyVal = safeValue(data.accuracy, "0");
-  const lenVal = safeValue(data.paragraphLength, "0");
-  const mistakeVal = safeValue(data.mistype, "0");
-  const rawDate = safeValue(data.timedDate, "Recent");
-  const paragraphVal = safeValue(data.paragraph, "No typing text stored for this session.");
+  const wpmVal = escapeHTML(data.wpm, "0");
+  const accuracyVal = escapeHTML(data.accuracy, "0");
+  const lenVal = escapeHTML(data.paragraphLength, "0");
+  const mistakeVal = escapeHTML(data.mistype, "0");
+  const rawDate = escapeHTML(data.timedDate, new Date().toISOString());
+  const paragraphVal = escapeHTML(data.paragraph, "No typing text recorded for this session.");
 
-  // Accessible HTML Structure with Semantic HTML5 Definition List
+  // Accessible HTML Structure with Semantic HTML5 Definition List for WCAG compliance
   card.innerHTML = `
-    <h3 id="result-heading-${index}" class="sr-only">Typing Test Result #${index + 1}</h3>
-    
-    <p class="result-highlight" aria-label="Speed: ${wpmVal} Words Per Minute">
-      <span>Speed:</span> <strong>${wpmVal} WPM</strong>
-    </p>
+    <header class="result-card-header">
+      <h3 id="result-heading-${index}">Test Session #${index + 1}</h3>
+      <time class="result-time" datetime="${toISODate(rawDate)}">
+        ${formatHumanDate(rawDate)}
+      </time>
+    </header>
 
-    <div class="result-grid" role="group" aria-label="Performance Metrics">
-      <p aria-label="Accuracy rate: ${accuracyVal} percent">
-        <span>Accuracy:</span> <strong>${accuracyVal}%</strong>
-      </p>
-      <p aria-label="Total mistakes: ${mistakeVal} characters">
-        <span>Mistakes:</span> <strong>${mistakeVal}</strong>
-      </p>
-      <p aria-label="Paragraph length: ${lenVal} characters">
-        <span>Length:</span> <strong>${lenVal} chars</strong>
-      </p>
-      <p>
-        <span>Time:</span> 
-        <time datetime="${toISODate(rawDate)}">${rawDate}</time>
-      </p>
+    <div class="result-highlight" aria-label="Typing speed: ${wpmVal} Words Per Minute">
+      <span class="label">Speed</span>
+      <span class="value">${wpmVal} <abbr title="Words Per Minute">WPM</abbr></span>
     </div>
 
-    <div class="result-details">
-      <h4>Typed Snippet</h4>
+    <dl class="result-grid" aria-label="Performance Details">
+      <div class="metric">
+        <dt>Accuracy</dt>
+        <dd><strong>${accuracyVal}%</strong></dd>
+      </div>
+      <div class="metric">
+        <dt>Mistakes</dt>
+        <dd><strong>${mistakeVal}</strong></dd>
+      </div>
+      <div class="metric">
+        <dt>Length</dt>
+        <dd><strong>${lenVal} <abbr title="characters">chars</abbr></strong></dd>
+      </div>
+    </dl>
+
+    <details class="result-details">
+      <summary aria-label="Toggle typed snippet preview">View Typed Text</summary>
       <p class="result-paragraph">${paragraphVal}</p>
-    </div>
+    </details>
   `;
 
   return card;
+}
+
+/* -------------------------
+   SEO & Rich Snippets Sync
+   ------------------------- */
+
+/**
+ * Injects dynamic ItemList Structured Data (JSON-LD) for SEO Rich Snippets.
+ * @param {Array} results 
+ */
+function updateDynamicSEO(results) {
+  if (!results.length) return;
+
+  const existingScript = document.getElementById("dynamic-results-schema");
+  if (existingScript) existingScript.remove();
+
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "User Typing Performance History",
+    "numberOfItems": results.length,
+    "itemListElement": results.slice(0, 10).map((res, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "name": `Test Speed: ${res.wpm || 0} WPM (${res.accuracy || 0}% Accuracy)`
+    }))
+  };
+
+  const script = document.createElement("script");
+  script.id = "dynamic-results-schema";
+  script.type = "application/ld+json";
+  script.textContent = JSON.stringify(schemaData);
+  document.head.appendChild(script);
 }
 
 /* -------------------------
@@ -123,7 +185,7 @@ function createResultCard(data, index) {
    ------------------------- */
 
 /**
- * Renders saved typing results with zero UI flickering.
+ * Renders saved typing results efficiently with Zero Layout Shift (CLS) & Batch Reflow.
  */
 function renderResults() {
   if (!resultContainer) return;
@@ -142,101 +204,98 @@ function renderResults() {
 
     emptyState.innerHTML = `
       <p class="empty-results">
-        No typing tests recorded yet. Complete your first typing test to track progress!
+        No typing tests recorded yet. Complete your first test to track WPM & Accuracy progress!
       </p>
+      <a href="./index.html#typing" class="btn btn-primary" aria-label="Start your first typing test now">
+        Start Typing Test
+      </a>
     `;
 
     resultContainer.appendChild(emptyState);
     return;
   }
 
-  /* Fragment batching to prevent reflow issues */
-  const fragment = document.createDocumentFragment();
+  /* Fragment batching via requestAnimationFrame for 60fps Rendering */
+  window.requestAnimationFrame(() => {
+    const fragment = document.createDocumentFragment();
 
-  results.forEach((data, index) => {
-    const card = createResultCard(data, index);
-    fragment.appendChild(card);
+    results.forEach((data, index) => {
+      const card = createResultCard(data, index);
+      fragment.appendChild(card);
+    });
+
+    resultContainer.appendChild(fragment);
+    updateDynamicSEO(results);
   });
-
-  resultContainer.appendChild(fragment);
 }
 
 /* -------------------------
-   Theme Engine (Storage + System A11y)
+   Accessible Theme Engine
    ------------------------- */
 
-// function getSavedTheme() {
-//   try {
-//     return localStorage.getItem(THEME_KEY);
-//   } catch {
-//     return null;
-//   }
-// }
+function getSavedTheme() {
+  try {
+    return localStorage.getItem(THEME_KEY);
+  } catch {
+    return null;
+  }
+}
 
-// function saveTheme(theme) {
-//   try {
-//     localStorage.setItem(THEME_KEY, theme);
-//   } catch (error) {
-//     console.warn("MastType Pro: Could not save theme preference.", error);
-//   }
-// }
+function saveTheme(theme) {
+  try {
+    localStorage.setItem(THEME_KEY, theme);
+  } catch (error) {
+    console.warn("MastType Pro: Could not save theme preference.", error);
+  }
+}
 
-// function updateThemeUI(isDark) {
-//   if (!themeBtn) return;
+function applyTheme(theme) {
+  if (!theme) return;
+  body.setAttribute("data-theme", theme);
 
-//   themeBtn.classList.toggle("active-theme-dark", isDark);
-//   themeBtn.setAttribute("aria-pressed", String(isDark));
+  if (themeSelect) {
+    themeSelect.value = theme;
+  }
+}
 
-//   const modeText = isDark ? "Switch to light theme" : "Switch to dark theme";
-//   themeBtn.setAttribute("aria-label", modeText);
-//   themeBtn.setAttribute("title", modeText);
-// }
+function initializeTheme() {
+  const savedTheme = getSavedTheme();
 
-// function applyTheme(theme) {
-//   const isDark = theme === "dark";
-//   body.dataset.isDark = String(isDark);
-//   updateThemeUI(isDark);
-// }
+  if (savedTheme) {
+    applyTheme(savedTheme);
+    return;
+  }
 
-// function initializeTheme() {
-//   const savedTheme = getSavedTheme();
+  // Fallback to System dark/light color scheme preference
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  applyTheme(prefersDark ? "dark" : "light");
+}
 
-//   if (savedTheme === "dark" || savedTheme === "light") {
-//     applyTheme(savedTheme);
-//     return;
-//   }
+/* -------------------------
+   Event Listeners Setup
+   ------------------------- */
 
-//   // Fallback to system user color preference
-//   const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-//   applyTheme(prefersDark ? "dark" : "light");
-// }
+if (themeSelect) {
+  themeSelect.addEventListener("change", (e) => {
+    const selectedTheme = e.target.value;
+    applyTheme(selectedTheme);
+    saveTheme(selectedTheme);
+  });
+}
 
-// /* -------------------------
-//    Event Listeners Setup
-//    ------------------------- */
-// if (themeBtn) {
-//   themeBtn.addEventListener("click", () => {
-//     const isCurrentlyDark = body.dataset.isDark === "true";
-//     const newTheme = isCurrentlyDark ? "light" : "dark";
-
-//     applyTheme(newTheme);
-//     saveTheme(newTheme);
-//   });
-// }
-
-// // System theme dynamically update handling
-// if (window.matchMedia) {
-//   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-//     if (!getSavedTheme()) {
-//       applyTheme(e.matches ? "dark" : "light");
-//     }
-//   });
-// }
+// System theme dynamic update listener
+if (window.matchMedia) {
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+    if (!getSavedTheme()) {
+      applyTheme(e.matches ? "dark" : "light");
+    }
+  });
+}
 
 /* -------------------------
    Initialize Application
    ------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
-  // initializeTheme();
+  initializeTheme();
   renderResults();
 });

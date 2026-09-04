@@ -269,193 +269,220 @@ const DEFAULT_PARAGRAPHS = [
 
 // Default Paragraph Fallback Stack (Prevents empty array crashes)
 
-let userData = JSON.parse(localStorage.getItem("MastType_User_Data_dvk")) || [];
-userData = userData.slice(-100);
+/* ==========================================================================
+   CONFIG & CONSTANTS
+   ========================================================================== */
 
-let thisTest = {};
+const STORAGE_KEY = "MastType_User_Data_dvk";
 
-/* -------------------------
-   DOM Element References
-   ------------------------- */
-const typeAbleText = document.querySelector(".type-able-text");
-const userTyped = document.querySelector(".typed");
-const typingArea = document.querySelector(".paragraph-area");
-const userInput = document.querySelector(".user-input");
-const wordController = document.querySelector(".word-controller");
-const typingResultContainer = document.querySelector(".typing");
+/* ==========================================================================
+   STATE MANAGEMENT
+   ========================================================================== */
+let userData = [];
+try {
+  userData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  userData = userData.slice(-100);
+} catch (e) {
+  userData = [];
+}
 
-/* -------------------------
-   Test State Management
-   ------------------------- */
 let typedText = "";
 let paragraph = "";
 let historyParagraph = "";
 let mistype = 0;
 let expectTypedText = 0;
-let scrollHeight = 28-65;
-const word$Time = { word: 10, time: 10 };
+let scrollHeight = 28 - 65;
+let ableToScroll = 0;
+let height = 0;
 
-let timeState = {
+const timeState = {
   isTimerOn: false,
   start: 0,
   end: 0,
-  duration: function () {
+  duration() {
     return this.end - this.start;
   },
 };
 
-/* -------------------------
-   Core Typing Logic
-   ------------------------- */
+/* ==========================================================================
+   DOM ELEMENTS
+   ========================================================================== */
+const typeAbleText = document.querySelector(".type-able-text");
+const userTyped = document.querySelector(".typed");
+const typingArea = document.querySelector(".paragraph-area");
+const userInput = document.querySelector(".user-input");
+const container = document.querySelector(".paragraph");
+const wordController = document.querySelector(".word-controller");
+const typingResultContainer = document.querySelector(".typing");
+const restartBtn = document.querySelector(".restart");
+
+/* ==========================================================================
+   ACCESSIBILITY & INITIAL ENHANCEMENTS
+   ========================================================================== */
+if (userInput) {
+  userInput.setAttribute("aria-label", "Typing Input Field");
+  userInput.setAttribute("autocomplete", "off");
+  userInput.setAttribute("autocorrect", "off");
+  userInput.setAttribute("autocapitalize", "none");
+  userInput.setAttribute("spellcheck", "false");
+}
+
+if (typingArea) {
+  typingArea.setAttribute("role", "region");
+  typingArea.setAttribute("aria-label", "Typing Area Test");
+}
+
+if (userTyped) {
+  userTyped.setAttribute("aria-live", "polite");
+}
+
+/* ==========================================================================
+   CORE LOGIC & UTILITIES
+   ========================================================================== */
+function renderParagraphFragment(str) {
+  const fragment = document.createDocumentFragment();
+  for (let i = 0; i < str.length; i++) {
+    const span = document.createElement("span");
+    span.className = "type-able-paragraph-characters";
+    span.textContent = str[i];
+    fragment.appendChild(span);
+  }
+  return fragment;
+}
+
 function handleCharacterInput(event) {
-  // Ignore non-character action keys
-  if (
-    [ "Shift", "Control", "Alt", "Tab", "Escape"].includes(
-      event.key,
-    )
-  ) {
+  if (["Shift", "Control", "Alt", "Tab", "Escape"].includes(event.key)) {
     return;
   }
+
   if (event.inputType === "deleteContentBackward") {
-    ableToScroll--
-    const shifting = userTyped.lastChild;
-    userTyped.removeChild(userTyped.lastChild);
-    paragraph = historyParagraph[typedText.length-1]+paragraph;
-    typedText = typedText.slice(0,typedText.length-1);
-    typeAbleText.prepend(shifting);
-  if (expectTypedText > 0) {
-    expectTypedText--
+    if (userTyped.lastChild) {
+      ableToScroll--;
+      const shifting = userTyped.lastChild;
+      shifting.style.color = "var(--accent-primary)";
+      shifting.style.animation = "none";
+      userTyped.removeChild(shifting);
+      
+      paragraph = historyParagraph[typedText.length - 1] + paragraph;
+      typedText = typedText.slice(0, -1);
+      typeAbleText.prepend(shifting);
+
+      if (expectTypedText > 0) expectTypedText--;
+      userTyped.style.color = "var(--correct-color)";
+    }
+    return;
   }
-    userTyped.style.color = 'var(--correct-color)';
-    return
-  }
+
   const activeResult = document.querySelector(".result");
   if (activeResult || paragraph.length === 0) return;
 
-  // Start timer on first valid keystroke
   if (!timeState.isTimerOn) {
-    timeState.start = Date.now();
+    timeState.start = performance.now();
     timeState.isTimerOn = true;
   }
 
   const expectedChar = paragraph[0];
-  const inputChar = event.target.value[event.target.value.length-1];
+  const inputChar = event.target.value[event.target.value.length - 1];
 
-  // High-performance DOM Node construction (Avoids innerHTML performance penalty)
+  if (!inputChar) return;
+
   const charSpan = document.createElement("span");
 
   if (inputChar === expectedChar) {
     charSpan.className = "typed-character";
     charSpan.textContent = inputChar;
-    charSpan.style.animation = `correct-character .6s ease-in-out`
-
+    charSpan.style.animation = "correct-character 0.5s ease-in-out";
   } else {
     charSpan.className = "wrong-character";
     charSpan.textContent = expectedChar;
-    charSpan.style.animation = `wrong-character 2s ease-in-out`;
+    charSpan.style.animation = "wrong-character 0.5s ease-in-out";
     mistype++;
   }
-ableToScroll++
+
+  ableToScroll++;
   userTyped.appendChild(charSpan);
   typedText += inputChar;
-  expectTypedText++
+  expectTypedText++;
   paragraph = paragraph.slice(1);
-  typeAbleText.removeChild(typeAbleText.firstChild);
-  // Test Finish Evaluation
-// scrollToBottom();
+
+  if (typeAbleText.firstChild) {
+    typeAbleText.removeChild(typeAbleText.firstChild);
+  }
+
+  scrollToBottom();
+
   if (paragraph.length === 0) {
     finishTest();
   }
 }
 
 function finishTest() {
-  typingArea.dataset.focus = "false";
-  timeState.end = Date.now();
-  userInput.readOnly = true;
+  if (typingArea) typingArea.dataset.focus = "false";
+  timeState.end = performance.now();
+  if (userInput) userInput.readOnly = true;
 
   const durationInSeconds = Math.max(timeState.duration() / 1000, 1);
-  const wpm = Math.round(
-    (historyParagraph.length / 5 / durationInSeconds) * 60,
-  );
-  const accuracy = Math.max(
-    0,
-    100 - Math.floor((mistype / historyParagraph.length) * 100),
-  );
+  const wpm = Math.round((historyParagraph.length / 5 / durationInSeconds) * 60);
+  const accuracy = Math.max(0, 100 - Math.floor((mistype / historyParagraph.length) * 100));
 
   const latestDate = new Date();
-  let xp = 0;
+  let xp = 2;
 
-  if (wpm >= 100) {
-    xp = 100;
-  } else if (wpm >= 90) {
-    xp = 80
-  } else if (wpm >= 75) {
-    xp = 70
-  } else if (wpm >= 50) {
-    xp = 40
-  } else if (wpm >= 30) {
-    xp = 30
-  } else if (wpm >= 15) {
-    xp = 10
-  } else if (wpm >= 5) {
-    xp = 5
-  } else {
-    xp = 2;
-  }
+  if (wpm >= 100) xp = 100;
+  else if (wpm >= 90) xp = 80;
+  else if (wpm >= 75) xp = 70;
+  else if (wpm >= 50) xp = 40;
+  else if (wpm >= 30) xp = 30;
+  else if (wpm >= 15) xp = 10;
+  else if (wpm >= 5) xp = 5;
 
-  thisTest = {
-    wpm: wpm,
-    paragraph: historyParagraph,
+  const thisTest = {
+    wpm,
     paragraphLength: historyParagraph.length,
-    duration: timeState.duration(),
-    mistype: mistype,
-    accuracy: accuracy,
-    timedDate: `${latestDate.getFullYear()}-${latestDate.getMonth() + 1}-${latestDate.getDate()} ${latestDate.getHours()}:${latestDate.getMinutes()}`,
+    duration: Math.round(timeState.duration()),
+    mistype,
+    accuracy,
+    timedDate: latestDate.toISOString(),
     xp,
   };
 
   userData.unshift(thisTest);
-  localStorage.setItem("MastType_User_Data_dvk", JSON.stringify(userData));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+  } catch (e) {
+    // LocalStorage failure safety
+  }
+
   renderResults(thisTest);
 }
 
-/* -------------------------
-   Input Listeners & Focus
-   ------------------------- */
-userInput.addEventListener("input", (event) => {
-  handleCharacterInput(event);
-  // userInput.value = "";
-});
+function scrollToBottom() {
+  if (!container) return;
+  if (Math.floor(container.offsetWidth / 18) <= ableToScroll) {
+    ableToScroll = 0;
+    const fontSize = parseFloat(window.getComputedStyle(container).fontSize) || 16;
+    height += fontSize * 1.5;
+    container.scrollTop = height;
+  }
+}
 
-typingArea.addEventListener("click", () => {
-  typingArea.dataset.focus = "true";
-  userInput.focus();
-});
-
-userInput.addEventListener("focus", () => {
-  typingArea.dataset.focus = "true";
-});
-
-userInput.addEventListener("blur", () => {
-  typingArea.dataset.focus = "false";
-});
-
-/* -------------------------
-   Test Reset Controls
-   ------------------------- */
 function isRestart() {
-  userInput.value = '';
-  scrollHeight = 28-65;
-  typingArea.dataset.focus = "true";
-  userInput.readOnly = false;
-  userInput.focus();
+  if (container) container.scrollTop = 0;
+  ableToScroll = 0;
+  height = 0;
+  
+  if (userInput) {
+    userInput.value = "";
+    userInput.readOnly = false;
+    userInput.focus();
+  }
 
-  const selectedText =
-    DEFAULT_PARAGRAPHS[Math.floor(Math.random() * DEFAULT_PARAGRAPHS.length)];
-  const wordLimit = parseInt(wordController.value, 10);
+  if (typingArea) typingArea.dataset.focus = "true";
 
-  if (!isNaN(wordLimit)) {
+  const selectedText = DEFAULT_PARAGRAPHS[Math.floor(Math.random() * DEFAULT_PARAGRAPHS.length)];
+  const wordLimit = wordController ? parseInt(wordController.value, 10) : NaN;
 
+  if (!isNaN(wordLimit) && wordLimit > 0) {
     paragraph = selectedText.split(" ").slice(0, wordLimit).join(" ");
   } else {
     paragraph = selectedText;
@@ -463,111 +490,108 @@ function isRestart() {
 
   typedText = "";
   mistype = 0;
-  userTyped.innerHTML = "";
   
-  typeAbleText.innerHTML = getParagraph();
-  historyParagraph = paragraph;
+  if (userTyped) userTyped.replaceChildren();
+  if (typeAbleText) {
+    typeAbleText.replaceChildren(renderParagraphFragment(paragraph));
+  }
 
+  historyParagraph = paragraph;
   timeState.isTimerOn = false;
-  timeState.start = 0;``
+  timeState.start = 0;
   timeState.end = 0;
 }
 
-wordController.addEventListener("change", () => {
-  word$Time.word = wordController.value;
-  isRestart();
-});
-
-/* -------------------------
-   Result Display Engine
-   ------------------------- */
 function renderResults(testResult) {
+  if (!typingResultContainer) return;
+
   const result = document.createElement("section");
   result.className = "result";
-
- 
+  result.setAttribute("role", "dialog");
+  result.setAttribute("aria-labelledby", "result-heading");
 
   result.innerHTML = `
-  <section class="test-result" aria-labelledby="result-heading">
-    <h2 id="result-heading">Typing Test Completed</h2>
-    
-    <dl class="result-grid">
-      <div class="result-item">
-        <dt>Speed:</dt>
-        <dd><strong>${testResult.wpm}</strong> WPM</dd>
-      </div>
-      <div class="result-item">
-        <dt>Accuracy:</dt>
-        <dd><strong>${testResult.accuracy}%</strong></dd>
-      </div>
-      <div class="result-item">
-        <dt>Length:</dt>
-        <dd><strong>${testResult.paragraphLength}</strong> Chars</dd>
-      </div>
-      <div class="result-item">
-        <dt>Mistypes:</dt>
-        <dd><strong>${testResult.mistype}</strong></dd>
-      </div>
-    </dl>
+    <div class="test-result">
+      <h2 id="result-heading">Typing Test Completed</h2>
+      <dl class="result-grid">
+        <div class="result-item">
+          <dt>Speed</dt>
+          <dd><strong>${testResult.wpm}</strong> WPM</dd>
+        </div>
+        <div class="result-item">
+          <dt>Accuracy</dt>
+          <dd><strong>${testResult.accuracy}%</strong></dd>
+        </div>
+        <div class="result-item">
+          <dt>Length</dt>
+          <dd><strong>${testResult.paragraphLength}</strong> Chars</dd>
+        </div>
+        <div class="result-item">
+          <dt>Mistypes</dt>
+          <dd><strong>${testResult.mistype}</strong></dd>
+        </div>
+      </dl>
 
-    <button type="button" class="result-restart-btn btn">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-        <path d="M3 3v5h5"/>
-      </svg>
-      <span>Start Next Test</span>
-    </button>
-  </section>
-
-`;
+      <button type="button" class="result-restart-btn btn" aria-label="Start Next Test">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+          <path d="M3 3v5h5"/>
+        </svg>
+        <span>Start Next Test</span>
+      </button>
+    </div>
+  `;
 
   typingResultContainer.appendChild(result);
 
-  const restartBtn = result.querySelector(".result-restart-btn");
-  restartBtn.addEventListener("click", () => {
-    result.remove();
-    isRestart();
+  const restartBtnResult = result.querySelector(".result-restart-btn");
+  if (restartBtnResult) {
+    restartBtnResult.focus();
+    restartBtnResult.addEventListener("click", () => {
+      result.remove();
+      isRestart();
+    });
+  }
+}
+
+/* ==========================================================================
+   EVENT LISTENERS & DEVICE CHECK
+   ========================================================================== */
+if (userInput) {
+  userInput.addEventListener("input", handleCharacterInput);
+  userInput.addEventListener("focus", () => {
+    if (typingArea) typingArea.dataset.focus = "true";
+  });
+  userInput.addEventListener("blur", () => {
+    if (typingArea) typingArea.dataset.focus = "false";
   });
 }
 
-// Initial Kickstart
-isRestart();
-
-const restartBtn = document.querySelector(".restart");
-restartBtn.addEventListener("click", () => isRestart());
-
-const container = document.querySelector('.paragraph');
-
-// Jab bhi naya content add ho, niche scroll karwane ke liye:
-let ableToScroll = 0;
-let height = 0;
-function scrollToBottom() {
-   if (Math.floor(container.offsetWidth/18) <= ableToScroll) {
-    ableToScroll = 0;
- height = height+(parseFloat(getComputedStyle(container).fontSize)*1.5)
-  container.scrollTop =height;
-  
- 
-   }
-  
- 
-
+if (typingArea) {
+  typingArea.addEventListener("click", () => {
+    typingArea.dataset.focus = "true";
+    if (userInput) userInput.focus();
+  });
 }
 
-function getParagraph() {
-  let string = '';
-  for (let i = 0; i< paragraph.length;i++ ) {
-    string += `<span class='type-able-paragraph-characters'>${paragraph[i]}</span>`
-  }
-  return string;
-};
+if (wordController) {
+  wordController.addEventListener("change", isRestart);
+}
+
+if (restartBtn) {
+  restartBtn.addEventListener("click", isRestart);
+}
 
 function checkUserDevice() {
-  if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
-    container.classList.add('mobile')
-  } else {
-    container.classList.remove('mobile')
-    
+  if (container) {
+    if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
+      container.classList.add("mobile");
+    } else {
+      container.classList.remove("mobile");
+    }
   }
 }
+
+// Global Execution
 checkUserDevice();
+isRestart();

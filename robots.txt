@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://devskora.github.io/masttype/sitemap.xml

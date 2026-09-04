@@ -4,60 +4,90 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#2563eb" />
 
-    <!-- Primary SEO Meta Tags -->
-    <title>Contact Us — MastType Pro | Get in Touch & Support</title>
+    <!-- Advanced Primary SEO Meta Tags -->
+    <title>Contact Us | MastType Pro — Support, Feedback & Inquiries</title>
     <meta
       name="description"
-      content="Have questions, feedback, or suggestions for MastType Pro? Contact our team via our official contact form or email support."
+      content="Have questions, feedback, or support inquiries about MastType Pro? Get in touch with our team directly via our contact form or support channels."
     />
     <meta
       name="keywords"
-      content="MastType Pro contact, typing test support, contact us, customer service, feedback"
+      content="MastType Pro contact, typing test support, contact us, customer service, typing speed feedback, developer contact"
     />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="author" content="MastType Pro" />
     <link rel="canonical" href="https://devskora.github.io/masttype/contact.html" />
 
-    <!-- Open Graph / Facebook / LinkedIn SEO -->
+    <!-- Open Graph / Social SEO -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Contact Us — MastType Pro" />
+    <meta property="og:title" content="Contact Us — MastType Pro | Get in Touch" />
     <meta
       property="og:description"
-      content="Get in touch with the MastType Pro team for help, support, or partnership inquiries."
+      content="Reach out to the MastType Pro team for platform support, bug reports, feature requests, or partnership inquiries."
     />
     <meta property="og:url" content="https://devskora.github.io/masttype/contact.html" />
     <meta property="og:site_name" content="MastType Pro" />
     <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://devskora.github.io/masttype/assets/og-contact.png" />
+    <meta property="og:image:alt" content="Contact MastType Pro Support Team" />
 
     <!-- Twitter / X SEO -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Contact Us — MastType Pro" />
     <meta
       name="twitter:description"
-      content="Reach out to MastType Pro for support and inquiries."
+      content="Reach out to MastType Pro for fast support, suggestions, and platform assistance."
     />
+    <meta name="twitter:image" content="https://devskora.github.io/masttype/assets/og-contact.png" />
 
-    <!-- Favicon -->
+    <!-- Favicon & App Icons -->
     <link rel="icon" href="./favicon.png" sizes="any" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 
     <!-- Global CSS -->
     <link rel="stylesheet" href="./global.css" />
 
-    <!-- Structured Data / JSON-LD for SEO -->
+    <!-- Schema.org JSON-LD Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "ContactPage",
-        "name": "Contact Us — MastType Pro",
-        "url": "https://devskora.github.io/masttype/contact.html",
-        "description": "Contact page for MastType Pro typing platform.",
-        "isPartOf": {
-          "@type": "WebApplication",
-          "name": "MastType Pro",
-          "url": "https://devskora.github.io/masttype/"
-        }
+        "@graph": [
+          {
+            "@type": "ContactPage",
+            "@id": "https://devskora.github.io/masttype/contact.html",
+            "url": "https://devskora.github.io/masttype/contact.html",
+            "name": "Contact Us — MastType Pro",
+            "description": "Official contact page for MastType Pro typing platform user support and inquiries.",
+            "inLanguage": "en-US",
+            "isPartOf": {
+              "@type": "WebApplication",
+              "@id": "https://devskora.github.io/masttype/#website",
+              "name": "MastType Pro",
+              "url": "https://devskora.github.io/masttype/",
+              "applicationCategory": "EducationalApplication",
+              "operatingSystem": "All"
+            },
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://devskora.github.io/masttype/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Contact Us",
+                  "item": "https://devskora.github.io/masttype/contact.html"
+                }
+              ]
+            }
+          }
+        ]
       }
     </script>
 
@@ -72,7 +102,7 @@
       :root {
         --bg-main: #f8fafc;
         --text-main: #0f172a;
-        --text-muted: #475569;
+        --text-muted: #334155;
 
         --card-bg: rgba(255, 255, 255, 0.75);
         --card-border: rgba(15, 23, 42, 0.08);
@@ -104,7 +134,7 @@
       body[data-is-dark="true"] {
         --bg-main: #0b0f17;
         --text-main: #f8fafc;
-        --text-muted: #94a3b8;
+        --text-muted: #cbd5e1;
 
         --card-bg: rgba(17, 24, 39, 0.65);
         --card-border: rgba(255, 255, 255, 0.1);
@@ -114,6 +144,39 @@
 
         --correct-color: #34d399;
         --incorrect-color: #f87171;
+      }
+
+      /* Multi-theme support */
+      body[data-theme="forest"] {
+        --bg-main: #061e14;
+        --text-main: #f0fdf4;
+        --text-muted: #a7f3d0;
+        --accent-primary: #10b981;
+        --accent-hover: #34d399;
+      }
+
+      body[data-theme="crimson"] {
+        --bg-main: #1a0507;
+        --text-main: #fff1f2;
+        --text-muted: #fecdd3;
+        --accent-primary: #f43f5e;
+        --accent-hover: #fb7185;
+      }
+
+      body[data-theme="warm"] {
+        --bg-main: #fffbe8;
+        --text-main: #422006;
+        --text-muted: #78350f;
+        --accent-primary: #d97706;
+        --accent-hover: #b45309;
+      }
+
+      body[data-theme="kids"] {
+        --bg-main: #fefce8;
+        --text-main: #1e1b4b;
+        --text-muted: #3730a3;
+        --accent-primary: #6366f1;
+        --accent-hover: #4f46e5;
       }
 
       /* -------------------------
@@ -261,6 +324,17 @@
         height: 16px;
         color: var(--text-main);
         transition: transform var(--transition-fast);
+      }
+
+      .theme-input {
+        padding: 6px 12px;
+        border-radius: var(--radius-pill);
+        border: 1px solid var(--card-border);
+        background: var(--card-bg);
+        color: var(--text-main);
+        font-weight: 600;
+        font-size: 0.85rem;
+        cursor: pointer;
       }
 
       /* -------------------------
@@ -469,33 +543,34 @@
           </li>
         </ul>
 
-         <select class="theme-input btn"
-        aria-label="Change Theme" >
-        <option value="dark">Dark</option>
-        <option value="light">Light</option>
-        <option value="warm">Warm</option>
-        <!-- <option value="cool">Cool</option> -->
-
-        
-        </select>
+        <div class="theme-selector-wrapper">
+          <label for="theme-select" class="sr-only">Change Theme</label>
+          <select id="theme-select" class="theme-input btn">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+            <option value="forest">Forest</option>
+            <option value="monochrome">Monochrome</option>
+            <option value="crimson">Crimson</option>
+            <option value="warm">Warm</option>
+            <option value="kids">Kids</option>
+          </select>
+        </div>
       </nav>
     </header>
 
-    <main class="main" id="main-content">
+    <main class="main" id="main-content" tabindex="-1">
       <section class="hero" aria-labelledby="page-title">
         <h1 id="page-title">Contact Us</h1>
         <p>Have suggestions or questions? Send us a message below.</p>
       </section>
 
       <section class="contact-container" aria-label="Contact Form Container">
-        <!-- Direct FormSubmit Integration (Apni Email ID se replace karein) -->
         <form
           id="contact-form"
           action="https://formsubmit.co/your-email@example.com"
           method="POST"
           class="contact-form"
         >
-          <!-- Anti-spam honeypot & auto response config -->
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_template" value="table" />
 
@@ -537,14 +612,14 @@
             Send Message
           </button>
           
-          <div class="form-success-msg" id="success-msg">
+          <div class="form-success-msg" id="success-msg" role="status" aria-live="polite">
             Thank you! Your message has been sent successfully.
           </div>
         </form>
       </section>
     </main>
 
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
       <nav aria-label="Footer navigation">
         <ul class="footer-links">
           <li><a href="./about.html">About Us</a></li>
@@ -562,9 +637,26 @@
       const contactForm = document.getElementById('contact-form');
       const successMsg = document.getElementById('success-msg');
       const submitBtn = document.getElementById('submit-btn');
+      const themeSelect = document.getElementById('theme-select');
 
+      // Theme Change Handler
+      themeSelect?.addEventListener('change', (e) => {
+        const selectedTheme = e.target.value;
+        document.body.setAttribute('data-theme', selectedTheme);
+        document.body.setAttribute('data-is-dark', selectedTheme === 'dark' ? 'true' : 'false');
+        localStorage.setItem('masttype-theme', selectedTheme);
+      });
+
+      // Restore Saved Theme
+      const savedTheme = localStorage.getItem('masttype-theme') || 'dark';
+      if (themeSelect) {
+        themeSelect.value = savedTheme;
+        document.body.setAttribute('data-theme', savedTheme);
+        document.body.setAttribute('data-is-dark', savedTheme === 'dark' ? 'true' : 'false');
+      }
+
+      // Contact Form Handler
       contactForm.addEventListener('submit', function (e) {
-        // Agar aap direct email backend set nahi kar rahe ho toh page redirect hone se rokne ke liye:
         if (contactForm.getAttribute('action').includes('your-email@example.com')) {
           e.preventDefault();
           submitBtn.disabled = true;
